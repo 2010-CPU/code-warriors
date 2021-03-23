@@ -9,8 +9,19 @@ async function buildTables() {
     client.connect();
 
     // drop tables in correct order
+    await client.query(` 
+    DROP TABLE IF EXISTS orders;
+    `)
 
     // build tables in correct order
+    await client.query(` 
+    CREATE TABLE orders (
+      id SERIAL PRIMARY KEY,
+      status DEFAULT 'created',
+      "userId" REFERENCES users(id),
+      "datePlaced" DATE
+      );
+      `);
 
   } catch (error) {
     throw error;
