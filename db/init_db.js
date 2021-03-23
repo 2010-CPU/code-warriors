@@ -11,6 +11,7 @@ async function buildTables() {
     // drop tables in correct order
     await client.query(` 
     DROP TABLE IF EXISTS orders;
+    DROP TABLE IF EXISTS products;
     `)
 
     // build tables in correct order
@@ -22,6 +23,18 @@ async function buildTables() {
       "datePlaced" DATE
       );
       `);
+      
+    await client.query(`
+      CREATE TABLE products (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        description TEXT NOT NULL,
+        price INTEGER NOT NULL,
+        imageURL text default 'www.something.com',
+        inStock BOOLEAN DEFAULT false NOT NULL,
+        category VARCHAR(255) NOT NULL
+      );
+    `);
 
   } catch (error) {
     throw error;
