@@ -11,6 +11,19 @@ async function buildTables() {
     // drop tables in correct order
 
     // build tables in correct order
+    await client.query(`
+      CREATE TABLE users (
+        id SERIAL PRIMARY key,
+        firstName VARCHAR(255) NOT NULL,
+        lastName TEXT NOT NULL,
+        email VARCAHAR(320) NOT NULL,
+        image VARCHAR(255) UNIQUE,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) UNIQUE NOT NULL,
+        "isAdmin" BOOLEAN DEFAULT false NOT NULL
+      )
+    
+    `)
 
   } catch (error) {
     throw error;
