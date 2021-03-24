@@ -1,7 +1,7 @@
 // code to build and initialize DB goes here
 const {
   client
-  // other db methods 
+  // other db methods
 } = require('./index');
 
 async function buildTables() {
@@ -9,13 +9,14 @@ async function buildTables() {
     client.connect();
 
     // drop tables in correct order
-    await client.query(` 
+    await client.query(`
+    DROP TABLE IF EXISTS order_products;
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS products;
     `)
 
     // build tables in correct order
-    await client.query(` 
+    await client.query(`
     CREATE TABLE orders (
       id SERIAL PRIMARY KEY,
       status DEFAULT 'created',
@@ -23,7 +24,7 @@ async function buildTables() {
       "datePlaced" DATE
       );
       `);
-      
+
     await client.query(`
       CREATE TABLE products (
         id SERIAL PRIMARY KEY,
@@ -36,6 +37,15 @@ async function buildTables() {
       );
     `);
 
+    await client.query(`
+      CREATE TABLE order_products (
+        id SERIAL PRIMARY KEY,
+        "productId" REFERENCES products(id),
+        "orderId" REFERENCES orders(id),
+        price INTEGER NOT NULL,
+        quantity INTEGER NOT NULL DEFAULT 0
+      );
+    `);
   } catch (error) {
     throw error;
   }
