@@ -12,7 +12,6 @@ async function buildTables() {
     await client.query(` 
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS products;
-
     `)
 
     // build tables in correct order
@@ -24,8 +23,7 @@ async function buildTables() {
       "datePlaced" DATE
       );
       `);
-
-    // build tables in correct order
+      
     await client.query(`
       CREATE TABLE products (
         id SERIAL PRIMARY KEY,
