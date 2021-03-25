@@ -1,8 +1,9 @@
 // code to build and initialize DB goes here
 const {
-  client
-  // other db methods
-} = require('./index');
+  client, 
+  createUser,
+  createProduct,
+  } = require('./index');
 
 async function buildTables() {
   try {
@@ -70,7 +71,7 @@ async function populateInitialData() {
   try {
     // create useful starting data
     const usersToCreate = [ 
-      { firstName: 'crystal', lastName: 'joyce', email: 'crystaljoyce@me.com', imageURL: 'crystaljoyce.com', username: 'crystal', password: 'password', isAdmin: 'true' },
+      { firstName: 'crystal', lastName: 'joyce', email: 'crystaljoyce@me.com', imageURL: '', username: 'crystal', password: 'password', isAdmin: 'true' },
       { firstName: 'walter', lastName: 'white', email: 'ilovescience@me.com', imageURL: 'breakingbad.com', username: 'bagsomoney', password: 'password', isAdmin: 'false' },
       { firstName: 'fred', lastName: 'flinstone', email: 'dinoman@me.com', imageURL: 'theflinstones.com', username: 'rocksrule', password: 'password', isAdmin: 'false' },
     ]
@@ -78,9 +79,19 @@ async function populateInitialData() {
     console.log('users created: ');
     console.log(users); 
     console.log('finshed creating users');
+
+    const productsToCreate = [ 
+      { name: 'Crepes and Mimosas with Dom', description: 'What better way to spend the weekend than baking chic crepes and enjoying mimosas with your friend Dom. This Baking With Friends kit comes with everything you need to make crepes and mimosas for a crowd, including your dear friend, Dom Perignon.', price: '$75.00', imageURL: '', inStock: 'True', category: 'Breakfast' },
+      { name: 'Churros and Margaritas with Jose', description: 'The best way to finish Taco Tuesday is here: Churros and margaritas with Jose. Our newest Baking With Friends kit includes everything you\'ll need to make churros and margaritas for a party of 8. Best of all, your new friend, Jose Cuervo, will be there to spice things up!', price: '$50', imageURL: '', inStock: 'true', category: 'Dessert' },
+      { name: 'Chops and Shots with Jameson', description: 'Welcome to Ireland! This Baking With Friends kit will transport you to the Emerald Isle, with your host, Jameson. This unique kit incldues everything you\'ll need for a lamb chop and mint jelly dinner that serves 4. Jameson will be there to get the party started and keep it going.', price: '$60', imageURL: '', inStock: 'true', category: 'Dinner' }
+    ]
+    const products = await Promise.all(productsToCreate.map(createProduct));
+    console.log('products created: ');
+    console.log(products);
+    console.log('finsihed creating products');
     
   } catch (error) {
-    console.log('error creating users');
+    console.log('error creating intital data');
     throw error;
   }
 }
@@ -90,17 +101,3 @@ buildTables()
   .catch(console.error)
   .finally(() => client.end());
 
-  // async function rebuildDb() { 
-  //   try {
-  //     client.connect();
-  //     await buildTables(); 
-  //     await populateInitialData(); 
-  //   } catch (error) {
-  //     console.log('Errro during rebuildDB')
-  //     throw error; 
-  //   }
-  // }
-
-  // module.exports = { 
-  //   rebuildDb 
-  // }

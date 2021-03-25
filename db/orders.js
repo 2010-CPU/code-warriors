@@ -45,5 +45,5 @@ const getOrderById = async (id) => {
 module.exports = {
     getAllOrders,
     getOrderById, 
-    getOrdersByUserId,
+    // getOrdersByUserId,
 }
