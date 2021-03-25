@@ -13,5 +13,5 @@ module.exports = {
   client,
   // db methods
   ...require('./product'),
-  ...require('./products')
+  ...require('./products')  
 }
