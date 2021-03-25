@@ -43,7 +43,7 @@ async function buildTables() {
         "productId" REFERENCES products(id),
         "orderId" REFERENCES orders(id),
         price INTEGER NOT NULL,
-        quantity INTEGER NOT NULL DEFAULT 0
+        quantity INTEGER DEFAULT 0 NOT NULL
       );
     `);
   } catch (error) {
