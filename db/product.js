@@ -1,4 +1,4 @@
-const client = require('./');
+const client = require('./index');
 
 const createProduct = async ({name, description, price, imageURL, inStock, category}) => {
     try {
