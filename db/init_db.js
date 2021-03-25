@@ -70,12 +70,17 @@ async function populateInitialData() {
   try {
     // create useful starting data
     const usersToCreate = [ 
-      { username: 'crystal', password: 'password' },
-      { username: 'chickenbone', password: 'ilovesoup' },
-      { username: 'michael', password: 'basketball'},
+      { firstName: 'crystal', lastName: 'joyce', email: 'crystaljoyce@me.com', imageURL: 'crystaljoyce.com', username: 'crystal', password: 'password', isAdmin: 'true' },
+      { firstName: 'walter', lastName: 'white', email: 'ilovescience@me.com', imageURL: 'breakingbad.com', username: 'bagsomoney', password: 'password', isAdmin: 'false' },
+      { firstName: 'fred', lastName: 'flinstone', email: 'dinoman@me.com', imageURL: 'theflinstones.com', username: 'rocksrule', password: 'password', isAdmin: 'false' },
     ]
     const users = await Promise.all(usersToCreate.map(createUser));
+    console.log('users created: ');
+    console.log(users); 
+    console.log('finshed creating users');
+    
   } catch (error) {
+    console.log('error creating users');
     throw error;
   }
 }
