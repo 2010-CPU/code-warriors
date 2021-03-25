@@ -66,8 +66,15 @@ async function buildTables() {
 }
 
 async function populateInitialData() {
+  console.log('creating users...'); 
   try {
     // create useful starting data
+    const usersToCreate = [ 
+      { username: 'crystal', password: 'password' },
+      { username: 'chickenbone', password: 'ilovesoup' },
+      { username: 'michael', password: 'basketball'},
+    ]
+    const users = await Promise.all(usersToCreate.map(createUser));
   } catch (error) {
     throw error;
   }
@@ -77,3 +84,18 @@ buildTables()
   .then(populateInitialData)
   .catch(console.error)
   .finally(() => client.end());
+
+  // async function rebuildDb() { 
+  //   try {
+  //     client.connect();
+  //     await buildTables(); 
+  //     await populateInitialData(); 
+  //   } catch (error) {
+  //     console.log('Errro during rebuildDB')
+  //     throw error; 
+  //   }
+  // }
+
+  // module.exports = { 
+  //   rebuildDb 
+  // }
