@@ -23,7 +23,7 @@ async function buildTables() {
         firstName VARCHAR(255) NOT NULL,
         lastName TEXT NOT NULL,
         email VARCHAR(320) NOT NULL,
-        imageURL TEXT DEFAULT 'someone@gmail.com',
+        imageURL TEXT default 'someone@gmail.com',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) UNIQUE NOT NULL,
         "isAdmin" BOOLEAN DEFAULT false NOT NULL
@@ -31,13 +31,13 @@ async function buildTables() {
     `);
 
     await client.query(`
-    CREATE TABLE orders (
-      id SERIAL PRIMARY KEY,
-      status DEFAULT 'created',
-      "userId" REFERENCES users(id),
-      "datePlaced" DATE
-      );
-    `);
+      CREATE TABLE orders (
+        id SERIAL PRIMARY KEY,
+        status text DEFAULT 'created',
+        "userId" INTEGER REFERENCES users(id),
+        "datePlaced" DATE
+        );
+      `);
 
     await client.query(`
       CREATE TABLE products (
@@ -54,8 +54,8 @@ async function buildTables() {
     await client.query(`
       CREATE TABLE order_products (
         id SERIAL PRIMARY KEY,
-        "productId" REFERENCES products(id),
-        "orderId" REFERENCES orders(id),
+        "productId" INTEGER REFERENCES products(id),
+        "orderId" INTEGER REFERENCES orders(id),
         price INTEGER NOT NULL,
         quantity INTEGER DEFAULT 0 NOT NULL
       );
