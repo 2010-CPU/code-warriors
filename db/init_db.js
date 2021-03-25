@@ -11,6 +11,7 @@ async function buildTables() {
     // drop tables in correct order
     await client.query(` 
     DROP TABLE IF EXISTS orders;
+    DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
     `)
 
