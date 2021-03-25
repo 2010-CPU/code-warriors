@@ -14,5 +14,6 @@ module.exports = {
   // db methods
   ...require('./product'),
   ...require('./products'),
-  ...require('./users')
+  ...require('./users'),
+  ...require('./orders'),
 }
