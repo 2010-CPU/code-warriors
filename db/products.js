@@ -1,4 +1,4 @@
-const client = require('./client')
+const client = require('./')
 
 const getAllProducts = async () => {
     try {
@@ -6,7 +6,7 @@ const getAllProducts = async () => {
       SELECT *
       FROM products;
       `);
-  
+      console.log('products: ', products)
       return products;
   
     } catch (error) {
