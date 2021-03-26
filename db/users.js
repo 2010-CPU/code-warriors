@@ -1,18 +1,18 @@
-const client = require('./index');
-// const bcrypt = require('bycrypt');
+const {client} = require('./client');
+const bcrypt = require('bcrypt');
 
 const createUser = async ({firstName, lastName, email, imageURL, username, password, isAdmin}) => { 
     try {
         const SALT_COUNT = 10; 
-        // const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+        const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
         const { rows: [user] } = await client.query(` 
-            INSERT INTO users(firstName, lastName, email, imageURL, username, password, isAdmin)
+            INSERT INTO users("firstName", "lastName", email, "imageURL", username, password, "isAdmin")
             VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING *; 
         `, [firstName, lastName, email, imageURL, username, password, isAdmin])
 
-        // password = hashedPassword
+        password = hashedPassword
         delete user.password; 
         return user; 
     } catch (error) {
