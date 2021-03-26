@@ -1,8 +1,4 @@
-
-
 // database methods
-
-
 
 // export
 module.exports = {

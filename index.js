@@ -2,6 +2,9 @@
 const express = require('express');
 const server = express();
 
+const cors = require('cors');
+server.use(cors());
+
 // create logs for everything
 const morgan = require('morgan');
 server.use(morgan('dev'));
