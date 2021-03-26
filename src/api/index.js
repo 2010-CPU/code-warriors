@@ -8,3 +8,21 @@ export async function getSomething() {
     throw error;
   }
 }
+
+export async function getAllProducts () {
+  try {
+    const rsp = await axios.get('/api/products');
+    return rsp.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getProductById (id) {
+  try {
+    const rsp = await axios.get(`/api/products/${id}`);
+    return rsp.data;
+  } catch (err) {
+    throw err;
+  }
+}

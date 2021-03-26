@@ -1,4 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Switch,
+  Link,
+  Route,
+  BrowserRouter as Router
+} from 'react-router-dom';
+
+import {
+  ProductView,
+  ProductsView
+} from './';
 
 import {
   getSomething
@@ -18,10 +29,25 @@ const App = () => {
   });
 
   return (
-    <div className="App">
-      <h1>Welcome to Baking With Friends!</h1>
-      <h2>{ message }</h2>
-    </div>
+    <Router>
+      <div className="App">
+        <h1>Hello, World!</h1>
+        <h2>{ message }</h2>
+        _______________
+        <h4><Link to="/products">Products</Link></h4>
+        _______________
+
+        <Switch>
+          <Route path="/products/:productId">
+            <ProductView />
+          </Route>
+
+          <Route exact path="/products">
+            <ProductsView />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

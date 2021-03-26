@@ -27,7 +27,7 @@ Once you decide on that name, make sure to run `createdb` from your command line
 
 Finally you can run `npm run server:dev` to start the web server.
 
-In a second terminal navigate back to the local repo and run `npm run client:dev` to start the react server. 
+In a second terminal navigate back to the local repo and run `npm run client:dev` to start the react server.
 
 This is set up to run on a proxy, so that you can make calls back to your `api` without needing absolute paths. You can instead `axios.get('/api/posts')` or whatever without needing to know the root URL.
 
@@ -97,4 +97,4 @@ Which will run `npm run db:build` on the heroku server.
 
 Once that command runs, you can type `heroku open` to get a browser to open up locally with your full-stack application running remotely.
 
-###AMADEO WAS HERE
+### AMADEO WAS HERE
