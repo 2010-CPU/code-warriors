@@ -17,7 +17,7 @@ const AccountForm = ({type, setToken, setUser}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        console.log('begginging login reg')
         if (type === 'register' && password !== confirmPassword) {
             setLoginMessage('Passwords do not match. Please try again.')
         } else {
@@ -37,9 +37,12 @@ const AccountForm = ({type, setToken, setUser}) => {
 
             const data = await response.json();
             setLoginMessage(data.message)
+            console.log('begginging login data', data)
 
             const token = data.token ? data.token : '';
             localStorage.setItem('token', token);
+            console.log('begginging login token', token)
+
 
             if (token) {
                 setToken(token);
