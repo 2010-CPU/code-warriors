@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Hello, World!</h1>
+      <h1>Welcome to Baking With Friends!</h1>
       <h2>{ message }</h2>
     </div>
   );

@@ -1,7 +1,7 @@
 const express = require('express');
 const usersRouter = express.Router();
 
-const {createUser, getUser, getAllUsers, getUserById, getUserByUsername} = require('../db')
+const {createUser, getUser, getUserById, getUserByUsername} = require('../db')
 
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET} = process.env;
