@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const apiRouter = require('express').Router();
 
 apiRouter.get("/", (req, res, next) => {
