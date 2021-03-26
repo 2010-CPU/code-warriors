@@ -54,7 +54,7 @@ const getOrdersByUser = async ({ id }) => {
                 orders."datePlaced",
             FROM orders
             JOIN users on "userId" = users.id
-            WHERE orders."userId" = $1
+            WHERE orders."userId" = $1;
         `, [id]);
 
         return orders;
@@ -64,27 +64,9 @@ const getOrdersByUser = async ({ id }) => {
     }
 }
 
-const getOrdersByProduct = async ({ id }) => { 
-    try {
-        
-    } catch (error) {
-        
-    }
-}
-
-const getCartByUser = async ({ id }) => { 
-    try {
-        
-    } catch (error) {
-        
-    }
-}
-
 module.exports = {
     getAllOrders,
     getOrderById, 
     getOrdersByUser,
-    getOrdersByProduct,
-    getCartByUser, 
     createOrder,
 }

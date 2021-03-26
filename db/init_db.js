@@ -91,6 +91,14 @@ async function populateInitialData() {
     console.log('products created: ');
     console.log(products);
     console.log('finsihed creating products');
+
+    console.log('creating orders')
+    const ordersToCreate = [ 
+      {status: 'created', userId: '', datePlaced: ''},
+      {status: 'shipped', userId: '', datePlaced: ''},
+      {status: '', userId: '', datePlaced: ''},
+
+    ]
     
   } catch (error) {
     console.log('error creating intital data');
