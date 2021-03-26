@@ -11,7 +11,9 @@ import {
 import {
   ProductView,
   ProductsView,
-  AccountForm
+  AccountForm,
+  Account,
+
 } from './';
 
 import {
@@ -19,9 +21,8 @@ import {
 } from '../api';
 
 const App = () => {
-  const URL = `http://localhost:5000/api`
   const [message, setMessage] = useState('');
-  const [user, setUser] = useState({username: ''});
+  const [user, setUser] = useState({});
   const [token, setToken] = useState('');
 
   const history = useHistory();
@@ -46,6 +47,8 @@ const App = () => {
           }
         })
         const meData = await response.json();
+        console.log('meData: ', meData)
+        console.log('token: ', token)
         setUser(meData);
       }
       captureToken();
@@ -61,19 +64,6 @@ const App = () => {
   //   history.push('/')
   // }
 
-  // return (<>
-  //   <div className="App">
-  //     <h1>Welcome to Baking With Friends!</h1>
-  //     <h2>{ message }</h2>
-  //   </div>
-
-  //   <Route path ='/login'>
-  //     <AccountForm URL={URL} type={'login'} setToken={setToken} setUser={setUser} />
-  //   </Route>
-  //   <Route path='/register'>
-  //     <AccountForm  URL={URL} type={'register'} setToken={setToken} setUser={setUser} />
-  //   </Route>
-  // </>);
   return (<>
     <Router>
       <div className="App">
@@ -94,11 +84,15 @@ const App = () => {
           </Route>
 
           <Route path ='/login'>
-            <AccountForm URL={URL} type={'login'} setToken={setToken} setUser={setUser} />
+            <AccountForm type={'login'} setToken={setToken} setUser={setUser} />
           </Route>
 
           <Route path='/register'>
-            <AccountForm  URL={URL} type={'register'} setToken={setToken} setUser={setUser} />
+            <AccountForm  type={'register'} setToken={setToken} setUser={setUser} />
+          </Route>
+
+          <Route path='/account'>
+            <Account user={user} token={token} />
           </Route>
 
         </Switch>
