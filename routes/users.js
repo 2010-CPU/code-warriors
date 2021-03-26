@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const {JWT_SECRET} = process.env;
 
 usersRouter.post('/register', async (req, res, next) => {
-    const {username, password} = req.body;
+    const {username, password, firstName, lastName, email} = req.body;
 
     try {
         const checkUser = await getUserByUsername(username);
@@ -20,8 +20,7 @@ usersRouter.post('/register', async (req, res, next) => {
             throw new Error('Password must be a minimum of 8 characters');
         }
 
-        const user = await createUser({username, password});
-
+        const user = await createUser({firstName, lastName, email, username, password});
         const token = jwt.sign({
             id: user.id,
             username
@@ -77,7 +76,6 @@ usersRouter.post('/login', async (req, res, next) => {
 usersRouter.get('/me', async (req, res, next) => {
     try {
         const meData = await getUserById(req.user.id);
-
         res.send(meData);
     } catch (error) {
         next(error);
