@@ -1,18 +1,50 @@
 * {
-    box-sizing: border-box;
-    border: 0;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+#loggedOut-account, #loggedOut-logout, #loggedOut-login {
+  display: none;
+}
+#logo-head{ 
+  background-color: navy;
+  width: 105%;
+  position: sticky;
+  top: 0;
+  display: block;
 }
 
+header {
+  font-family: 'Montserrat', sans-serif;	
+  height:100px;
+  padding:50px 6% 0 6%;
+  background-color: navy;
+}
+
+.nav-bar a {
+  position: sticky;
+  top: 0;
+  background-color: navy;
+  display:inline-block;
+  text-transform:uppercase;
+  text-decoration:none;
+  font-size:0.95em;
+  padding:4px 18px;
+  color: beige;
+}
+.logo{ 
+  color: aquamarine;
+}
 input, 
 button {
     border: 1px solid black;
 }
 .small-product h1 {
-  font-size: 1.5em;
+  font-size: 1.5em;  
 }
 
 .small-product img {
   width: 250px;
+  border-radius: 10%;
 }
