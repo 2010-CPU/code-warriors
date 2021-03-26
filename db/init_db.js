@@ -1,3 +1,4 @@
+
 // code to build and initialize DB goes here
 const {
   client, 
@@ -8,7 +9,7 @@ const {
 async function buildTables() {
   try {
     client.connect();
-
+    console.log('tables are being dropped')
     // drop tables in correct order
     await client.query(`
     DROP TABLE IF EXISTS order_products;
@@ -16,7 +17,7 @@ async function buildTables() {
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
     `);
-
+    console.log('tables are being built')
     // build tables in correct order
     await client.query(`
       CREATE TABLE users (
@@ -70,16 +71,16 @@ async function populateInitialData() {
   console.log('creating users...'); 
   try {
     // create useful starting data
-    const usersToCreate = [ 
-      { firstName: 'crystal', lastName: 'joyce', email: 'crystaljoyce@me.com', imageURL: '', username: 'crystal', password: 'password', isAdmin: 'true' },
-      { firstName: 'walter', lastName: 'white', email: 'ilovescience@me.com', imageURL: 'breakingbad.com', username: 'bagsomoney', password: 'password', isAdmin: 'false' },
-      { firstName: 'fred', lastName: 'flinstone', email: 'dinoman@me.com', imageURL: 'theflinstones.com', username: 'rocksrule', password: 'password', isAdmin: 'false' },
-    ]
-    const users = await Promise.all(usersToCreate.map(createUser));
-    console.log('users created: ');
-    console.log(users); 
-    console.log('finshed creating users');
-
+    // const usersToCreate = [ 
+    //   { firstName: 'crystal', lastName: 'joyce', email: 'crystaljoyce@me.com', imageURL: '', username: 'crystal', password: 'password', isAdmin: 'true' },
+    //   { firstName: 'walter', lastName: 'white', email: 'ilovescience@me.com', imageURL: 'breakingbad.com', username: 'bagsomoney', password: 'password', isAdmin: 'false' },
+    //   { firstName: 'fred', lastName: 'flinstone', email: 'dinoman@me.com', imageURL: 'theflinstones.com', username: 'rocksrule', password: 'password', isAdmin: 'false' },
+    // ]
+    // const users = await Promise.all(usersToCreate.map(createUser));
+    // console.log('users created: ');
+    // console.log(users); 
+    // console.log('finshed creating users');
+    console.log('creating products')
     const productsToCreate = [ 
       { name: 'Crepes and Mimosas with Dom', description: 'What better way to spend the weekend than baking chic crepes and enjoying mimosas with your friend Dom. This Baking With Friends kit comes with everything you need to make crepes and mimosas for a crowd, including your dear friend, Dom Perignon.', price: '$75.00', imageURL: '', inStock: 'True', category: 'Breakfast' },
       { name: 'Churros and Margaritas with Jose', description: 'The best way to finish Taco Tuesday is here: Churros and margaritas with Jose. Our newest Baking With Friends kit includes everything you\'ll need to make churros and margaritas for a party of 8. Best of all, your new friend, Jose Cuervo, will be there to spice things up!', price: '$50', imageURL: '', inStock: 'true', category: 'Dessert' },
