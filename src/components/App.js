@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import {Route, Link, useHistory} from 'react-router-dom';
+
+import {
+  Switch,
+  Link,
+  Route,
+  BrowserRouter as Router,
+  useHistory
+} from 'react-router-dom';
+
+import {
+  ProductView,
+  ProductsView,
+  AccountForm
+} from './';
 
 import {
   getSomething
 } from '../api';
-
-import {
-  AccountForm
-} from '/';
 
 const App = () => {
   const URL = `http://localhost:5000/api`
@@ -52,19 +61,51 @@ const App = () => {
   //   history.push('/')
   // }
 
-  return (<>
-    <div className="App">
-      <h1>Welcome to Baking With Friends!</h1>
-      <h2>{ message }</h2>
-    </div>
+  // return (<>
+  //   <div className="App">
+  //     <h1>Welcome to Baking With Friends!</h1>
+  //     <h2>{ message }</h2>
+  //   </div>
 
-    <Route path ='/login'>
-      <AccountForm URL={URL} type={'login'} setToken={setToken} setUser={setUser} />
-    </Route>
-    <Route path='/register'>
-      <AccountForm  URL={URL} type={'register'} setToken={setToken} setUser={setUser} />
-    </Route>
-  </>);
+  //   <Route path ='/login'>
+  //     <AccountForm URL={URL} type={'login'} setToken={setToken} setUser={setUser} />
+  //   </Route>
+  //   <Route path='/register'>
+  //     <AccountForm  URL={URL} type={'register'} setToken={setToken} setUser={setUser} />
+  //   </Route>
+  // </>);
+  return (<>
+    <Router>
+      <div className="App">
+        <h1>Welcome to Baking With Friends!</h1>
+        <h2>{ message }</h2>
+        _______________
+        <h4><Link to="/products">Products</Link></h4>
+        _______________
+
+        <Switch>
+
+          <Route path="/products/:productId">
+            <ProductView />
+          </Route>
+
+          <Route exact path="/products">
+            <ProductsView />
+          </Route>
+
+          <Route path ='/login'>
+            <AccountForm URL={URL} type={'login'} setToken={setToken} setUser={setUser} />
+          </Route>
+
+          <Route path='/register'>
+            <AccountForm  URL={URL} type={'register'} setToken={setToken} setUser={setUser} />
+          </Route>
+
+        </Switch>
+      </div>
+    </Router>
+    </>
+  );
 }
 
 export default App;

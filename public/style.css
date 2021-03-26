@@ -9,3 +9,10 @@ input,
 button {
     border: 1px solid black;
 }
+.small-product h1 {
+  font-size: 1.5em;
+}
+
+.small-product img {
+  width: 250px;
+}
