@@ -23,8 +23,13 @@ async function buildTables() {
         id SERIAL PRIMARY key,
         "firstName" VARCHAR(255) NOT NULL,
         "lastName" TEXT NOT NULL,
+<<<<<<< HEAD
         email VARCHAR(320) UNIQUE NOT NULL,
         "imageURL" TEXT default 'www.someimage.com',
+=======
+        email VARCHAR(320) NOT NULL,
+        "imageURL" TEXT default 'images/user-images/muffins.jpg',
+>>>>>>> dev
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         "isAdmin" BOOLEAN DEFAULT false NOT NULL

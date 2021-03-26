@@ -43,3 +43,7 @@ button {
   width: 250px;
   border-radius: 10%;
 }
+
+.profile-image {
+  width: 200px;
+}
