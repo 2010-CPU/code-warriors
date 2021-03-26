@@ -15,8 +15,10 @@ const AccountForm = ({type, setToken, setUser}) => {
     const oppositeTitle = type === 'login' ? 'Not yet registered? Sign up here!' : 'Already registered? Login here!'
     const oppositeType = type === 'login' ? 'register' : 'login';
 
+    console.log('above handleSubmit')
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log('before if statement')
 
         if (type === 'register' && password !== confirmPassword) {
             setLoginMessage('Passwords do not match. Please try again.')
@@ -34,13 +36,14 @@ const AccountForm = ({type, setToken, setUser}) => {
                     email
                 })
             })
-
+            console.log('response: ', response);
             const data = await response.json();
+            console.log('data: ', data)
             setLoginMessage(data.message)
 
             const token = data.token ? data.token : '';
             localStorage.setItem('token', token);
-
+            console.log('token: ', token)
             if (token) {
                 setToken(token);
 
@@ -50,8 +53,9 @@ const AccountForm = ({type, setToken, setUser}) => {
                         'Authorization': `Bearer ${token}`
                     }
                 })
-
+                console.log('meData response: ', response)
                 const meData = await response.json();
+                console.log('meData: ', meData)
                 setUser(meData);
                 setUsername('');
                 setPassword('');
@@ -60,7 +64,7 @@ const AccountForm = ({type, setToken, setUser}) => {
             }
         }
     }
-
+    console.log('below handle submit')
     return (<div className='account-form'>
         <div>{loginMessage}</div>
         <br />
