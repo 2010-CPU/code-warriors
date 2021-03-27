@@ -36,10 +36,10 @@ const AccountForm = ({type, setToken, setUser}) => {
             })
             const data = await response.json();
             setLoginMessage(data.message)
+            console.log('begginging login data', data)
 
             const token = data.token ? data.token : '';
             localStorage.setItem('token', token);
-
             if (token) {
                 setToken(token);
 
