@@ -6,9 +6,6 @@ import {Redirect} from 'react-router-dom';
 const Account = ({user, token}) => {
     const {firstName, lastName, email, username} = user;
     user.imageURL = 'images/user-images/muffins.jpg'
-    
-    console.log('token: ', token)
-    console.log('user: ', user)
 
     if (token) {
         return (<div className='profile'>
