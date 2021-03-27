@@ -68,16 +68,15 @@ const App = () => {
   <h1 className="logo">FOOD WITH FRIENDS</h1>
   <div className="nav-bar">
     <nav> 
-    <Link to="/home">Home</Link>
-    <Link to="/products">Shop</Link>
-    <Link to="/cart">Cart</Link>
-    <Link to="account" id={token ? '' : 'loggedOut-account'}>Account</Link>
-    <Link to="/" id={token ? '' : 'loggedOut-logout}'} onClick={handleLogout}>Logout</Link>
-    <Link to="/login" id={!token ? '' : 'loggedOut-login'}>Login</Link>
-      </nav> 
+      <Link to="/home">Home</Link>
+      <Link to="/products">Shop</Link>
+      <Link to="/cart">Cart</Link>
+      <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
+      <Link to="/" id={token ? '' : 'loggedOut-logout'} onClick={handleLogout}>Logout</Link>
+      <Link to="/login" id={!token ? '' : 'loggedOut-login'}>Login</Link>
+    </nav> 
   </div>
   </div>
-    <Router>
       <div className="App">
         <h2>{ message }</h2>
         
@@ -115,7 +114,6 @@ const App = () => {
 
         </Switch>
       </div>
-    </Router>
     </>
   );
 }
