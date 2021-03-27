@@ -2,7 +2,7 @@ import React from 'react';
 
 async function AddToCart ({id}) { 
 try {
-    const response = await fetch("http://localhost:3000/order",{
+    const response = await fetch("/api/order",{
         method: 'POST' ,
         body: JSON.stringify({ 
             id,

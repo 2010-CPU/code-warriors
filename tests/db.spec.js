@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { buildDb } = require('../db/init_db')
+const { buildDB } = require('../db/init_db')
 
 describe('Database', () => {
     beforeAll(async() => {
