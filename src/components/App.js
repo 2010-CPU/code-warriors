@@ -13,6 +13,8 @@ import {
   ProductsView,
   AccountForm,
   Account,
+  Order,
+  Cart,
 
 } from './';
 
@@ -47,8 +49,6 @@ const App = () => {
           }
         })
         const meData = await response.json();
-        console.log('meData: ', meData)
-        console.log('token: ', token)
         setUser(meData);
       }
       captureToken();
@@ -93,6 +93,14 @@ const App = () => {
 
           <Route path='/account'>
             <Account user={user} token={token} />
+          </Route>
+
+          <Route path='/orders/:orderId'>
+            <Order />
+          </Route>
+
+          <Route path='/cart'>
+            <Cart />
           </Route>
 
         </Switch>
