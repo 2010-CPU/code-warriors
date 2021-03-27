@@ -1,12 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 const Home = ({user}) => {
+    const {firstName, lastName, email, username} = user;
 
     return (<>
         
-            <h2>Welcome to Food With Friends. Your one stop shop for enjoying cooking and baking.</h2>
+            <h2>Welcome to Food With Friends, {user.firstName}. Your one stop shop for enjoying cooking, baking and cocktails.</h2>
         
-            {user.username ?
+            {user.firstName ?
             
             <div> You are currently logged in as <b>{user.username}.</b></div>
             :

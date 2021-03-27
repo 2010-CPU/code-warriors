@@ -8,7 +8,7 @@
   display: none;
 }
 #logo-head{ 
-  background-color: grey;
+  background-color: white;
   width: 105%;
   position: sticky;
   top: 0;
@@ -30,7 +30,10 @@ header {
   color: black;
 }
 .logo{ 
-  color: whitesmoke;
+  color: black;
+}
+#html{ 
+  background-color: slategrey;
 }
 input, 
 button {
@@ -43,7 +46,6 @@ button {
   width: 250px;
   border-radius: 10%;
 }
-
 .profile-image {
   width: 200px;
 }

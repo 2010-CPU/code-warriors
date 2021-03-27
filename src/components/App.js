@@ -55,7 +55,6 @@ const App = () => {
     }
   }, [token]);
 
-  // keep here until we are ready for logout button
   const handleLogout = (event) => {
     event.preventDefault();
     setUser({});
@@ -69,9 +68,9 @@ const App = () => {
   <h1 className="logo">FOOD WITH FRIENDS</h1>
   <div className="nav-bar">
     <nav> 
-    <Link to="/">Home</Link>
+    <Link to="/home">Home</Link>
     <Link to="/products">Shop</Link>
-    <Link to="/order">Cart</Link>
+    <Link to="/cart">Cart</Link>
     <Link to="account" id={token ? '' : 'loggedOut-account'}>Account</Link>
     <Link to="/" id={token ? '' : 'loggedOut-logout}'} onClick={handleLogout}>Logout</Link>
     <Link to="/login" id={!token ? '' : 'loggedOut-login'}>Login</Link>
