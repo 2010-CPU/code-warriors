@@ -4,6 +4,7 @@ const {
   createUser,
   createProduct,
   } = require('./index');
+const { createOrder } = require('./orders');
 
 async function buildTables() {
   try {
@@ -23,13 +24,8 @@ async function buildTables() {
         id SERIAL PRIMARY key,
         "firstName" VARCHAR(255) NOT NULL,
         "lastName" TEXT NOT NULL,
-<<<<<<< HEAD
-        email VARCHAR(320) UNIQUE NOT NULL,
-        "imageURL" TEXT default 'www.someimage.com',
-=======
         email VARCHAR(320) NOT NULL,
         "imageURL" TEXT default 'images/user-images/muffins.jpg',
->>>>>>> dev
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         "isAdmin" BOOLEAN DEFAULT false NOT NULL
@@ -39,7 +35,7 @@ async function buildTables() {
     await client.query(`
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
-        status text DEFAULT 'created',
+        status TEXT DEFAULT 'created',
         "userId" INTEGER REFERENCES users(id),
         "datePlaced" DATE
         );
@@ -66,6 +62,7 @@ async function buildTables() {
         quantity INTEGER DEFAULT 0 NOT NULL
       );
     `);
+    console.log('the tables have been built')
   } catch (error) {
     throw error;
   }
@@ -96,14 +93,6 @@ async function populateInitialData() {
     console.log('products created: ');
     console.log(products);
     console.log('finsihed creating products');
-
-    console.log('creating orders')
-    const ordersToCreate = [ 
-      {status: 'created', userId: '', datePlaced: ''},
-      {status: 'shipped', userId: '', datePlaced: ''},
-      {status: '', userId: '', datePlaced: ''},
-
-    ]
     
   } catch (error) {
     console.log('error creating intital data');
