@@ -1,7 +1,6 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
-// token isn't coming in immediately? it looks like it is delayed. WHY?
 // allow profile image choice later
 
 const Account = ({user, token}) => {
@@ -11,7 +10,7 @@ const Account = ({user, token}) => {
     console.log('token: ', token)
     console.log('user: ', user)
 
-    // if (token) {
+    if (token) {
         return (<div className='profile'>
             <h2>Account Information for {firstName}</h2>
             <br />
@@ -21,9 +20,9 @@ const Account = ({user, token}) => {
             <div>Username: {username}</div>
             <div>Email: {email}</div>
         </div>)
-    // } else {
-    //     return <Redirect to='/' />
-    // }
+    } else {
+        return <Redirect to='/' />
+    }
 }
 
 export default Account;

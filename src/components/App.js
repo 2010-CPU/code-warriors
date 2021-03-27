@@ -15,7 +15,7 @@ import {
   Account,
   Order,
   Cart,
-
+  Home
 } from './';
 
 import {
@@ -26,6 +26,7 @@ const App = () => {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
+  const [order, setOrder] = useState({});
 
   const history = useHistory();
 
@@ -68,7 +69,7 @@ const App = () => {
   <h1 className="logo">FOOD WITH FRIENDS</h1>
   <div className="nav-bar">
     <nav> 
-      <Link to="/home">Home</Link>
+      <Link to="/">Home</Link>
       <Link to="/products">Shop</Link>
       <Link to="/cart">Cart</Link>
       <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
@@ -83,6 +84,10 @@ const App = () => {
         
 
         <Switch>
+
+          <Route exact path='/'>
+            <Home user={user} />
+          </Route>
 
           <Route path="/products/:productId">
             <ProductView />
@@ -105,7 +110,7 @@ const App = () => {
           </Route>
 
           <Route path='/orders/:orderId'>
-            <Order />
+            <Order token={token} order={order} setOrder={setOrder} />
           </Route>
 
           <Route path='/cart'>
