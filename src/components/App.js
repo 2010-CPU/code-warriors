@@ -26,6 +26,7 @@ const App = () => {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
+  const [order, setOrder] = useState({});
 
   const history = useHistory();
 
@@ -96,7 +97,7 @@ const App = () => {
           </Route>
 
           <Route path='/orders/:orderId'>
-            <Order />
+            <Order token={token} order={order} setOrder={setOrder} />
           </Route>
 
           <Route path='/cart'>
