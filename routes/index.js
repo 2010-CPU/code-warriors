@@ -6,7 +6,7 @@ const server = express();
 
 const jwt = require('jsonwebtoken');
 const {getUserById} = require('../db');
-const {JWT_SECRET} = process.env;
+const {JWT_SECRET = 'nevertell'} = process.env;
 
 apiRouter.get("/", (req, res, next) => {
   res.send({
