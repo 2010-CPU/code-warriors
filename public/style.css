@@ -1,22 +1,51 @@
 * {
-    box-sizing: border-box;
-    border: 0;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  margin: 0;
 }
-
+#loggedOut-account, #loggedOut-logout, #loggedOut-login {
+  display: none;
+}
+#logo-head{ 
+  background-color: white;
+  width: 105%;
+  position: sticky;
+  top: 0;
+  display: block;
+}
+header {
+  font-family: 'Montserrat', sans-serif;	
+  height:100px;
+  padding:50px 6% 0 6%;
+}
+.nav-bar a {
+  position: sticky;
+  top: 0;
+  display:inline-block;
+  text-transform:uppercase;
+  text-decoration:none;
+  font-size:0.95em;
+  padding:4px 18px;
+  color: black;
+}
+.logo{ 
+  color: black;
+}
+#html{ 
+  background-color: slategrey;
+}
 input, 
 button {
     border: 1px solid black;
 }
 .small-product h1 {
-  font-size: 1.5em;
+  font-size: 1.5em;  
 }
-
 .small-product img {
   width: 250px;
+  border-radius: 10%;
 }
-
 .profile-image {
   width: 200px;
 }

@@ -4,6 +4,7 @@ const {
   createUser,
   createProduct,
   } = require('./index');
+const { createOrder } = require('./orders');
 
 async function buildTables() {
   try {
@@ -34,7 +35,7 @@ async function buildTables() {
     await client.query(`
       CREATE TABLE orders (
         id SERIAL PRIMARY KEY,
-        status text DEFAULT 'created',
+        status TEXT DEFAULT 'created',
         "userId" INTEGER REFERENCES users(id),
         "datePlaced" DATE
         );
@@ -61,6 +62,7 @@ async function buildTables() {
         quantity INTEGER DEFAULT 0 NOT NULL
       );
     `);
+    console.log('the tables have been built')
   } catch (error) {
     throw error;
   }

@@ -10,7 +10,7 @@ const {JWT_SECRET} = process.env;
 
 apiRouter.get("/", (req, res, next) => {
   res.send({
-    message: "API is under construction!"
+    message: ""
   });
 });
 

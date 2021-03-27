@@ -56,23 +56,32 @@ const App = () => {
     }
   }, [token]);
 
-  // keep here until we are ready for logout button
-  // const handleLogout = (event) => {
-  //   event.preventDefault();
-  //   setUser({});
-  //   setToken('');
-  //   localStorage.clear();
-  //   history.push('/')
-  // }
+  const handleLogout = (event) => {
+    event.preventDefault();
+    setUser({});
+    setToken('');
+    localStorage.clear();
+    history.push('/')
+  }
 
   return (<>
-    <Router>
+  <div id="logo-head">
+  <h1 className="logo">FOOD WITH FRIENDS</h1>
+  <div className="nav-bar">
+    <nav> 
+      <Link to="/home">Home</Link>
+      <Link to="/products">Shop</Link>
+      <Link to="/cart">Cart</Link>
+      <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
+      <Link to="/" id={token ? '' : 'loggedOut-logout'} onClick={handleLogout}>Logout</Link>
+      <Link to="/login" id={!token ? '' : 'loggedOut-login'}>Login</Link>
+    </nav> 
+  </div>
+  </div>
       <div className="App">
-        <h1>Welcome to Baking With Friends!</h1>
         <h2>{ message }</h2>
-        _______________
-        <h4><Link to="/products">Products</Link></h4>
-        _______________
+        
+        
 
         <Switch>
 
@@ -106,7 +115,6 @@ const App = () => {
 
         </Switch>
       </div>
-    </Router>
     </>
   );
 }
