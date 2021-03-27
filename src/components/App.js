@@ -15,7 +15,7 @@ import {
   Account,
   Order,
   Cart,
-
+  Home
 } from './';
 
 import {
@@ -69,7 +69,7 @@ const App = () => {
   <h1 className="logo">FOOD WITH FRIENDS</h1>
   <div className="nav-bar">
     <nav> 
-      <Link to="/home">Home</Link>
+      <Link to="/">Home</Link>
       <Link to="/products">Shop</Link>
       <Link to="/cart">Cart</Link>
       <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
@@ -84,6 +84,10 @@ const App = () => {
         
 
         <Switch>
+
+          <Route exact path='/'>
+            <Home user={user} />
+          </Route>
 
           <Route path="/products/:productId">
             <ProductView />

@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Home = ({user}) => {
-    const {firstName, lastName, email, username} = user;
+    const {firstName, username} = user;
 
     return (<>
         
-            <h2>Welcome to Food With Friends, {firstName}. Your one stop shop for enjoying cooking, baking and cocktails.</h2>
+            <h2>Welcome to Food With Friends {firstName}. Your one stop shop for enjoying cooking, baking and cocktails.</h2>
         
             {firstName ?
             
