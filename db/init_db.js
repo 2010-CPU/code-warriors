@@ -93,6 +93,20 @@ async function populateInitialData() {
     console.log('products created: ');
     console.log(products);
     console.log('finsihed creating products');
+
+    console.log('creating orders')
+    const ordersToCreate = [ 
+      { status: 'created', userId: 1 }, //possibly add back the date here
+      { status: 'created', userId: 2 }, //possibly add back the date here
+      { status: 'created', userId: 3 }, //possibly add back the date here
+      { status: 'cancelled', userId: 2 },
+      { status: 'completed', userId: 1, datePlaced: '2021-03-23' },
+      { status: 'processing', userId: 3, datePlaced: '2021-03-24' }
+    ]
+    const orders = await Promise.all(ordersToCreate.map(createOrder));
+    console.log('orders created: ')
+    console.log(orders);
+    console.log('finished creating orders')
     
   } catch (error) {
     console.log('error creating intital data');

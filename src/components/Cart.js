@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import React from 'react';
 
-const Cart = () => { 
+const Cart = () => {
 
     
 
+
+
+    return (<div className='cart'>
+        <div>this is the cart!!!</div>
+    </div>)
 }
 
 export default Cart;
