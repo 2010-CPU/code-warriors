@@ -1,3 +1,5 @@
+# Baking with Friends README
+
 # The Smallest Starting Point
 
 So, you want to build a full-stack JavaScript application with:
@@ -8,6 +10,7 @@ So, you want to build a full-stack JavaScript application with:
 
 And you want it to work locally as well as be easy to deploy?
 
+## dolfo was here
 We've got your back:
 
 ## Local Development
@@ -24,7 +27,7 @@ Once you decide on that name, make sure to run `createdb` from your command line
 
 Finally you can run `npm run server:dev` to start the web server.
 
-In a second terminal navigate back to the local repo and run `npm run client:dev` to start the react server. 
+In a second terminal navigate back to the local repo and run `npm run client:dev` to start the react server.
 
 This is set up to run on a proxy, so that you can make calls back to your `api` without needing absolute paths. You can instead `axios.get('/api/posts')` or whatever without needing to know the root URL.
 
@@ -93,3 +96,5 @@ heroku run npm run db:build
 Which will run `npm run db:build` on the heroku server.
 
 Once that command runs, you can type `heroku open` to get a browser to open up locally with your full-stack application running remotely.
+
+### AMADEO WAS HERE

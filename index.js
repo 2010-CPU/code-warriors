@@ -2,6 +2,9 @@
 const express = require('express');
 const server = express();
 
+const cors = require('cors');
+server.use(cors());
+
 // create logs for everything
 const morgan = require('morgan');
 server.use(morgan('dev'));
@@ -23,7 +26,7 @@ server.use((req, res, next) => {
 });
 
 // bring in the DB connection
-const { client } = require('./db');
+const { client } = require('./db/client');
 
 // connect to the server
 const PORT = process.env.PORT || 5000;
