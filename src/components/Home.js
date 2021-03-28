@@ -9,7 +9,7 @@ const Home = ({user}) => {
         
             {firstName ?
             
-            <div> You are currently logged in as <b>{username}.</b></div>
+            <div> You are currently logged in as <b>{username}</b>.</div>
             :
             <div>Please login above or register for an account</div>}
             
