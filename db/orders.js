@@ -18,10 +18,13 @@ const createOrder = async ({ status, userId }) => {
 
 const getAllOrders = async () => {
     try {
-        const { rows: orders } = await client.query(`
-            SELECT *
-            FROM orders;
+        const { rows: orderIds } = await client.query(`
+            SELECT id FROM orders;
         `);
+
+        const { rows: orders } = await Promise.all(orderIds.map(
+          orderId => getOrderById(orderId.id)
+        ));
 
         return orders;
     } catch (error) {
@@ -36,6 +39,18 @@ const getOrderById = async (id) => {
             FROM orders
             WHERE id = $1;
         `, [id]);
+
+        const { rows: products } = await client.query(`
+          SELECT
+            p.name, p."imageURL", p."inStock",
+            op."productId", op.price, op.quantity
+          FROM products p JOIN order_products op
+          ON p.id=op."productId"
+          WHERE op."orderId"=$1;
+        `,[id]);
+
+        order.products = products;
+        console.log(typeof products)
 
         return order;
     } catch (error) {
