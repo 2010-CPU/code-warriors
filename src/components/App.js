@@ -4,7 +4,6 @@ import {
   Switch,
   Link,
   Route,
-  BrowserRouter as Router,
   useHistory
 } from 'react-router-dom';
 

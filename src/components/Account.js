@@ -11,7 +11,7 @@ const Account = ({user, token}) => {
         return (<div className='profile'>
             <h2>Account Information for {firstName}</h2>
             <br />
-            <img className='profile-image' src={user.imageURL} />
+            <img className='profile-image' src={user.imageURL} alt='muffins' />
             <br />
             <div>Name: {firstName} {lastName}</div>
             <div>Username: {username}</div>
