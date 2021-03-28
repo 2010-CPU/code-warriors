@@ -4,7 +4,6 @@ import {
   Switch,
   Link,
   Route,
-  BrowserRouter as Router,
   useHistory
 } from 'react-router-dom';
 
@@ -114,7 +113,7 @@ const App = () => {
           </Route>
 
           <Route path='/cart'>
-            <Cart token={token} order={order} setOrder={setOrder} />
+            <Cart />
           </Route>
 
         </Switch>
