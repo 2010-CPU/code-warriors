@@ -9,8 +9,6 @@ import {
   getProductById
 } from '../api';
 
-import{AddToCart} from './index'
-
 const SmallProduct = ({product}) => {
   const {id,name,price,inStock,imageURL} = product;
 

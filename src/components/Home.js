@@ -5,7 +5,7 @@ const Home = ({user}) => {
 
     return (<>
         
-            <h2>Welcome to Food With Friends {firstName}. Your one stop shop for enjoying cooking, baking and cocktails.</h2>
+            <h2>Welcome to Food With Friends {firstName}.</h2>
         
             {firstName ?
             
