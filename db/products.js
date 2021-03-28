@@ -14,7 +14,7 @@ const getAllProducts = async () => {
 
 const getOrderProductById = async ({id}) => {
   try{
-    const {rows: order_products} = await client.query(`
+    const {rows: [order_products] } = await client.query(`
     SELECT *
     FROM products
     WHERE id=${id};
@@ -28,7 +28,7 @@ const getOrderProductById = async ({id}) => {
 const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
   try{
     const { rows: [order_products] } = await client.query(`
-    INSERT INTO order_products("orderID", "activityId", price, quantity)
+    INSERT INTO order_products("orderId", "productId")
     VALUES ($1, $2, $3, $4)
     RETURN *;
     `, [orderId, productId, price, quantity]);
@@ -57,9 +57,9 @@ const destroyOrderProduct = async (id) => {
   try {
     const {rows: [deletedOrderProduct]} = await client.query(`
     DELETE FROM order_products
-    WHERE id=${id}
+    WHERE id= $1
     RETURNING *;
-    `);
+    `, [id]);
     return deletedOrderProduct;
   }catch(error){
     throw error;
