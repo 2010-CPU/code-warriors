@@ -21,6 +21,7 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
       VALUES ($1, $2, $3, $4)
       RETURN *;
       `, [orderId, productId, price, quantity]);
+      
       return order_products;
     } catch (error){
       throw error;
@@ -33,7 +34,7 @@ const updateOrderProduct = async ({ id, price, quantity }) => {
       UPDATE order_products
       SET price = #2, quantity = #3
       WHERE id= $1
-      RETURNING *
+      RETURNING *;
       `, [id, price, quantity])
   
       return order_products;
@@ -49,6 +50,7 @@ const destroyOrderProduct = async (id) => {
       WHERE id= $1
       RETURNING *;
       `, [id]);
+
       return deletedOrderProduct;
     }catch(error){
       throw error;

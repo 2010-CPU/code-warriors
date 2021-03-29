@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 
 // will need to add products in the order
-// maybe need async await with the useEffect?
 
 const Order = ({token, order, setOrder}) => {
     const {id, status, userId, datePlaced} = order;

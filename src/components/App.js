@@ -14,7 +14,8 @@ import {
   Account,
   Order,
   Cart,
-  Home
+  Home,
+  Checkout
 } from './';
 
 import {
@@ -112,8 +113,12 @@ const App = () => {
             <Order token={token} order={order} setOrder={setOrder} />
           </Route>
 
-          <Route path='/cart'>
+          <Route exact path='/cart'>
             <Cart />
+          </Route>
+
+          <Route exact path='/cart/checkout'>
+            <Checkout />
           </Route>
 
         </Switch>
