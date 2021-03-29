@@ -1,10 +1,11 @@
 const express = require('express');
 const usersRouter = express.Router();
 
-const {createUser, getUser, getUserById, getUserByUsername} = require('../db')
+const {createUser, getUser, getUserById, getUserByUsername,getOrdersByUser} = require('../db')
 
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET = 'nevertell'} = process.env;
+const {requireUser} = require('./utils');
 
 usersRouter.post('/register', async (req, res, next) => {
     const {username, password, firstName, lastName, email} = req.body;
@@ -60,7 +61,7 @@ usersRouter.post('/login', async (req, res, next) => {
 
         if (user && passwordVerification) {
             res.send({
-                user, 
+                user,
                 token,
                 message: "You're logged in!"
             });
@@ -80,6 +81,21 @@ usersRouter.get('/me', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+})
+
+usersRouter.get('/:userId/orders', requireUser, async (req,res,next) => {
+  try {
+    const {userId} = req.params;
+
+    if (+userId === req.user.id || req.user.isAdmin) {
+      const orders = await getOrdersByUser(userId);
+      res.send(orders);
+    } else {
+      throw new Error("Invalid credentials for this request!");
+    }
+  } catch (err) {
+    next(err);
+  }
 })
 
 module.exports = usersRouter;

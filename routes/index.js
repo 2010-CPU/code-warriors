@@ -8,12 +8,6 @@ const jwt = require('jsonwebtoken');
 const {getUserById} = require('../db');
 const {JWT_SECRET = 'nevertell'} = process.env;
 
-apiRouter.get("/", (req, res, next) => {
-  res.send({
-    message: ""
-  });
-});
-
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
@@ -39,7 +33,15 @@ apiRouter.use(async (req, res, next) => {
   }
 })
 
-const productsRouter = require('./products'); 
+apiRouter.use((req,res,next) => {
+  if (req.user) {
+    console.log("User is set: ", req.user);
+  }
+
+  next();
+});
+
+const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
 
 const usersRouter = require('./users');
@@ -48,14 +50,15 @@ apiRouter.use('/users', usersRouter);
 const ordersRouter = require('./orders');
 apiRouter.use('/orders', ordersRouter);
 
-server.use((req, res, next) => {
+/*server.use((req, res, next) => {
   res.status(404).send({message: 'Not Found'});
-});
+});*/
 
 server.use((error, req, res, next) => {
   if (res.StatusCode < 400) {
-    res.status(500).send({message: error.message});
+    res.status(500);
   }
+  res.send({message: error.message});
 });
 
 module.exports = apiRouter;

@@ -1,8 +1,7 @@
 function requireUser (req, res, next) {
     if (!req.user) {
-        next({
-            message: 'You must be logged in to perform this action'
-        })
+      res.status(401);
+      throw new Error("You must be logged in to perform this action!");
     }
     next();
 }
