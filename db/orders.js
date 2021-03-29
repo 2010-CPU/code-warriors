@@ -1,14 +1,14 @@
 const {client} = require('./client');
 const { getUserById } = require('./users');
 
-const createOrder = async ({ status, userId }) => {
+const createOrder = async ({ status, userId, datePlaced }) => {
     try {
-        const datePlaced = new Date().toJSON();
+        const _datePlaced = datePlaced || new Date().toJSON();
         const { rows: [order] } = await client.query(`
             INSERT INTO orders (status, "userId", "datePlaced")
             VALUES ($1, $2, $3)
             RETURNING *;
-        `, [status, userId, datePlaced]);
+        `, [status, userId, _datePlaced]);
 
         return order;
     } catch (error) {
@@ -22,7 +22,7 @@ const getAllOrders = async () => {
             SELECT id FROM orders;
         `);
 
-        const { rows: orders } = await Promise.all(orderIds.map(
+        const orders = await Promise.all(orderIds.map(
           orderId => getOrderById(orderId.id)
         ));
 
@@ -50,7 +50,6 @@ const getOrderById = async (id) => {
         `,[id]);
 
         order.products = products;
-        console.log(typeof products)
 
         return order;
     } catch (error) {
@@ -58,24 +57,18 @@ const getOrderById = async (id) => {
     }
 }
 
-// need to join users and orders, to pull the usersId where it matches the orders table
-
-const getOrdersByUser = async ({ id }) => {
+const getOrdersByUser = async (id) => {
     try {
-
-        const { rows: orders } = await client.query(`
-            SELECT
-                orders.id,
-                orders.status,
-                users.id AS "userId"
-                orders."datePlaced",
-            FROM orders
-            JOIN users on "userId" = users.id
-            WHERE orders."userId" = $1;
+        const { rows: orderIds } = await client.query(`
+            SELECT id FROM orders
+            WHERE "userId"=$1;
         `, [id]);
 
-        return orders;
+        const orders = await Promise.all(orderIds.map(
+          orderId => getOrderById(orderId.id)
+        ));
 
+        return orders;
     } catch (error) {
         throw error;
     }
@@ -86,7 +79,7 @@ const updateOrder = async ({ id, status, userId }) => {
     try {
         const {rows: [order] } = await client.query(`
             UPDATE orders
-            SET status = $2, user = $3
+            SET status = $2, "userId" = $3
             WHERE id = $1
             RETURNING *;
         `, [id, status, userId]);

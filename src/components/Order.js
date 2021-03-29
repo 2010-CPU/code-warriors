@@ -19,8 +19,8 @@ const Order = ({token, order, setOrder}) => {
         setOrder(data);
     }
 
-    useEffect(async () => {
-        await getOrder();
+    useEffect( () => {
+        getOrder();
     }, [])
 
     return (<div className='order'>
@@ -28,6 +28,7 @@ const Order = ({token, order, setOrder}) => {
         <div>Order Status: {status}</div>
         <div>Ordered By: User ID {userId}</div>
         <div>Date Placed: {datePlaced}</div>
+        <br />
         <div>Products Ordered</div>
         <div>hold for products!!!!</div>
     </div>)
