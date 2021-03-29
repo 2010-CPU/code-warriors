@@ -43,7 +43,7 @@ describe('Database', () => {
         })
       });
 
-      /*describe('Users', () => {
+      describe('Users', () => {
         let userToCreateAndUpdate, queriedUser;
         let userCredentials = {username: 'crystal', password: 'password1'};
         describe('createUser({ username, password })', () => {
@@ -68,5 +68,5 @@ describe('Database', () => {
           })
 
           })
-      })*/
+      })
     });

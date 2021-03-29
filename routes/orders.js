@@ -7,7 +7,8 @@ const {
   updateOrder,
   completeOrder,
   cancelOrder,
-  createOrder
+  createOrder,
+  getCartByUser
 } = require('../db');
 const {requireUser} = require('./utils');
 
@@ -59,6 +60,15 @@ ordersRouter.post('/', requireUser, async (req,res,next) => {
   try {
     const order = await createOrder({status:'created',userId:req.user.id});
     res.send(order);
+  } catch (err) {
+    next(err);
+  }
+})
+
+ordersRouter.get('/cart', requireUser, async (req,res,next) => {
+  try {
+    const cart = await getCartByUser(req.user.id);
+    res.send(cart);
   } catch (err) {
     next(err);
   }

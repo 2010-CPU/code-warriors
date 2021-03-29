@@ -74,7 +74,7 @@ const getOrdersByUser = async (id) => {
     }
 }
 
-const getOrdersByProduct(id) {
+const getOrdersByProduct = async (id) => {
   try {
     const { rows: orderIds } = await client.query(`
       SELECT o.id FROM orders o
@@ -87,6 +87,21 @@ const getOrdersByProduct(id) {
     ));
 
     return orders;
+  } catch (err) {
+    next(err);
+  }
+}
+
+const getCartByUser = async (id) => {
+  try {
+    const { rows: [orderId] } = await client.query(`
+      SELECT id FROM orders
+      WHERE "userId"=$1 AND status='created';
+    `,[id]);
+
+    const order = getOrderById(orderId.id);
+
+    return order;
   } catch (err) {
     next(err);
   }
@@ -146,4 +161,5 @@ module.exports = {
     updateOrder,
     completeOrder,
     cancelOrder,
+    getCartByUser
 }
