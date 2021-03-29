@@ -4,7 +4,9 @@ const ordersRouter = express.Router();
 const {getOrderById, updateOrder, completeOrder, cancelOrder} = require('../db');
 const {requireUser} = require('./utils');
 
-ordersRouter.patch('/:orderId', requireUser, async (req, res, next) => {
+//where does completeOrder fit in here?
+
+ordersRouter.patch('/:orderId', async (req, res, next) => {
     const {status, userId} = req.body;
     const {orderId} = req.params;
 
@@ -19,15 +21,11 @@ ordersRouter.patch('/:orderId', requireUser, async (req, res, next) => {
     }
 
     try {
-        console.log('updateFields: ', updateFields)
         const originalOrder = await getOrderById(Number(orderId));
-        console.log('originalOrder: ', originalOrder)
-        console.log('heck1')
+
         if (originalOrder.id === Number(orderId)) {
-            console.log('heck2')
             const updatedOrder = await updateOrder({id: Number(orderId), ...updateFields});
-            console.log('updatedOrder: ', updatedOrder)
-            console.log('heck3')
+
             res.send(updatedOrder)
         }
 
