@@ -8,7 +8,8 @@ const {
   completeOrder,
   cancelOrder,
   createOrder,
-  getCartByUser
+  getCartByUser,
+  addProductToOrder
 } = require('../db');
 const {requireUser} = require('./utils');
 
@@ -81,6 +82,30 @@ ordersRouter.delete('/:orderId', requireUser, async (req, res, next) => {
         const order = await cancelOrder(id);
 
         res.send(order);
+    } catch (error) {
+        next(error);
+    }
+})
+
+ordersRouter.post('/:orderId/products', async (req, res, next) => {
+    const {productId, price, quantity} = req.body;
+    const {orderId} = req.params;
+    const productData = {};
+
+    try {
+      productData.productId = productId;
+      productData.orderId = orderId;
+      productData.price = price;
+      productData.quantity = quantity;
+
+      const product = await addProductToOrder(productData);
+
+      if (product) {
+        res.send(product);
+      } else {
+        next({message: 'Product was not added to the order'})
+      }
+
     } catch (error) {
         next(error);
     }
