@@ -49,3 +49,9 @@ button {
 .profile-image {
   width: 200px;
 }
+.product-img { 
+  display: flex;
+  align-content: center;
+  height: 550px;
+  width: 400;
+}

@@ -16,6 +16,7 @@ const SmallProduct = ({product}) => {
     <div className="small-product">
       <h1><Link to={`/products/${id}`}>{name}</Link> - ${price}</h1>
       <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
+      <button> add to cart </button>
     </div>
   )
 }
@@ -29,7 +30,8 @@ const Product = ({product}) => {
       <h2>${price} - {inStock ? "In Stock!" : "Out of Stock!"}</h2>
       <h3>{category}</h3>
       <p>{description}</p>
-      <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
+      <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
+      <button> ADD TO CART </button>
     </div>
   )
 }
