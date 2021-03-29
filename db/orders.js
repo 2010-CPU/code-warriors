@@ -70,7 +70,7 @@ const updateOrder = async ({ id, status, userId }) => {
     try {
         const {rows: [order] } = await client.query(` 
             UPDATE orders
-            SET status = $2, user = $3
+            SET status = $2, "userId" = $3
             WHERE id = $1
             RETURNING *; 
         `, [id, status, userId]);
