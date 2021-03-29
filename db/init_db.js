@@ -3,6 +3,7 @@ const {client} = require('./client')
 const {
   createUser,
   createProduct,
+  addProductToOrder
   } = require('./index');
 const { createOrder } = require('./orders');
 
@@ -59,7 +60,8 @@ async function buildTables() {
         "productId" INTEGER REFERENCES products(id),
         "orderId" INTEGER REFERENCES orders(id),
         price INTEGER NOT NULL,
-        quantity INTEGER DEFAULT 0 NOT NULL
+        quantity INTEGER DEFAULT 0 NOT NULL,
+        UNIQUE ("productId", "orderId")
       );
     `);
     console.log('the tables have been built')
@@ -106,6 +108,17 @@ async function populateInitialData() {
     console.log('orders created: ')
     console.log(orders);
     console.log('finished creating orders')
+
+    console.log('creating order_products');
+    const orderProductsToCreate = [
+      {productId: 1, orderId: 1, price: 150, quantity: 2},
+      {productId: 2, orderId: 2, price: 200, quantity: 4},
+      {productId: 3, orderId: 3, price: 120, quantity: 2}
+    ]
+    const orderProducts = await Promise.all(orderProductsToCreate.map(addProductToOrder))
+    console.log('order_products created: ')
+    console.log(orderProducts)
+    console.log('finished creating order_products');
 
   } catch (error) {
     console.log('error creating intital data');
