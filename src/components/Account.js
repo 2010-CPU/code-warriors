@@ -4,14 +4,14 @@ import {Redirect} from 'react-router-dom';
 // allow profile image choice later
 
 const Account = ({user, token}) => {
-    const {firstName, lastName, email, username, address, city, state, zip} = user;
+    const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
     user.imageURL = 'images/user-images/muffins.jpg'
 
     if (token) {
         return (<div >
             <h2>Account Information for {firstName}</h2>
             
-            <img className='profile-image' src={user.imageURL} alt='muffins' />
+            <img className='profile-image' src={imageURL} alt='userphotolink' />
             <div className='profile'> 
             <div>Username: </div> <div> {username}</div>
             <div>Email: </div> <div> {email}</div>
