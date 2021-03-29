@@ -161,5 +161,6 @@ module.exports = {
     updateOrder,
     completeOrder,
     cancelOrder,
-    getCartByUser
+    getCartByUser,
+    getOrdersByProduct,
 }

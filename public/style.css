@@ -55,3 +55,15 @@ button {
   height: 550px;
   width: 400;
 }
+.account-container{ 
+  display: grid;
+  grid-template-columns: 25% 60%;
+}
+.ship-container{ 
+  display: grid;
+  grid-template-columns: 25% 60%;
+}
+.profile{ 
+  display: grid;
+  grid-template-columns: 25% 60% ;
+}
