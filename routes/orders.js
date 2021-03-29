@@ -6,7 +6,7 @@ const {requireUser} = require('./utils');
 
 //where does completeOrder fit in here?
 
-ordersRouter.patch('/:orderId', async (req, res, next) => {
+ordersRouter.patch('/:orderId', requireUser, async (req, res, next) => {
     const {status, userId} = req.body;
     const {orderId} = req.params;
 
@@ -39,7 +39,6 @@ ordersRouter.delete('/:orderId', requireUser, async (req, res, next) => {
 
     try {
         const order = await cancelOrder(id);
-        console.log('order: ', order)
 
         res.send(order);
     } catch (error) {
