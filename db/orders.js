@@ -42,8 +42,8 @@ const getOrderById = async (id) => {
 
         const { rows: products } = await client.query(`
           SELECT
-            p.name, p."imageURL", p."inStock",
-            op."productId", op.price, op.quantity
+            p.id, p.name, p."imageURL", p."inStock",
+            op.price, op.quantity
           FROM products p JOIN order_products op
           ON p.id=op."productId"
           WHERE op."orderId"=$1;
