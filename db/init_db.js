@@ -33,7 +33,7 @@ async function buildTables() {
         address VARCHAR(255) NOT NULL,
         city TEXT NOT NULL,
         state TEXT NOT NULL,
-        zip INTEGER NOT NULL
+        zip VARCHAR(5) NOT NULL
       );
     `);
 
