@@ -56,12 +56,6 @@ const destroyProduct = async ({id}) => {
 const updateProduct = async (fields = {}) => {
     const {id} = fields;
 
-    const setString = Object.keys(fields).map((key, index) => {
-        if (key === "imageURL" || key === "inStock") {
-            
-        }
-    });
-
     try {
         const {rows: [product]} = await client.query(`
             UPDATE products
