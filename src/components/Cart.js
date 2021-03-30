@@ -26,7 +26,7 @@ const Cart = () => {
     return (<div className='cart'>
         <div>This page has been left blank intentionally. Come back and check out your cart soon!</div>
     
-    <Link to='/cart/checkout'> CHECKOUT </Link>
+    <button> <Link to='/cart/checkout'> CHECKOUT </Link> </button>
     </div>)
 }
 
