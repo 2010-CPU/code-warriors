@@ -99,7 +99,7 @@ const getCartByUser = async (id) => {
       WHERE "userId"=$1 AND status='created';
     `,[id]);
 
-    const order = getOrderById(orderId.id);
+    const order = await getOrderById(orderId.id);
 
     return order;
   } catch (err) {
