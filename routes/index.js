@@ -53,9 +53,9 @@ apiRouter.use('/orders', ordersRouter);
 const orderProductsRouter = require('./order_products');
 apiRouter.use('/order_products', orderProductsRouter);
 
-/*server.use((req, res, next) => {
+server.use((req, res, next) => {
   res.status(404).send({message: 'Not Found'});
-});*/
+});
 
 server.use((error, req, res, next) => {
   if (res.StatusCode < 400) {
