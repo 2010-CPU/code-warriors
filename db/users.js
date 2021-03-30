@@ -88,14 +88,22 @@ const getUserByUsername = async (username) => {
     }
 }
 
-const updateUser = async () => { 
+const updateUser = async ({ firstName, lastName, email, username, password, address, city, state, zip }) => { 
     try {
+        const SALT_COUNT = 10; 
+        const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
+
         const { rows: [user] } = await client.query(` 
         UPDATE users
-        SET 
-        `)
+        SET "firstName" = $2, "lastName" = $3, email = $4, password = $5, address = $6, city = $7, state = $8, zip = $9
+        WHERE username = $1
+        RETURNING *; 
+        `, [username, firstName, lastName, email, hashedPassword, address, city, state, zip ]);
+
+        password = hashedPassword
+        delete user.password; 
     } catch (error) {
-        
+        throw error; 
     }
 }
 
@@ -106,4 +114,5 @@ module.exports = {
     getAllUsers,
     getUserById, 
     getUserByUsername, 
+    updateUser, 
 }
