@@ -7,7 +7,7 @@ const Account = ({user, token}) => {
     const {firstName, lastName, email, username} = user;
     user.imageURL = 'images/user-images/muffins.jpg'
 
-    if (token) {
+    if (token && username) {
         return (<div className='profile'>
             <h2>Account Information for {firstName}</h2>
             <br />
