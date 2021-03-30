@@ -8,6 +8,10 @@ const AccountForm = ({type, setToken, setUser}) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zip, setZip] = useState('');
     const [loginMessage, setLoginMessage] = useState('');
 
     const history = useHistory();
@@ -31,7 +35,11 @@ const AccountForm = ({type, setToken, setUser}) => {
                     password,
                     firstName,
                     lastName,
-                    email
+                    email, 
+                    address, 
+                    city, 
+                    state,
+                    zip
                 })
             })
             const data = await response.json();
@@ -90,6 +98,22 @@ const AccountForm = ({type, setToken, setUser}) => {
                         <div>
                             <div>Email</div>
                             <input type='email' value={email} required onChange={event => setEmail(event.target.value)} ></input>
+                        </div>
+                        <div>
+                            <div>Address</div>
+                            <input type='address' value={address} required onChange={event => setAddress(event.target.value)} ></input>
+                        </div>
+                        <div>
+                            <div>City</div>
+                            <input type='city' value={city} required onChange={event => setCity(event.target.value)} ></input>
+                        </div>
+                        <div>
+                            <div>State</div>
+                            <input type='state' value={state} required onChange={event => setState(event.target.value)} ></input>
+                        </div>
+                        <div>
+                            <div>Zip Code</div>
+                            <input type='zip' value={zip} required onChange={event => setZip(event.target.value)} ></input>
                         </div>
                     </>
                 : ''}
