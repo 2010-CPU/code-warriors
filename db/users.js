@@ -88,20 +88,21 @@ const getUserByUsername = async (username) => {
     }
 }
 
-const updateUser = async ({ firstName, lastName, email, username, password, address, city, state, zip }) => { 
+const updateUser = async ({ userId, firstName, lastName, email, password, address, city, state, zip, isAdmin, username }) => { 
     try {
         const SALT_COUNT = 10; 
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
         const { rows: [user] } = await client.query(` 
         UPDATE users
-        SET "firstName" = $2, "lastName" = $3, email = $4, password = $5, address = $6, city = $7, state = $8, zip = $9
-        WHERE username = $1
+        SET "firstName" = $2, "lastName" = $3, email = $4, password = $5, address = $6, city = $7, state = $8, zip = $9, isAdmin = $10, username = $11
+        WHERE "userId" = $1
         RETURNING *; 
-        `, [username, firstName, lastName, email, hashedPassword, address, city, state, zip ]);
+        `, [userId, firstName, lastName, email, hashedPassword, address, city, state, zip, isAdmin, username ]);
 
         password = hashedPassword
         delete user.password; 
+        return user;
     } catch (error) {
         throw error; 
     }

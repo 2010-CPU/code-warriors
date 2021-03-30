@@ -1,7 +1,7 @@
 const express = require('express');
 const usersRouter = express.Router();
 
-const {createUser, getUser, getUserById, getUserByUsername,getOrdersByUser} = require('../db')
+const {createUser, getUser, getUserById, getUserByUsername,getOrdersByUser, updateUser} = require('../db')
 
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET = 'nevertell'} = process.env;
@@ -97,5 +97,57 @@ usersRouter.get('/:userId/orders', requireUser, async (req,res,next) => {
     next(err);
   }
 })
+
+usersRouter.patch('/:userId', requireUser, async (req, res, next) => { 
+    const { firstName, lastName, email, address, city, state, zip, isAdmin, username, password} = req.body;
+    const { userId } = req.params;
+
+    const updateFields = {}; 
+
+    if (firstName){
+        updateFields.firstName = firstName
+    }
+    if(lastName){
+        updateFields.lastName = lastName
+    }
+    if(email){
+        updateFields.email = email
+    }
+    if(address){
+        updateFields.address = address
+    }
+    if(city){
+        updateFields.city = city
+    }
+    if(state){
+        updateFields.state = state
+    }
+    if(zip){
+        updateFields.zip = zip
+    }
+    if(isAdmin){
+        updateFields.isAdmin = isAdmin
+    }
+    if(username){
+        updateFields.username = username
+    }
+    if(password){
+        updateFields.password = password
+    }
+    try {
+        const oldUser = await getUserByUserId(userId);
+
+        if(oldUser.id === userId){
+            const updatedUser = await updateUser({id: userId, ...updateFields})
+            res.send(updatedUser)
+        } else {
+            console.error('user update encountered an error')
+        }
+
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 module.exports = usersRouter;
