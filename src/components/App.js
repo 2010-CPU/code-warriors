@@ -27,7 +27,6 @@ const App = () => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const history = useHistory();
 
@@ -91,7 +90,7 @@ const App = () => {
           </Route>
 
           <Route path="/products/:productId">
-            <ProductView selectProduct={setSelectedProduct}/>
+            <ProductView />
           </Route>
 
           <Route exact path="/products">
@@ -119,7 +118,7 @@ const App = () => {
           </Route>
 
           <Route exact path='/cart/checkout'>
-            <Checkout  />
+            <Checkout order={order} user={user} token={token} />
           </Route>
 
         </Switch>
