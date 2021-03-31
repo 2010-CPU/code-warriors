@@ -67,3 +67,7 @@ button {
   display: grid;
   grid-template-columns: 25% 60% ;
 }
+.state-drop{ 
+  border-bottom-left-radius: 1px black;
+  margin-trim: 1px black;
+}
