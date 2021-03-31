@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 
 const Cart = ({product}) => {
 
-    return (<div className='cart'>
+    return (<div className='bg-image img1'>
         <div>This page has been left blank intentionally. Come back and check out your cart soon!</div>
 
         

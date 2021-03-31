@@ -145,7 +145,9 @@ const AccountForm = ({type, setToken, setUser}) => {
     console.log('STATE ',state)
 
 
-    return (<div className='account-form'>
+    return (
+        <div className='bg-image img1'> 
+        <div className='account-form'>
         <div>{loginMessage}</div>
         <br />
         <h2>{title}</h2>
@@ -205,6 +207,7 @@ const AccountForm = ({type, setToken, setUser}) => {
             <button type='submit'>{title}</button>
         </form>
         <div id='opposite-account-form'><Link to={`/${oppositeType}`}>{oppositeTitle}</Link></div>
+    </div>
     </div>)
 }
 

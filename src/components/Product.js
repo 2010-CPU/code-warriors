@@ -13,10 +13,12 @@ const SmallProduct = ({product}) => {
   const {id,name,price,inStock,imageURL} = product;
 
   return (
+    <div className="bg-image img1"> 
     <div className="small-product">
-      <h1><Link to={`/products/${id}`}>{name}</Link> - ${price}</h1>
-      <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
-      <button> add to cart </button>
+    <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
+    <h1><Link to={`/products/${id}`}>{name}</Link> - ${price}</h1>
+    <button> add to cart </button>
+    </div>
     </div>
   )
 }
@@ -25,6 +27,7 @@ const Product = ({product}) => {
   const {id,name,price,inStock,category,description,imageURL} = product;
 
   return (
+    <div className='bg-image img1'> 
     <div className="product">
       <h1>{name}</h1>
       <h2>${price} - {inStock ? "In Stock!" : "Out of Stock!"}</h2>
@@ -32,7 +35,7 @@ const Product = ({product}) => {
       <p>{description}</p>
       <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
       <button> ADD TO CART </button>
-    </div>
+    </div> </div>
   )
 }
 
