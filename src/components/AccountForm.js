@@ -195,7 +195,6 @@ const AccountForm = ({type, setToken, setUser}) => {
                                 selected={options}
                                 onChange={handleSelectState}
                                 placeholder={"select your state"}/> 
-                                {/* <input type='state' value={state} required onChange={event => setState(event.target.value)}></input> */}
                         </div>
                         <div>
                             <div>Zip Code</div>
