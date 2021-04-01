@@ -62,7 +62,10 @@ async function buildTables() {
       CREATE TABLE reviews ( 
         id SERIAL PRIMARY KEY, 
         title VARCHAR(255) NOT NULL,
-        content VARCHAR NOT NULL, 
+        content VARCHAR(255) NOT NULL, 
+        stars INTEGER(5) NOT NULL,
+        "userId" REFERENCES users(id),
+        "productId" REFERENCES products(id)
       )`)
 
     await client.query(`
