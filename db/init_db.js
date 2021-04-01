@@ -4,7 +4,7 @@ const {
   createUser,
   createProduct,
   addProductToOrder,
-  createReview,
+  createReview
   } = require('./index');
 const { createOrder } = require('./orders');
 
@@ -26,16 +26,16 @@ async function buildTables() {
       CREATE TABLE users (
         id SERIAL PRIMARY key,
         "firstName" VARCHAR(255) NOT NULL,
-        "lastName" VARCHAR(255) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        "imageURL" VARCHAR(255) default 'images/user-images/muffins.jpg',
+        "lastName" TEXT NOT NULL,
+        email VARCHAR(320) UNIQUE NOT NULL,
+        "imageURL" TEXT default 'images/user-images/muffins.jpg',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         "isAdmin" BOOLEAN DEFAULT false NOT NULL,
         address VARCHAR(255) NOT NULL,
-        city VARCHAR(255) NOT NULL,
-        state VARCHAR(255) NOT NULL,
-        zip VARCHAR(255) NOT NULL
+        city TEXT NOT NULL,
+        state TEXT(2) NOT NULL,
+        zip VARCHAR(5) NOT NULL
       );
     `);
 
@@ -60,15 +60,15 @@ async function buildTables() {
       );
     `);
 
-    await client.query(`
-      CREATE TABLE reviews ( 
-        id SERIAL PRIMARY KEY, 
-        title VARCHAR(255) NOT NULL,
-        content VARCHAR(255) NOT NULL, 
-        stars INTEGER(5) NOT NULL,
-        "userId" REFERENCES users(id),
-        "productId" REFERENCES products(id)
-      )`)
+    // await client.query(`
+    //   CREATE TABLE reviews ( 
+    //     id SERIAL PRIMARY KEY, 
+    //     title VARCHAR(255) NOT NULL,
+    //     content VARCHAR(255) NOT NULL, 
+    //     stars INTEGER(5) NOT NULL,
+    //     "userId" REFERENCES users(id),
+    //     "productId" REFERENCES products(id)
+    //   )`)
 
     await client.query(`
       CREATE TABLE order_products (
