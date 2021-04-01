@@ -15,6 +15,19 @@ const createReview = async ({title, content, stars, userId, productId}) => {
     }
 }
 
+const getAllReviews = async () => { 
+    try {
+        const { rows: reviews } = await client.query(` 
+            SELECT * 
+            FROM reviews; 
+        `)
+
+        return reviews;
+    } catch (error) {
+        throw error; 
+    }
+}
+
 const updateReview = async ({id, title, content, stars, productId}) => {
     try {
         const { rows: [review] } = await client.query(` 
@@ -32,5 +45,6 @@ const updateReview = async ({id, title, content, stars, productId}) => {
 
 module.exports = {
     createReview, 
+    getAllReviews,
     updateReview,
 }
