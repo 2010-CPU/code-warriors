@@ -32,7 +32,7 @@ async function buildTables() {
         "isAdmin" BOOLEAN DEFAULT false NOT NULL,
         address VARCHAR(255) NOT NULL,
         city TEXT NOT NULL,
-        state TEXT NOT NULL,
+        state TEXT(2) NOT NULL,
         zip VARCHAR(5) NOT NULL
       );
     `);
@@ -57,6 +57,13 @@ async function buildTables() {
         category VARCHAR(255) NOT NULL
       );
     `);
+
+    await client.query(`
+      CREATE TABLE reviews ( 
+        id SERIAL PRIMARY KEY, 
+        title VARCHAR(255) NOT NULL,
+        content VARCHAR NOT NULL, 
+      )`)
 
     await client.query(`
       CREATE TABLE order_products (
