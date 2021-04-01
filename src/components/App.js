@@ -118,7 +118,7 @@ const App = () => {
           </Route>
 
           <Route exact path='/cart/checkout'>
-            <Checkout />
+            <Checkout order={order} user={user} token={token} />
           </Route>
 
         </Switch>
