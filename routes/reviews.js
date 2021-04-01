@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllReviews, createReview, updateReview } = require('../db');
+const { getAllReviews, createReview, updateReview, getReviewById } = require('../db');
 const reviewsRouter = express.Router();
 const {requireUser} = require('./utils');
 
@@ -24,11 +24,29 @@ reviewsRouter.post('./', requireUser, async (req, res, next) => {
 })
 
 reviewsRouter.patch('/:reviewId', requireUser, async (req, res, next) => { 
-    const { title, content, userId, productId } = req.body;
+    const { title, content, stars, userId, productId } = req.body;
     const { reviewId } = req.params; 
 
+    const updateFields = {}
+
+    if(title){
+        updateFields.title = title;
+    }
+    if(content){
+        updateFields.content = content;
+    }
+    if(stars){
+        updateFields.stars = stars; 
+    }
+
     try {
-        const review = await updateReview({})
+        const reviewToModify = await getReviewById({id})
+        if(reviewToModify.id === req.params.reviewId){
+            const modifiedReview = await updateReview({id: Number(reviewId), ...updateFields})
+            res.send(modifiedReview)
+        } else { 
+            next({message: 'This review could not be modified at this time.'})
+        }
     } catch (error) {
         next(error)
     }
