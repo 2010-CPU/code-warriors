@@ -5,7 +5,6 @@ const Home = ({user}) => {
 
     return (<>
     <div className="bg-image img1">
-    <img className="cheers" src={require('./cheers.png')} alt={'cheers'}/> 
     <h2 className='FP-logo'>Welcome to Food With Friends {firstName}</h2>
         
             {firstName ?
