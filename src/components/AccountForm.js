@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import Dropdown from 'react-dropdown';
+import {Dropdown} from 'react-dropdown';
 
 
 const AccountForm = ({type, setToken, setUser}) => {
