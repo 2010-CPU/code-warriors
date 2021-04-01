@@ -1,8 +1,6 @@
 const {client} = require('./client');
 const bcrypt = require('bcrypt');
 
-//make sure getAllUsers isn't returning passwords
-
 const createUser = async ({firstName, lastName, email, username, password, address, city, state, zip}) => { 
     try {
         const SALT_COUNT = 10; 
