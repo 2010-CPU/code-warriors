@@ -16,6 +16,7 @@ async function buildTables() {
     DROP TABLE IF EXISTS order_products;
     DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS reviews;
     DROP TABLE IF EXISTS products;
     `);
     console.log('tables are being built')
@@ -133,6 +134,16 @@ async function populateInitialData() {
     console.log('order_products created: ')
     console.log(orderProducts)
     console.log('finished creating order_products');
+
+    console.log('creating reviews');
+    const reviewsToCreate = [
+      {title: '', content: '', stars: ''},
+      
+    ]
+    const reviews = await Promise.all(reviewsToCreate.map(createReview))
+    console.log('reviews created: ')
+    console.log(reviews)
+    console.log('finished creating reviews');
 
   } catch (error) {
     console.log('error creating intital data');
