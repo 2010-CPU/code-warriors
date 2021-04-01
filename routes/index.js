@@ -53,6 +53,9 @@ apiRouter.use('/orders', ordersRouter);
 const orderProductsRouter = require('./order_products');
 apiRouter.use('/order_products', orderProductsRouter);
 
+const reviewsRouter = require('./reviews');
+apiRouter.use('/reviews', reviewsRouter);
+
 server.use((req, res, next) => {
   res.status(404).send({message: 'Not Found'});
 });
