@@ -28,6 +28,21 @@ const getAllReviews = async () => {
     }
 }
 
+const getReviewById = async (id) => { 
+    try {
+        const { rows: [review] } = await client.query(`
+            SELECT * 
+            FROM reviews
+            WHERE id = $1
+            RETURNING *; 
+        `, [id]);
+
+        return review; 
+    } catch (error) {
+        throw error; 
+    }
+}
+
 const updateReview = async ({id, title, content, stars, productId}) => {
     try {
         const { rows: [review] } = await client.query(` 
@@ -43,8 +58,25 @@ const updateReview = async ({id, title, content, stars, productId}) => {
     }
 }
 
+const destroyReview = async ({id}) => { 
+    try {
+        const { rows: [reviews] } = await client.query(` 
+            DELETE FROM reviews,
+            WHERE id = $1
+            RETURNING *; 
+        `, [id]);
+
+        return reviews;
+    } catch (error) {
+        throw error; 
+    }
+
+}
+
 module.exports = {
     createReview, 
     getAllReviews,
+    getReviewById,
     updateReview,
+    destroyReview
 }
