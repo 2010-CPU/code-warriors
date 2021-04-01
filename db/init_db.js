@@ -16,8 +16,8 @@ async function buildTables() {
     await client.query(`
     DROP TABLE IF EXISTS order_products;
     DROP TABLE IF EXISTS orders;
-    DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS reviews;
+    DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS products;
     `);
     console.log('tables are being built')
@@ -34,7 +34,7 @@ async function buildTables() {
         "isAdmin" BOOLEAN DEFAULT false NOT NULL,
         address VARCHAR(255) NOT NULL,
         city TEXT NOT NULL,
-        state TEXT(2) NOT NULL,
+        state TEXT NOT NULL,
         zip VARCHAR(5) NOT NULL
       );
     `);
@@ -60,15 +60,16 @@ async function buildTables() {
       );
     `);
 
-    // await client.query(`
-    //   CREATE TABLE reviews ( 
-    //     id SERIAL PRIMARY KEY, 
-    //     title VARCHAR(255) NOT NULL,
-    //     content VARCHAR(255) NOT NULL, 
-    //     stars INTEGER(5) NOT NULL,
-    //     "userId" REFERENCES users(id),
-    //     "productId" REFERENCES products(id)
-    //   )`)
+    await client.query(`
+        CREATE TABLE reviews ( 
+          id SERIAL PRIMARY KEY,
+          title VARCHAR(255) NOT NULL,
+          content VARCHAR(255) NOT NULL, 
+          stars INTEGER NOT NULL, 
+          "userId" INTEGER REFERENCES users(id),
+          "productId" INTEGER REFERENCES products(id)
+        )
+    `);
 
     await client.query(`
       CREATE TABLE order_products (
@@ -89,7 +90,6 @@ async function buildTables() {
 async function populateInitialData() {
   console.log('creating users...');
   try {
-    // create useful starting data
     const usersToCreate = [
       { firstName: 'crystal', lastName: 'joyce', email: 'crystaljoyce@me.com', imageURL: 'https://www.instagram.com/p/BzbK_H5gvUH/?utm_source=ig_web_copy_link', username: 'crystal', password: 'password1', isAdmin: 'true', address: '1234 Main Street', city: 'Some City', state: 'AZ', zip: '12345' },
       { firstName: 'walter', lastName: 'white', email: 'ilovescience@me.com', imageURL: 'https://www.denofgeek.com/wp-content/uploads/2013/07/288895.jpg?resize=636%2C432', username: 'bagsomoney', password: 'password2', isAdmin: 'false', address: '555 Maple Drive', city: 'Honolulu', state: 'HI', zip: '99900'  },
@@ -137,14 +137,16 @@ async function populateInitialData() {
     console.log('finished creating order_products');
 
     console.log('creating reviews');
-    const reviewsToCreate = [
-      {title: '', content: '', stars: ''},
-      
+    const reviews = [
+      { title: 'Everyone loved the crepes!', content: 'The crepes kit was a huge hit with my family. The mimosas were a perfect compliment to the crepes at our brunch. I cannot wait to try another kit soon!', stars: 5, userId: 3, productId: 1 },
+      { title: 'Those ritas tho.', content: 'My wife bought me this churros kit, I think I overbaked the churros. They were only okay. But the margs were some of the best I have ever had.', stars: 4, userId: 1, productId: 2 },
+      { title: 'The lamb was so tender', content: 'I was not sure what to expect with lamb and mint, but it was absolutely delicious. The Jameson was like drinking gasoline. That stuff was hard to sip.', stars: 4, userId: 2, productId: 3 }
+
     ]
-    const reviews = await Promise.all(reviewsToCreate.map(createReview))
-    console.log('reviews created: ')
-    console.log(reviews)
-    console.log('finished creating reviews');
+    const review = await Promise.all(reviews.map(createReview))
+    console.log('order_products created: ')
+    console.log(review)
+    console.log('finished creating order_products');
 
   } catch (error) {
     console.log('error creating intital data');
