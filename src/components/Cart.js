@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom'
+import { Redirect } from 'react-router';
 
-const Cart = () => {
+const Cart = ({product}) => {
 
-    return (<div className='cart'>
-        <div>this is the cart!!!</div>
+    return (<div className='bg-image img1'>
+        <div>This page has been left blank intentionally. Come back and check out your cart soon!</div>
+
+        
+    
+    <button> <Link to='/cart/checkout'> CHECKOUT </Link> </button>
     </div>)
 }
 

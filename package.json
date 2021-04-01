@@ -8,7 +8,7 @@
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
     "server:dev": "nodemon index.js",
-    "db:build": "node ./db/init_db",
+    "db:build": "node ./db/seed",
     "start": "node index.js",
     "test:watch": "jest --watchAll --runInBand"
   },
@@ -27,6 +27,7 @@
     "pg": "^8.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-dropdown": "^1.9.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1"
   },

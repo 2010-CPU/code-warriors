@@ -1,5 +1,11 @@
 require('dotenv').config();
 
+const {
+  client,
+  createUser,
+  getOrderById
+} = require('../db/');
+
 const { buildDB } = require('../db/init_db')
 
 describe('Database', () => {
@@ -9,6 +15,34 @@ describe('Database', () => {
     afterAll(async() => {
         await client.end();
       })
+      describe('Orders', () => {
+        let order, queryOrder, queryProducts;
+        describe('getOrderById(id)', () => {
+          beforeAll(async () => {
+            order = await getOrderById(1);
+
+            const {rows: orderRows} = await client.query(`
+              SELECT *
+              FROM orders
+              WHERE id = 1;
+            `);
+
+            queryOrder = orderRows[0];
+          })
+
+          it('Should return an id, status, userId, datePlaced', () => {
+            expect(order.id).toEqual(queryOrder.id);
+            expect(order.status).toEqual(queryOrder.status);
+            expect(order.userId).toEqual(queryOrder.userId);
+            expect(order.datePlaced).toEqual(queryOrder.datePlaced);
+          })
+
+          it('Should contain relevant info from the order\'s products', () => {
+            expect(Array.isArray(order.products)).toEqual(true);
+          })
+        })
+      });
+
       describe('Users', () => {
         let userToCreateAndUpdate, queriedUser;
         let userCredentials = {username: 'crystal', password: 'password1'};
@@ -32,7 +66,7 @@ describe('Database', () => {
           it('Does NOT return the password', async () => {
             expect(userToCreateAndUpdate.password).toBeFalsy();
           })
-        
+
           })
       })
     });
