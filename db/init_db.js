@@ -3,7 +3,8 @@ const {client} = require('./client')
 const {
   createUser,
   createProduct,
-  addProductToOrder
+  addProductToOrder,
+  createReview,
   } = require('./index');
 const { createOrder } = require('./orders');
 
@@ -25,16 +26,16 @@ async function buildTables() {
       CREATE TABLE users (
         id SERIAL PRIMARY key,
         "firstName" VARCHAR(255) NOT NULL,
-        "lastName" TEXT NOT NULL,
-        email VARCHAR(320) UNIQUE NOT NULL,
-        "imageURL" TEXT default 'images/user-images/muffins.jpg',
+        "lastName" VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        "imageURL" VARCHAR(255) default 'images/user-images/muffins.jpg',
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         "isAdmin" BOOLEAN DEFAULT false NOT NULL,
         address VARCHAR(255) NOT NULL,
-        city TEXT NOT NULL,
-        state TEXT(2) NOT NULL,
-        zip VARCHAR(5) NOT NULL
+        city VARCHAR(255) NOT NULL,
+        state VARCHAR(255) NOT NULL,
+        zip VARCHAR(255) NOT NULL
       );
     `);
 

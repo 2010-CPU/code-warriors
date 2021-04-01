@@ -5,5 +5,7 @@ module.exports = {
   ...require('./users'),
   ...require('./orders'),
   ...require('./order_products'),
-  ...require('./client')
+  ...require('./client'),
+  ...require('./reviews'),
+
 }

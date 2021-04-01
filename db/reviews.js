@@ -1,6 +1,6 @@
 const {client} = require('./client');
 
-const createReview = async () => {
+const createReview = async ({title, content, stars, userId, productId}) => {
 
     try {
         const { rows: [review] } = await client.query(` 
@@ -15,6 +15,22 @@ const createReview = async () => {
     }
 }
 
+const updateReview = async ({id, title, content, stars, productId}) => {
+    try {
+        const { rows: [review] } = await client.query(` 
+            UPDATE reviews,
+            SET title = $2, $3, $4, $5, $6, 
+            WHERE id = $1, 
+            RETURNING *; 
+        `, [id, title, content, stars, userId, productId])
+
+        return review; 
+    } catch (error) {
+        throw error; 
+    }
+}
+
 module.exports = {
     createReview, 
+    updateReview,
 }
