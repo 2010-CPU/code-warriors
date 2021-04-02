@@ -14,6 +14,7 @@ const {
 const {requireUser} = require('./utils');
 
 //might need to fix completeOrder
+//remove commented out code
 
 ordersRouter.get('/', requireUser, async (req,res,next) => {
   try {
@@ -21,8 +22,10 @@ ordersRouter.get('/', requireUser, async (req,res,next) => {
       const orders = await getAllOrders();
       res.send(orders);
     } else {
-      res.status(401);
-      throw new Error("Access denied!");
+      // res.status(401);
+      // throw new Error("Access denied!");
+      res.status(401).send({message: 'Access denied!'});
+      
     }
 
   } catch (err) {
@@ -107,7 +110,8 @@ ordersRouter.post('/:orderId/products', async (req, res, next) => {
       if (product) {
         res.send(product);
       } else {
-        next({message: 'Product was not added to the order'})
+        res.status(500).send({message: 'Product was not added to the order.'});
+        // next({message: 'Product was not added to the order'})
       }
 
     } catch (error) {

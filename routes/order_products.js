@@ -3,6 +3,8 @@ const orderProductsRouter = express.Router();
 
 const {getOrderById, getOrderProductById, updateOrderProduct, destroyOrderProduct} = require('../db');
 
+//remove commented out code 
+
 orderProductsRouter.patch('/:orderProductId', async (req, res, next) => {
     const {price, quantity} = req.body;
     const {orderProductId} = req.params;
@@ -20,12 +22,13 @@ orderProductsRouter.patch('/:orderProductId', async (req, res, next) => {
         const product = await getOrderProductById(Number(orderProductId));
         const order = await getOrderById(product.orderId);
 
-        if (order.userId === req.user.id) {
+        if (order && order.userId === req.user.id) {
             const orderProduct = await updateOrderProduct({id: orderProductId, ...updateFields});
         
             res.send(orderProduct);
         } else {
-            next({message: 'You are not authorized to access this route.'})
+            res.status(401).send({message: 'You are not authorized to access this route.'});
+            // next({message: 'You are not authorized to access this route.'})
         }      
     } catch (error) {
         next(error);
@@ -39,12 +42,12 @@ orderProductsRouter.delete('/:orderProductId', async (req, res, next) => {
         const product = await getOrderProductById(Number(orderProductId));
         const order = await getOrderById(product.orderId);
 
-        if (order.userId === req.user.id) {
+        if (order && order.userId === req.user.id) {
             const orderProduct = await destroyOrderProduct(orderProductId);
 
             res.send(orderProduct);
         } else {
-            next({message: 'You are not authorized to access this route.'})
+            res.status(401).send({message: 'You are not authorized to access this route.'});
         }
     } catch (error) {
         next(error);

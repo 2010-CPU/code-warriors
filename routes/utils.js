@@ -1,3 +1,5 @@
+const { restart } = require("nodemon");
+
 function requireUser (req, res, next) {
     if (!req.user) {
       res.status(401);
@@ -6,4 +8,13 @@ function requireUser (req, res, next) {
     next();
 }
 
-module.exports = {requireUser}
+function requireAdmin (req, res, next) {
+  if (!req.user.isAdmin) {
+    res.status(403);
+    next({message: 'You are not authorized to access this route.'})
+    // throw new Error('You are not authorized to access this route.')
+  }
+  next();
+}
+
+module.exports = {requireUser, requireAdmin}
