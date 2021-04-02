@@ -24,8 +24,7 @@ productsRouter.get('/:productId', async (req, res, next) => {
     }
 })
 
-//requireAdmin as second argument
-productsRouter.post('/', async (req, res, next) => {
+productsRouter.post('/', requireAdmin, async (req, res, next) => {
     const {name, description, price, imageURL, inStock, category} = req.body;
     const productData = {};
 
