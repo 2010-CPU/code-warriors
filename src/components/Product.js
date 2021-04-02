@@ -8,6 +8,7 @@ import {
   getAllProducts,
   getProductById
 } from '../api';
+import { Reviews } from './Reviews';
 
 const SmallProduct = ({product}) => {
   const {id,name,price,inStock,imageURL} = product;
@@ -83,8 +84,9 @@ const ProductView = () => {
     getProduct();
   }, [productId]);
 
-  return (
+  return (<>
     <Product product={product} />
+    </>
   )
 }
 

@@ -50,6 +50,8 @@ body{
 }
 .FP-logo{
   text-align: center;
+  color: red;
+  font-weight: 700;
 }
 .image-row{
   display: flex;
@@ -152,3 +154,4 @@ button {
   border-bottom-left-radius: 1px black;
   margin-trim: 1px black;
 }
+
