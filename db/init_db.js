@@ -94,6 +94,7 @@ async function populateInitialData() {
       { firstName: 'crystal', lastName: 'joyce', email: 'crystaljoyce@me.com', imageURL: 'https://www.instagram.com/p/BzbK_H5gvUH/?utm_source=ig_web_copy_link', username: 'crystal', password: 'password1', isAdmin: 'true', address: '1234 Main Street', city: 'Some City', state: 'AZ', zip: '12345' },
       { firstName: 'walter', lastName: 'white', email: 'ilovescience@me.com', imageURL: 'https://www.denofgeek.com/wp-content/uploads/2013/07/288895.jpg?resize=636%2C432', username: 'bagsomoney', password: 'password2', isAdmin: 'false', address: '555 Maple Drive', city: 'Honolulu', state: 'HI', zip: '99900'  },
       { firstName: 'fred', lastName: 'flinstone', email: 'dinoman@me.com', imageURL: 'https://cdn11.bigcommerce.com/s-5ylnei6or5/images/stencil/1280x1280/products/1928/4722/2889_FredFlinstone_40__68124.1553186314.jpg?c=2', username: 'rocksrule', password: 'password3', isAdmin: 'false', address: '9876 Broadway', city: 'New York City', state: 'NY', zip: '00678'  },
+      { firstName: 'Samantha', lastName: 'Runyan', email: 'person@gmail.com', imageURL: 'https://www.instagram.com/p/BzbK_H5gvUH/?utm_source=ig_web_copy_link', username: 'username23', password: 'password123', isAdmin: 'true', address: '123 Fake Street', city: 'Some City', state: 'IN', zip: '60638' }
     ]
     const users = await Promise.all(usersToCreate.map(createUser));
     console.log('users created: ');
