@@ -3,16 +3,16 @@ const bcrypt = require('bcrypt');
 
 //remove commented out code in updateUser once you confirm it works
 
-const createUser = async ({firstName, lastName, email, username, password, address, city, state, zip}) => { 
+const createUser = async ({firstName, lastName, email, username, password, isAdmin, address, city, state, zip}) => { 
     try {
         const SALT_COUNT = 10; 
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
         const { rows: [user] } = await client.query(` 
-            INSERT INTO users("firstName", "lastName", email, username, password, address, city, state, zip)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            INSERT INTO users("firstName", "lastName", email, username, password, "isAdmin", address, city, state, zip)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
             RETURNING *; 
-        `, [firstName, lastName, email, username, hashedPassword, address, city, state, zip])
+        `, [firstName, lastName, email, username, hashedPassword, isAdmin, address, city, state, zip])
 
         password = hashedPassword
         delete user.password; 
