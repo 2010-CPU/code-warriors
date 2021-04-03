@@ -1,11 +1,11 @@
 const express = require('express');
 const usersRouter = express.Router();
 
-const {createUser, getUser, getUserById, getUserByUsername,getOrdersByUser, updateUser} = require('../db')
+const {createUser, getUser, getUserById, getUserByUsername, getOrdersByUser, updateUser, getAllUsers} = require('../db')
 
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET = 'nevertell'} = process.env;
-const {requireUser} = require('./utils');
+const {requireUser, requireAdmin} = require('./utils');
 
 usersRouter.post('/register', async (req, res, next) => {
     const {username, password, firstName, lastName, email, address, city, state, zip} = req.body;
@@ -14,26 +14,25 @@ usersRouter.post('/register', async (req, res, next) => {
         const checkUser = await getUserByUsername(username);
 
         if (checkUser) {
-            throw new Error('A user by that username already exists');
+            res.status(500).send({message: 'A user by that username already exists.'});
+        } else if (password.length < 8) {
+            res.status(500).send({message: 'Password must be a minimum of 8 characters.'});
+        } else {
+
+            const user = await createUser({firstName, lastName, email, username, password, address, city, state, zip});
+            const token = jwt.sign({
+                id: user.id,
+                username
+            }, JWT_SECRET, {
+                expiresIn: '1w'
+            });
+
+            res.send({
+                user,
+                token,
+                message: 'Registered successfully'
+            })
         }
-
-        if (password.length < 8) {
-            throw new Error('Password must be a minimum of 8 characters');
-        }
-
-        const user = await createUser({firstName, lastName, email, username, password, address, city, state, zip});
-        const token = jwt.sign({
-            id: user.id,
-            username
-        }, JWT_SECRET, {
-            expiresIn: '1w'
-        });
-
-        res.send({
-            user,
-            token,
-            message: 'Registered successfully'
-        })
 
     } catch (error) {
         next(error);
@@ -44,7 +43,7 @@ usersRouter.post('/login', async (req, res, next) => {
     const {username, password} = req.body;
 
     if (!username || !password) {
-        next({message: 'Please supply both a username and a password'})
+        res.status(500).send({message: 'Please supply both a username and a password.'});
     }
 
     try {
@@ -66,7 +65,7 @@ usersRouter.post('/login', async (req, res, next) => {
                 message: "You're logged in!"
             });
         } else {
-            next({message: 'Username or password is incorrect'});
+            res.status(500).send({message: 'Username or password is incorrect.'});
         }
 
     } catch (error) {
@@ -91,14 +90,24 @@ usersRouter.get('/:userId/orders', requireUser, async (req,res,next) => {
       const orders = await getOrdersByUser(userId);
       res.send(orders);
     } else {
-      throw new Error("Invalid credentials for this request!");
+      res.status(500).send({message: 'Invalid credentials for this request.'});
     }
   } catch (err) {
     next(err);
   }
 })
 
-usersRouter.patch('/:userId', requireUser, async (req, res, next) => { 
+usersRouter.get('/', requireAdmin, async (req, res, next) => {
+    try {
+        const users = await getAllUsers();
+
+        res.send(users);
+    } catch (error) {
+        next(error);
+    }
+})
+
+usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => { 
     const { firstName, lastName, email, address, city, state, zip, isAdmin, username, password} = req.body;
     const { userId } = req.params;
 
@@ -141,7 +150,7 @@ usersRouter.patch('/:userId', requireUser, async (req, res, next) => {
             const updatedUser = await updateUser({id: userId, ...updateFields})
             res.send(updatedUser)
         } else {
-            console.error('user update encountered an error')
+            res.status(500).send({message: 'User update encountered an error.'});
         }
 
     } catch (error) {

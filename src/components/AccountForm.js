@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {Dropdown} from 'react-dropdown';
+import Dropdown from 'react-dropdown';
 
 
 const AccountForm = ({type, setToken, setUser}) => {
@@ -117,7 +117,7 @@ const AccountForm = ({type, setToken, setUser}) => {
         { 'label':'Oklahoma', 'value': 'OK'},
         { 'label':'Oregan', 'value': 'OR'},
         { 'label':'Palau', 'value': 'PW'},
-        { 'label':'Pennsilvania', 'value': 'PA'},
+        { 'label':'Pennsylvania', 'value': 'PA'},
         { 'label':'Puerto Rico', 'value': 'PR'},
         { 'label':'Rhode Island', 'value': 'RI'},
         { 'label':'South Carolina', 'value': 'SC'},
@@ -134,16 +134,12 @@ const AccountForm = ({type, setToken, setUser}) => {
         { 'label':'Wyoming', 'value': 'WY'}
         ];
 
-    console.log('states array',states)
     const options = states.map((state) => { 
         return {
             value: state.value,
             label: state.label
         }
     })
-    console.log('STATE NAME',state)
-    console.log('STATE ',state)
-
 
     return (
         <div className='bg-image img1'> 
@@ -177,15 +173,15 @@ const AccountForm = ({type, setToken, setUser}) => {
                         </div>
                         <div>
                             <div>Email</div>
-                            <input type='email' value={email} required onChange={event => setEmail(event.target.value)} ></input>
+                            <input type='text' value={email} required onChange={event => setEmail(event.target.value)} ></input>
                         </div>
                         <div>
                             <div>Address</div>
-                            <input type='address' value={address} required onChange={event => setAddress(event.target.value)} ></input>
+                            <input type='text' value={address} required onChange={event => setAddress(event.target.value)} ></input>
                         </div>
                         <div>
                             <div>City</div>
-                            <input type='city' value={city} required onChange={event => setCity(event.target.value)} ></input>
+                            <input type='text' value={city} required onChange={event => setCity(event.target.value)} ></input>
                         </div>
                         <div>
                             <div>State</div>
@@ -198,7 +194,7 @@ const AccountForm = ({type, setToken, setUser}) => {
                         </div>
                         <div>
                             <div>Zip Code</div>
-                            <input type='zip' value={zip} required onChange={event => setZip(event.target.value)} ></input>
+                            <input type='number' value={zip} required minLength='5' maxLength='5' onChange={event => setZip(event.target.value)} ></input>
                         </div>
                     </>
                 : ''}
