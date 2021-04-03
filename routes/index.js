@@ -61,7 +61,7 @@ server.use((error, req, res, next) => {
   if (res.StatusCode < 400) {
     res.status(500);
   }
-  res.send(error);
+  res.send({error: error.message});
 });
 
-module.exports = apiRouter;
+module.exports = apiRouter;``
