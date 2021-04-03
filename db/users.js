@@ -1,7 +1,7 @@
 const {client} = require('./client');
 const bcrypt = require('bcrypt');
 
-//make sure getAllUsers isn't returning passwords
+//remove commented out code in updateUser once you confirm it works
 
 const createUser = async ({firstName, lastName, email, username, password, address, city, state, zip}) => { 
     try {
@@ -88,17 +88,35 @@ const getUserByUsername = async (username) => {
     }
 }
 
-const updateUser = async ({ userId, firstName, lastName, email, password, address, city, state, zip, isAdmin, username }) => { 
+const updateUser = async (fields = {}) => { 
+    const {id} = fields;
+    //{ id, firstName, lastName, email, password, address, city, state, zip, isAdmin, username }
+
+    const setString = Object.keys(fields).map((key, index) => {
+        if (key === "firstName" || key === "lastName" || key === "isAdmin") {
+            return `"${key}"=$${index + 1}`;
+        } else {
+            return `${key}=$${index + 1}`;
+        }
+    }).join(', ');
+
     try {
         const SALT_COUNT = 10; 
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
         const { rows: [user] } = await client.query(` 
         UPDATE users
-        SET "firstName" = $2, "lastName" = $3, email = $4, password = $5, address = $6, city = $7, state = $8, zip = $9, isAdmin = $10, username = $11
-        WHERE "userId" = $1
+        SET ${setString}
+        WHERE id = ${id}
         RETURNING *; 
-        `, [userId, firstName, lastName, email, hashedPassword, address, city, state, zip, isAdmin, username ]);
+        `, Object.values(fields));
+
+        // const { rows: [user] } = await client.query(` 
+        // UPDATE users
+        // SET "firstName" = $2, "lastName" = $3, email = $4, password = $5, address = $6, city = $7, state = $8, zip = $9, "isAdmin" = $10, username = $11
+        // WHERE id = $1
+        // RETURNING *; 
+        // `, [id, firstName, lastName, email, hashedPassword, address, city, state, zip, isAdmin, username ]);
 
         password = hashedPassword
         delete user.password; 

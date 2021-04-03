@@ -17,8 +17,9 @@ const Account = ({user, token}) => {
             <div>Username: </div> <div> {username}</div>
             <div>Email: </div> <div> {email}</div>
             <div>Name:</div> <div> {firstName} {lastName}</div> 
-            <div> Address: </div> <div> {address}<br/> {city}, {state} {zip}</div>
-            </div></div>
+            <div>Address: </div> <div> {address}<br/> {city}, {state} {zip}</div>
+            </div>
+            </div> 
         </div>)
     } else {
         return <Redirect to='/' />
