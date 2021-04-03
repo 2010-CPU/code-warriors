@@ -1,47 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import {
-  useParams,
-  Link
-} from 'react-router-dom';
-
-import{ 
-    getAllReviews
-} from '../api'
 
 const Reviews = () => { 
-    const [reviews, setReviews] = useState({})
-    const { id, title, content, stars, userId, productId } = reviews;
-
+    const [reviews, setReviews] = useState('');
     
-    // useEffect( () => {
-    //     getReview();
-    // }, [])
+    const getReviews = async () => {
+        const response = await fetch(`/api/reviews`, {
+            method: 'GET',
+            headers: { 
+                'Content-Type': 'Appliation/json'
+            } 
+        }); 
+        const data = await response.json();
+        console.log('review data',data)
+        setReviews(data);
+    }
 
-    return <>
-        <div> {} </div>
-    </> 
+    useEffect( async () => {
+        await getReviews();
+    }, []);
+
+    return (<>
+    <div className='bg-image img1'> 
+    
+    <div> A review will go here. </div>
+    <div> {reviews} </div>
+    </div>
+    </> )
 }
-
-// const GetReviews = () => { 
-//     const [review, setReview] = useState({});
-//     const {reviewId} = useParams();
-
-//     useEffect(() => { 
-//         const retrieveReview = async () => { 
-//             try {
-//                 const rev = await getAllReviews(reviewId);
-//                 setReview(rev)
-//             } catch (error) {
-//                 throw error; 
-//             }
-//         }
-//         retrieveReview(); 
-//     }, [reviewId])
-
-//     return <>
-
-//         </> 
-// }
-
 
 export default Reviews;

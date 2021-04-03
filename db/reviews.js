@@ -43,12 +43,12 @@ const getReviewById = async (id) => {
     }
 }
 
-const updateReview = async ({id, title, content, stars, productId}) => {
+const updateReview = async ({id, title, content, stars, userId, productId}) => {
     try {
         const { rows: [review] } = await client.query(` 
             UPDATE reviews,
-            SET title = $2, $3, $4, $5, $6, 
-            WHERE id = $1, 
+            SET title = $2, content = $3, stars = $4, userId = $5, productId = $6
+            WHERE id = $1
             RETURNING *; 
         `, [id, title, content, stars, userId, productId])
 
@@ -70,7 +70,6 @@ const destroyReview = async ({id}) => {
     } catch (error) {
         throw error; 
     }
-
 }
 
 module.exports = {
