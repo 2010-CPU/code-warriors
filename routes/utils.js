@@ -1,5 +1,3 @@
-const { restart } = require("nodemon");
-
 function requireUser (req, res, next) {
     if (!req.user) {
       res.status(401);
