@@ -28,6 +28,7 @@ const App = () => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
+  const [reviews, setReviews] = useState([]);
 
 
   const history = useHistory();
@@ -97,7 +98,7 @@ const App = () => {
 
           <Route exact path="/products">
             <ProductsView />
-            <Reviews />
+            <Reviews reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route path ='/login'>

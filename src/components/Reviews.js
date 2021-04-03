@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-const Reviews = () => { 
-    const [reviews, setReviews] = useState([]);
+const Reviews = ({reviews, setReviews}) => { 
     
-    const getReviews = async () => {
+    useEffect(async () => {
         const response = await fetch(`/api/reviews`, {
             method: 'GET',
             headers: { 
@@ -13,16 +12,12 @@ const Reviews = () => {
         const data = await response.json();
         console.log('review data',data)
         setReviews(data);
-    }
-
-    useEffect( async () => {
-        await getReviews();
-    }, []);
+    })
 
     return (<>
     <div className='bg-image img1'> 
 
-    { reviews.map((rev) => {
+    {reviews.map((rev) => {
         return <div> {rev} </div> 
     }) }
     
