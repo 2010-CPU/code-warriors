@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Reviews = () => { 
-    const [reviews, setReviews] = useState('');
+    const [reviews, setReviews] = useState([]);
     
     const getReviews = async () => {
         const response = await fetch(`/api/reviews`, {
@@ -21,9 +21,13 @@ const Reviews = () => {
 
     return (<>
     <div className='bg-image img1'> 
+
+    { reviews.map((rev) => {
+        return <div> {rev} </div> 
+    }) }
     
     <div> A review will go here. </div>
-    <div> {reviews} </div>
+    
     </div>
     </> )
 }
