@@ -47,7 +47,11 @@ const getAllUsers = async () => {
                 email,
                 "imageURL",
                 username,
-                "isAdmin"
+                "isAdmin",
+                address,
+                city,
+                state,
+                zip
             FROM users; 
         `)
 

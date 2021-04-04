@@ -15,7 +15,10 @@ import {
   Order,
   Cart,
   Home,
-  Checkout
+  Checkout,
+  Users,
+  SingleUser,
+  EditUser,
 } from './';
 
 import {
@@ -27,6 +30,7 @@ const App = () => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
+  const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
 
   const history = useHistory();
 
@@ -73,6 +77,7 @@ const App = () => {
       <Link to="/products">Shop</Link>
       <Link to="/cart">Cart</Link>
       <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
+      <Link to='/users' id={user.isAdmin ? '' : 'is-not-admin'}>Users</Link>
       <Link to="/" id={token ? '' : 'loggedOut-logout'} onClick={handleLogout}>Logout</Link>
       <Link to="/login" id={!token ? '' : 'loggedOut-login'}>Login</Link>
     </nav> 
@@ -81,8 +86,6 @@ const App = () => {
       <div className="App">
         <h2>{ message }</h2>
         
-        
-
         <Switch>
 
           <Route exact path='/'>
@@ -119,6 +122,18 @@ const App = () => {
 
           <Route exact path='/cart/checkout'>
             <Checkout order={order} user={user} token={token} />
+          </Route>
+
+          <Route exact path='/users' >
+            <Users user={user} token={token} setSingleUser={setSingleUser} />
+          </Route>
+
+          <Route path='/users/view/:userId'>
+            <SingleUser user={user} singleUser={singleUser} setSingleUser={setSingleUser} />
+          </Route>
+
+          <Route path='/users/:userId'>
+            <EditUser user={user} singleUser={singleUser} setSingleUser={setSingleUser} token={token} />
           </Route>
 
         </Switch>

@@ -6,3 +6,4 @@ export { default as Account } from './Account';
 export {default as Order} from './Order';
 export {default as Cart} from './Cart';
 export {default as Checkout} from './Checkout';
+export {Users, SingleUser, EditUser} from './Users';
