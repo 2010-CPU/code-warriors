@@ -4,7 +4,6 @@ import React, {useEffect} from 'react';
 
 const Order = ({token, order, setOrder}) => {
     const {id, status, userId, datePlaced} = order;
-    console.log('order: ', order);
 
     const getOrder = async () => {
         const response = await fetch(`/api/orders/${id}`, {
@@ -15,7 +14,6 @@ const Order = ({token, order, setOrder}) => {
             }
         });
         const data = await response.json();
-        console.log('data: ', data)
         setOrder(data);
     }
 

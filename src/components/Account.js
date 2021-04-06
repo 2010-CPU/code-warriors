@@ -9,6 +9,7 @@ const Account = ({user, token}) => {
 
     if (token && username) {
         return (<div className='profile'>
+            <div className='bg-image img1'> 
             <h2>Account Information for {firstName}</h2>
             
             <img className='profile-image' src={imageURL} alt='userphotolink' />
@@ -18,6 +19,7 @@ const Account = ({user, token}) => {
             <div>Name:</div> <div> {firstName} {lastName}</div> 
             <div>Address: </div> <div> {address}<br/> {city}, {state} {zip}</div>
             </div>
+            </div> 
         </div>)
     } else {
         return <Redirect to='/' />

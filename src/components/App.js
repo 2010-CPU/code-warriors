@@ -16,6 +16,7 @@ import {
   Cart,
   Home,
   Checkout,
+  Reviews,
   Users,
   SingleUser,
 } from './';
@@ -29,6 +30,7 @@ const App = () => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
+  const [reviews, setReviews] = useState([]);
   const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
 
   const history = useHistory();
@@ -97,6 +99,10 @@ const App = () => {
 
           <Route exact path="/products">
             <ProductsView />
+          </Route>
+
+          <Route exact path="/reviews">
+            <Reviews reviews={reviews} setReviews={setReviews}/>
           </Route>
 
           <Route path ='/login'>

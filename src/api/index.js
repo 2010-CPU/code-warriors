@@ -26,3 +26,12 @@ export async function getProductById (id) {
     throw err;
   }
 }
+
+export async function getAllReviews () { 
+  try {
+    const response = await axios.get('/api/reviews');
+    return response.data; 
+  } catch (error) {
+    throw error; 
+  }
+}

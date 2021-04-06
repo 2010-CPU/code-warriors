@@ -69,7 +69,6 @@ const SingleUser = ({token, user, singleUser, setSingleUser}) => {
             })
         })
         const data = response.json();
-        console.log('data: ', data)
     }
 
     if (user.isAdmin) {

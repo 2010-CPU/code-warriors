@@ -9,7 +9,6 @@ const stripePromise = loadStripe('pk_test_51IbHarLk15zqG3FqAIpqPc0vFDQpQRLADB7RK
 
 const Checkout = ({ order, user, token }) => {
     const { firstName, lastName, address, city, state, zip } = user;
-    console.log('this is the user in checkout', user)
 
     const handleClick = async (event) => {
       // Get Stripe.js instance

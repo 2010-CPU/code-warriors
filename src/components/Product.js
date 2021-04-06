@@ -9,6 +9,8 @@ import {
   getProductById
 } from '../api';
 
+import {Reviews} from './index';
+
 const SmallProduct = ({product}) => {
   const {id,name,price,inStock,imageURL} = product;
 
@@ -17,7 +19,6 @@ const SmallProduct = ({product}) => {
     <div className="small-product">
     <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
     <h1><Link to={`/products/${id}`}>{name}</Link> - ${price}</h1>
-    <button> add to cart </button>
     </div>
     </div>
   )
@@ -34,7 +35,6 @@ const Product = ({product}) => {
       <h3>{category}</h3>
       <p>{description}</p>
       <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
-      <button> ADD TO CART </button>
     </div> </div>
   )
 }
@@ -83,8 +83,9 @@ const ProductView = () => {
     getProduct();
   }, [productId]);
 
-  return (
+  return (<>
     <Product product={product} />
+    </>
   )
 }
 

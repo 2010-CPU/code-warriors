@@ -50,21 +50,13 @@ body{
 .img1 {
   background-image: url(./images/brick.jpg);
   background-size: cover;
-  display: flex;
   margin-left: 4%;
   margin-right: 4%;
 }
-.cheers{
-  justify-content: center;
-  margin-left: 40%;
-  margin-top: 60px;
-  max-width: 153px;
-  height: 153px;
-}
 .FP-logo{
-  text-align: left;
-  margin-top: 20%;
-  margin-right: 10%;
+  text-align: center;
+  color: red;
+  font-weight: 700;
 }
 .image-row{
   display: flex;
@@ -167,3 +159,4 @@ button {
   border-bottom-left-radius: 1px black;
   margin-trim: 1px black;
 }
+
