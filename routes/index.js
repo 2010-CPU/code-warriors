@@ -3,10 +3,14 @@ require('dotenv').config();
 const express = require('express');
 const apiRouter = express.Router();
 const server = express();
-
 const jwt = require('jsonwebtoken');
 const {getUserById} = require('../db');
-const {JWT_SECRET = 'nevertell'} = process.env;
+
+const {JWT_SECRET = 'nevertell',
+        STRIPE_SECRET
+} = process.env;
+
+const stripe = require('stripe')(STRIPE_SECRET);
 
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
@@ -39,6 +43,40 @@ apiRouter.use((req,res,next) => {
   }
 
   next();
+});
+
+apiRouter.post('/create-checkout-session', async (req, res, next) => {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Crepes and Mimosas with Dom',
+          },
+          unit_amount: 7500,
+        },
+        quantity: 5,
+      },
+      {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Churros and Margaritas with Jose',
+          },
+          unit_amount: 5000,
+        },
+        quantity: 5,
+      }
+    ],
+    mode:'payment',
+    success_url: 'http://localhost:3000/checkout/success',
+    cancel_url: 'http://localhost:3000/checkout/success',
+
+  });
+
+  res.json({ id: session.id });
 });
 
 const productsRouter = require('./products');

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 const Reviews = ({reviews, setReviews}) => { 
-    console.log('reviews', reviews)
     
     const getReviews = async () => {
         const response = await fetch(`/api/reviews`, {
@@ -11,7 +10,6 @@ const Reviews = ({reviews, setReviews}) => {
             }
         });
         const data = await response.json();
-        console.log('review json data: ', data)
         setReviews(data);
     }
 
