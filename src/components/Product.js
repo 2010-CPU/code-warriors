@@ -12,7 +12,7 @@ import {
 import {Reviews} from './index';
 
 const SmallProduct = ({product}) => {
-  const {id,name,price,inStock,imageURL} = product;
+  const {id,name,price,imageURL} = product;
 
   return (
     <div className="bg-image img1"> 
@@ -25,7 +25,7 @@ const SmallProduct = ({product}) => {
 }
 
 const Product = ({product}) => {
-  const {id,name,price,inStock,category,description,imageURL} = product;
+  const {name,price,inStock,category,description,imageURL} = product;
 
   return (
     <div className='bg-image img1'> 
