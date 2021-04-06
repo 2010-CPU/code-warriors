@@ -18,7 +18,6 @@ import {
   Checkout,
   Users,
   SingleUser,
-  EditUser,
 } from './';
 
 import {
@@ -128,12 +127,8 @@ const App = () => {
             <Users user={user} token={token} setSingleUser={setSingleUser} />
           </Route>
 
-          <Route path='/users/view/:userId'>
-            <SingleUser user={user} singleUser={singleUser} setSingleUser={setSingleUser} />
-          </Route>
-
           <Route path='/users/:userId'>
-            <EditUser user={user} singleUser={singleUser} setSingleUser={setSingleUser} token={token} />
+            <SingleUser token={token} user={user} singleUser={singleUser} setSingleUser={setSingleUser} />
           </Route>
 
         </Switch>

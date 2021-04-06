@@ -30,7 +30,7 @@ const Users = ({user, token, setSingleUser}) => {
 
                     return (<div className='single-user' key={id}>
                         <br />
-                        <Link to={`/users/view/${id}`}><h3 onClick={() => setSingleUser(_user)}>{username}</h3></Link>
+                        <Link to={`/users/${id}`}><h3 onClick={() => setSingleUser(_user)}>{username}</h3></Link>
                         <div>User ID: {id}</div>
                         <div>isAdmin? {isAdmin ? 'Yes' : 'No'}</div>
                     </div>)
@@ -42,18 +42,53 @@ const Users = ({user, token, setSingleUser}) => {
     }
 }
 
-const SingleUser = ({user, singleUser, setSingleUser}) => {
+const SingleUser = ({token, user, singleUser, setSingleUser}) => {
     const {id, username, isAdmin, firstName, lastName, email, address, city, state, zip} = singleUser;
+    
+    const [showEditUser, setShowEditUser] = useState(false);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const response = await fetch(`/api/users/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'Application/json',
+                'Authorization': `Bearer ${token}`
+            }, 
+            body: JSON.stringify({
+                username,
+                isAdmin,
+                firstName,
+                lastName,
+                email, 
+                address, 
+                city, 
+                state,
+                zip
+            })
+        })
+        const data = response.json();
+        console.log('data: ', data)
+    }
 
     if (user.isAdmin) {
         return (<div className='single-user-detail'>
-            <h3>{username}</h3>
-            <div>User ID: {id}</div>
-            <div>isAdmin? {isAdmin ? 'Yes' : 'No'}</div>
-            <div>Name: {firstName} {lastName}</div>
-            <div>Email: {email}</div>
-            <div>Address: {address} {city}, {state} {zip}</div>
-            <Link to={`/users/${id}`}><button>Edit User</button></Link>
+            {!showEditUser ? 
+                <>
+                <h3>{username}</h3>
+                <div>User ID: {id}</div>
+                <div>isAdmin? {isAdmin ? 'Yes' : 'No'}</div>
+                <div>Name: {firstName} {lastName}</div>
+                <div>Email: {email}</div>
+                <div>Address: {address} {city}, {state} {zip}</div>
+                <button onClick={() => setShowEditUser(!showEditUser)}>Edit User</button>
+                </>
+                :
+                <>
+                <div>Come back soon to edit a user!</div>
+                </>
+            }
         </div>)
     } else {
         return <Redirect to='/' />
@@ -61,17 +96,4 @@ const SingleUser = ({user, singleUser, setSingleUser}) => {
 
 }
 
-const EditUser = ({user, singleUser, setSingleUser, token}) => {
-    const {id, username, isAdmin, firstName, lastName, email, address, city, state, zip} = singleUser;
-
-    if (user.isAdmin) {
-        return (<div>
-            This is the edit user.
-        </div>)
-    } else {
-        return <Redirect to='/' />
-    }
-
-}
-
-export {Users, SingleUser, EditUser};
+export {Users, SingleUser};
