@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
   useParams,
   Link
@@ -10,54 +9,22 @@ import {
   getProductById
 } from '../api';
 
-const SmallProduct = ({product, token, cart}) => {
+const SmallProduct = ({product}) => {
   const {id,name,price,inStock,imageURL} = product;
-  
-  const addToCart = async () => {
-    try {
-      const response = await axios.post(`/api/orders/${cart.id}/products`,{
-        productId:id, price: price, quantity: 1
-      },{
-        headers: {
-          "content-type" : "application/json",
-          "Authorization" : `Bearer ${token}`
-        }
-      })
-
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   return (
     <div className="bg-image img1"> 
     <div className="small-product">
     <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
     <h1><Link to={`/products/${id}`}>{name}</Link> - ${price}</h1>
-    <button onClick={addToCart}> add to cart </button>
+    <button> add to cart </button>
     </div>
     </div>
   )
 }
 
-const Product = ({product, cart, token}) => {
+const Product = ({product}) => {
   const {id,name,price,inStock,category,description,imageURL} = product;
-
-  const addToCart = async () => {
-    try {
-      const response = await axios.post(`/api/orders/${cart.id}/products`,{
-        productId:id, price: price, quantity: 1
-      },{
-        headers: {
-          "content-type" : "application/json",
-          "Authorization" : `Bearer ${token}`
-        }
-      })
-
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   return (
     <div className='bg-image img1'> 
@@ -67,13 +34,12 @@ const Product = ({product, cart, token}) => {
       <h3>{category}</h3>
       <p>{description}</p>
       <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
-      <button onClick={addToCart}> ADD TO CART </button>
+      <button> ADD TO CART </button>
     </div> </div>
   )
 }
 
-const ProductsView = (props) => {
-  const{cart, token} = props
+const ProductsView = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -92,15 +58,14 @@ const ProductsView = (props) => {
     <div className="products">
       {
         products.map(product => (
-          <SmallProduct key={product.id} product={product} cart={cart} token={token}/>
+          <SmallProduct key={product.id} product={product} />
         ))
       }
     </div>
   )
 }
 
-const ProductView = (props) => {
-  const{cart, token} = props
+const ProductView = () => {
   const [product, setProduct] = useState({});
   const {productId} = useParams();
 
@@ -119,8 +84,8 @@ const ProductView = (props) => {
   }, [productId]);
 
   return (
-    <Product product={product} cart={cart} token={token}/>
+    <Product product={product} />
   )
 }
 
-export {SmallProduct,Product,ProductsView,ProductView};
+export {Product,ProductsView,ProductView};
