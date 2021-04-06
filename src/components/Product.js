@@ -9,7 +9,9 @@ import {
   getProductById
 } from '../api';
 
-const SmallProduct = ({product, reviews}) => {
+import {Reviews} from './index';
+
+const SmallProduct = ({product, reviews, setReviews}) => {
   const {id,name,price,inStock,imageURL} = product;
 
   return (
@@ -18,6 +20,8 @@ const SmallProduct = ({product, reviews}) => {
     <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
     <h1><Link to={`/products/${id}`}>{name}</Link> - ${price}</h1>
     <button> add to cart </button>
+
+    <Reviews reviews={reviews} setReviews={setReviews} /> 
 
     </div>
     </div>

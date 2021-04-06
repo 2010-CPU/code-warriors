@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const Reviews = ({reviews, setReviews}) => { 
     console.log('reviews', reviews)
