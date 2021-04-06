@@ -15,7 +15,9 @@ import {
   Order,
   Cart,
   Home,
-  Checkout
+  Checkout,
+  Users,
+  SingleUser,
 } from './';
 
 import {
@@ -27,6 +29,7 @@ const App = () => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
+  const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
 
   const history = useHistory();
 
@@ -73,6 +76,7 @@ const App = () => {
       <Link to="/products">Shop</Link>
       <Link to="/cart">Cart</Link>
       <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
+      <Link to='/users' id={user.isAdmin ? '' : 'is-not-admin'}>Users</Link>
       <Link to="/" id={token ? '' : 'loggedOut-logout'} onClick={handleLogout}>Logout</Link>
       <Link to="/login" id={!token ? '' : 'loggedOut-login'}>Login</Link>
     </nav>
@@ -80,8 +84,6 @@ const App = () => {
   </div>
       <div className="App">
         <h2>{ message }</h2>
-
-
 
         <Switch>
 
@@ -121,6 +123,14 @@ const App = () => {
             <Checkout order={order} user={user} token={token} />
           </Route>
 
+          <Route exact path='/users' >
+            <Users user={user} token={token} setSingleUser={setSingleUser} />
+          </Route>
+
+          <Route path='/users/:userId'>
+            <SingleUser token={token} user={user} singleUser={singleUser} setSingleUser={setSingleUser} />
+          </Route>
+
           <Route path="/checkout/success">
             <h1>THANK YOU FOR YOUR ORDER</h1>
             <p>
@@ -129,6 +139,7 @@ const App = () => {
               <a href="mailto:orders@example.com">orders@example.com</a>
             </p>
           </Route>
+
           <Route path="/checkout/cancel">
             <h1>CANCELLED THE ORDER</h1>
             <p>
@@ -139,6 +150,7 @@ const App = () => {
           </Route>
 
         </Switch>
+
       </div>
     </>
   );

@@ -1,5 +1,4 @@
 const {client} = require('./client');
-const { getUserById } = require('./users');
 
 const createOrder = async ({ status, userId, datePlaced }) => {
     try {

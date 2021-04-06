@@ -38,7 +38,7 @@ const Checkout = ({ order, user, token }) => {
     <Cart/>
 
     { token
-    ?   <Account firstName={firstName} lastName={lastName} address={address} city={city} state={state} zip={zip} />
+    ?   <Account user={user} token={token} />
     : <h3> You must be a registered user before you can checkout. Please register <Link to='/register'>here.</Link></h3>
 
     }

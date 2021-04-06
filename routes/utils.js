@@ -9,8 +9,7 @@ function requireUser (req, res, next) {
 function requireAdmin (req, res, next) {
   if (!req.user.isAdmin) {
     res.status(403);
-    next({message: 'You are not authorized to access this route.'})
-    // throw new Error('You are not authorized to access this route.')
+    next({message: 'You are not authorized to access this route.'});
   }
   next();
 }
