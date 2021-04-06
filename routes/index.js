@@ -72,7 +72,7 @@ apiRouter.post('/create-checkout-session', async (req, res, next) => {
     ],
     mode:'payment',
     success_url: 'http://localhost:3000/checkout/success',
-    cancel_url: 'http://localhost:3000/checkout/success',
+    cancel_url: 'http://localhost:3000/checkout/cancel',
 
   });
 

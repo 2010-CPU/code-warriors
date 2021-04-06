@@ -137,7 +137,7 @@ const App = () => {
             <SingleUser token={token} user={user} singleUser={singleUser} setSingleUser={setSingleUser} />
           </Route>
 
-          <Route path="/checkout/success">
+          <Route exact path="/checkout/success">
             <h1>THANK YOU FOR YOUR ORDER</h1>
             <p>
               We appreciate every customer that believes in our dream. <br/>
@@ -146,7 +146,7 @@ const App = () => {
             </p>
           </Route>
 
-          <Route path="/checkout/cancel">
+          <Route exact path="/checkout/cancel">
             <h1>CANCELLED THE ORDER</h1>
             <p>
               We hope you come back soon! <br/>
