@@ -98,7 +98,10 @@ const App = () => {
 
           <Route exact path="/products">
             <ProductsView />
-            <Reviews reviews={reviews} setReviews={setReviews} />
+          </Route>
+
+          <Route exact path="/reviews">
+            <Reviews reviews={reviews} setReviews={setReviews}/>
           </Route>
 
           <Route path ='/login'>

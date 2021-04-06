@@ -1,9 +1,14 @@
 const express = require('express');
-const { getAllReviews, createReview, updateReview, getReviewById } = require('../db');
 const reviewsRouter = express.Router();
+
+const { 
+    getAllReviews, 
+    createReview, 
+    updateReview, 
+    getReviewById } = require('../db');
 const {requireUser} = require('./utils');
 
-reviewsRouter.get('./', async (req, res, next) => { 
+reviewsRouter.get('/', async (req, res, next) => { 
     try {
         const reviews = await getAllReviews(); 
 
@@ -14,7 +19,7 @@ reviewsRouter.get('./', async (req, res, next) => {
     }
 })
 
-reviewsRouter.post('./', requireUser, async (req, res, next) => { 
+reviewsRouter.post('/', requireUser, async (req, res, next) => { 
     try {
         const review = await createReview({title, content, stars, userId, productId})
         res.send(review);
@@ -52,7 +57,7 @@ reviewsRouter.patch('/:reviewId', requireUser, async (req, res, next) => {
     }
 })
 
-reviewsRouter.delete('./:reviewId', requireUser, async (req, res, next) => { 
+reviewsRouter.delete('/:reviewId', requireUser, async (req, res, next) => { 
     try {
         const reviews = await destroyReview({id});
         res.send(reviews)
