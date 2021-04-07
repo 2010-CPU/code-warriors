@@ -31,6 +31,7 @@ const App = () => {
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
   const [reviews, setReviews] = useState([]);
+  const [usersList, setUsersList] = useState([]);
   const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
 
   const history = useHistory();
@@ -68,6 +69,18 @@ const App = () => {
     localStorage.clear();
     history.push('/')
   }
+
+  const getUsers = async () => {
+    const response = await fetch('/api/users', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'Application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    setUsersList(data);
+}
 
   return (<>
   <div id="logo-head">
@@ -130,11 +143,11 @@ const App = () => {
           </Route>
 
           <Route exact path='/users' >
-            <Users user={user} token={token} setSingleUser={setSingleUser} />
+            <Users user={user} setSingleUser={setSingleUser} getUsers={getUsers} usersList={usersList} />
           </Route>
 
           <Route path='/users/:userId'>
-            <SingleUser token={token} user={user} singleUser={singleUser} setSingleUser={setSingleUser} />
+            <SingleUser token={token} user={user} singleUser={singleUser} setSingleUser={setSingleUser} getUsers={getUsers} />
           </Route>
 
           <Route exact path="/checkout/success">

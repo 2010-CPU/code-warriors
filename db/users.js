@@ -1,6 +1,9 @@
 const {client} = require('./client');
 const bcrypt = require('bcrypt');
 
+//allow user to update password as stretch goal
+//on updateuser query, if password then do all of the password stuff
+
 const createUser = async ({firstName, lastName, email, username, password, isAdmin=false, address, city, state, zip}) => { 
     try {
         const SALT_COUNT = 10; 
@@ -91,7 +94,7 @@ const getUserByUsername = async (username) => {
 }
 
 const updateUser = async (fields = {}) => { 
-    const {id} = fields;
+    const {id, password} = fields;
 
     const setString = Object.keys(fields).map((key, index) => {
         if (key === "firstName" || key === "lastName" || key === "isAdmin") {
@@ -102,19 +105,31 @@ const updateUser = async (fields = {}) => {
     }).join(', ');
 
     try {
-        const SALT_COUNT = 10; 
-        const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
 
-        const { rows: [user] } = await client.query(` 
-        UPDATE users
-        SET ${setString}
-        WHERE id = ${id}
-        RETURNING *; 
-        `, Object.values(fields));
+        if (password) {
+            const SALT_COUNT = 10; 
+            const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
 
-        password = hashedPassword
-        delete user.password; 
-        return user;
+            const { rows: [user] } = await client.query(` 
+                UPDATE users
+                SET ${setString}
+                WHERE id = ${id}
+                RETURNING *; 
+            `, Object.values(fields));
+
+            password = hashedPassword
+            delete user.password; 
+            return user;
+        } else {
+            const { rows: [user] } = await client.query(` 
+                UPDATE users
+                SET ${setString}
+                WHERE id = ${id}
+                RETURNING *; 
+            `, Object.values(fields));
+    
+            return user;
+        }
     } catch (error) {
         throw error; 
     }

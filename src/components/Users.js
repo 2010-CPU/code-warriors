@@ -1,20 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {Redirect, Link} from 'react-router-dom';
 
-const Users = ({user, token, setSingleUser}) => {
-    const [usersList, setUsersList] = useState([]);
+//add state back in after you decide how you want to do this
+/* <div>
+    <div>State</div>
+    <select required name='state' value={state} onChange={handleOnChange}></select>
+</div> */
 
-    const getUsers = async () => {
-        const response = await fetch('/api/users', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'Application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        const data = await response.json();
-        setUsersList(data);
-    }
+const Users = ({user, setSingleUser, getUsers, usersList}) => {
 
     useEffect( () => {
         getUsers();
@@ -42,7 +35,7 @@ const Users = ({user, token, setSingleUser}) => {
     }
 }
 
-const SingleUser = ({token, user, singleUser, setSingleUser}) => {
+const SingleUser = ({token, user, singleUser, setSingleUser, getUsers}) => {
     const {id, username, isAdmin, firstName, lastName, email, address, city, state, zip} = singleUser;
     
     const [showEditUser, setShowEditUser] = useState(false);
@@ -56,24 +49,58 @@ const SingleUser = ({token, user, singleUser, setSingleUser}) => {
                 'Content-Type': 'Application/json',
                 'Authorization': `Bearer ${token}`
             }, 
-            body: JSON.stringify({
-                username,
-                isAdmin,
-                firstName,
-                lastName,
-                email, 
-                address, 
-                city, 
-                state,
-                zip
-            })
+            body: JSON.stringify(singleUser)
         })
-        const data = response.json();
+        const data = await response.json();
+        setShowEditUser(!showEditUser)
+        getUsers();
+    }
+
+    const handleOnChange = async (event) => {
+        setSingleUser({...singleUser, [event.target.name]: event.target.value})
     }
 
     if (user.isAdmin) {
         return (<div className='single-user-detail'>
-            {!showEditUser ? 
+                {showEditUser ?
+                <>
+                <h3>Editing {username}</h3>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <div>Username</div>
+                        <input required type='text' name='username' value={username} onChange={handleOnChange}></input>
+                    </div>
+                    <div>
+                        <div>isAdmin? <input type='checkbox' name='isAdmin' value={isAdmin} onChange={handleOnChange}></input></div>
+                    </div>
+                    <div>
+                        <div>First Name</div>
+                        <input required type='text' name='firstName' value={firstName} onChange={handleOnChange}></input>
+                    </div>
+                    <div>
+                        <div>Last Name</div>
+                        <input required type='text' name='lastName' value={lastName} onChange={handleOnChange}></input>
+                    </div>
+                    <div>
+                        <div>Email</div>
+                        <input required type='email' name='email' value={email} onChange={handleOnChange}></input>
+                    </div>
+                    <div>
+                        <div>Address</div>
+                        <input required type='text' name='address' value={address} onChange={handleOnChange}></input>
+                    </div>
+                    <div>
+                        <div>City</div>
+                        <input required type='text' name='city' value={city} onChange={handleOnChange}></input>
+                    </div>
+                    <div>
+                        <div>Zip Code</div>
+                        <input required type='number' name='zip' minLength='5' maxLength='5' value={zip} onChange={handleOnChange}></input>
+                    </div>
+                    <button type='submit'>Save User</button>
+                </form>
+                </>
+                :
                 <>
                 <h3>{username}</h3>
                 <div>User ID: {id}</div>
@@ -83,16 +110,11 @@ const SingleUser = ({token, user, singleUser, setSingleUser}) => {
                 <div>Address: {address} {city}, {state} {zip}</div>
                 <button onClick={() => setShowEditUser(!showEditUser)}>Edit User</button>
                 </>
-                :
-                <>
-                <div>Come back soon to edit a user!</div>
-                </>
             }
         </div>)
     } else {
         return <Redirect to='/' />
     }
-
 }
 
 export {Users, SingleUser};

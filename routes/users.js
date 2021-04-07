@@ -144,10 +144,14 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
         updateFields.password = password
     }
     try {
-        const oldUser = await getUserByUserId(userId);
+        const oldUser = await getUserById(userId);
+        const user = await getUserByUsername(oldUser.username)
+        console.log('olduser: ', oldUser)
 
-        if(oldUser.id === userId){
+        if(user.id === Number(userId)){
             const updatedUser = await updateUser({id: userId, ...updateFields})
+            console.log('updatedUser: ', updatedUser)
+
             res.send(updatedUser)
         } else {
             res.status(500).send({message: 'User update encountered an error.'});
