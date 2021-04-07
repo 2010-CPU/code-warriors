@@ -9,7 +9,9 @@ import {
   getAllProducts,
   getProductById
 } from '../api';
+
 import {Reviews} from './index';
+
 const SmallProduct = ({product, token, cart}) => {
   const {id,name,price,inStock,imageURL} = product;
   
@@ -23,7 +25,6 @@ const SmallProduct = ({product, token, cart}) => {
           "Authorization" : `Bearer ${token}`
         }
       })
-
     } catch (error) {
       console.log(error)
     }

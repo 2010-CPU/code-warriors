@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {SmallProduct} from './Product'
 
-
 const Cart = (props) => {
     const {token, user} = props
     const [cart, setCart] = useState({})
@@ -15,19 +14,35 @@ const Cart = (props) => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-
             const {data} = response
+            if(data){
+                setCart(data)   
+            }
+        } catch (error) {   
+        }
+    }
+    useEffect(() => {
+        if(token){
+            fetchCart()
+        }
+    }, [token])
 
+    const removeItem = async() => {
+        try {
+            const response = await axios.delete('api/orders/cart',{
+                headers:{
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const {data} = response
             if(data){
                 setCart(data)
-                
             }
         } catch (error) {
             
         }
     }
-
-    useEffect(() => {
+    useEffect(() =>{
         if(token){
             fetchCart()
         }
@@ -49,6 +64,7 @@ const Cart = (props) => {
             cart.products ? cart.products.map((product) => {
                 return <Fragment key={product.id}>
                 <h4>Quantity: {product.quantity}</h4>
+                <button onClick={removeItem}>remove</button>
                 <SmallProduct product={product}/>
                 
                 </Fragment>

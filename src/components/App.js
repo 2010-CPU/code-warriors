@@ -58,6 +58,7 @@ const App = () => {
         setUser(meData);
       }
       captureToken();
+      
       const setCart = async () => {
         const response = await fetch(`/api/orders/cart`, {
           method: 'GET',
@@ -67,7 +68,6 @@ const App = () => {
         })
         const cart = await response.json()
         setOrder(cart)
-
       }
       setCart()
     }
