@@ -173,7 +173,7 @@ const AccountForm = ({type, setToken, setUser}) => {
                         </div>
                         <div>
                             <div>Email</div>
-                            <input type='text' value={email} required onChange={event => setEmail(event.target.value)} ></input>
+                            <input type='email' value={email} required onChange={event => setEmail(event.target.value)} ></input>
                         </div>
                         <div>
                             <div>Address</div>
