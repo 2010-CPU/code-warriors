@@ -61,6 +61,18 @@ const App = () => {
         setUser(meData);
       }
       captureToken();
+      
+      const setCart = async () => {
+        const response = await fetch(`/api/orders/cart`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        const cart = await response.json()
+        setOrder(cart)
+      }
+      setCart()
     }
   }, [token]);
 
@@ -171,11 +183,11 @@ const states = [
           </Route>
 
           <Route path="/products/:productId">
-            <ProductView />
+            <ProductView cart={order} token={token}/>
           </Route>
 
           <Route exact path="/products">
-            <ProductsView />
+            <ProductsView cart={order} token={token}/>
           </Route>
 
           <Route exact path="/reviews">
@@ -199,7 +211,7 @@ const states = [
           </Route>
 
           <Route exact path='/cart'>
-            <Cart />
+            <Cart token={token} order={order} user={user} />
           </Route>
 
           <Route exact path='/cart/checkout'>
