@@ -142,6 +142,9 @@ async function populateInitialData() {
     console.log('creating reviews');
     const reviews = [
       { title: 'Everyone loved the crepes!', content: 'The crepes kit was a huge hit with my family. The mimosas were a perfect compliment to the crepes at our brunch. I cannot wait to try another kit soon!', stars: 5, userId: 3, productId: 1 },
+      { title: 'Oh so tasty', content: 'My wife bought me this churros kit, I think I overbaked the churros. They were only okay. But the margs were some of the best I have ever had.', stars: 4, userId: 1, productId: 2 },
+      { title: 'Yummy yummy in my tummy', content: 'Take all of my money. I want to buy every kit. All the kits.', stars: 4, userId: 4, productId: 3 },
+      { title: 'This was delish in my dish!', content: 'The receipes were so easy and so tasty. yummmmm yummmmmmm', stars: 4, userId: 1, productId: 4 },
       { title: 'Those ritas tho.', content: 'My wife bought me this churros kit, I think I overbaked the churros. They were only okay. But the margs were some of the best I have ever had.', stars: 4, userId: 1, productId: 2 },
       { title: 'The lamb was so tender', content: 'I was not sure what to expect with lamb and mint, but it was absolutely delicious. The Jameson was like drinking gasoline. That stuff was hard to sip.', stars: 4, userId: 2, productId: 3 }
 

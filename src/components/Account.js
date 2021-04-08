@@ -5,7 +5,29 @@ import {Reviews} from './index';
 // allow profile image choice later
 
 const Account = ({user, token, reviews, setReviews}) => {
-    const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
+    const {id, firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
+    const {title, content, stars, userId, productId} = reviews;  
+
+    const mappedRev = reviews.map((review,idx) => { 
+        console.log(review.userId)
+        if(user.id === review.userId){
+            return <div> {review} </div>
+        }
+    })
+
+    const userReviews = mappedRev.filter( review => { 
+        if(user.id === mappedRev) { 
+            console.log('review inside of filter', review)
+            return review;
+        }
+    })
+
+    console.log('up top reviews', reviews)
+    console.log('up top rev.userId', mappedRev)
+    console.log('user.id', user.id)
+
+    mappedRev === user.id ? console.log('winner winner') : console.log('not today sucka')
+    
 
     if (token && username) {
         return (<><div className='profile'>
@@ -22,7 +44,13 @@ const Account = ({user, token, reviews, setReviews}) => {
             </div> 
             </div>
             <div className="acct-view-revs"> 
-            <Reviews reviews={reviews} setReviews={setReviews} /> </div> 
+            {userReviews.map((review, idx) => { 
+                console.log(review)
+                return <> <div key={idx}> {review.title} </div> 
+                <div> {review.content} </div>
+                </> 
+            })}
+            </div> 
             </>)
     } else {
         return <Redirect to='/' />

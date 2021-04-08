@@ -15,5 +15,4 @@ function requireAdmin (req, res, next) {
   next();
 }
 
-
 module.exports = {requireUser, requireAdmin}
