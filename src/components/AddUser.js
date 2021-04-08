@@ -26,11 +26,16 @@ const AddUser = ({user, getUsers, states}) => {
             setAddUser(data);
             setAddUserMessage(data ? 'New user has been added.' : '');
             getUsers();
+            history.push('/users');
         }
     }
 
     const handleOnChange = async (event) => {
-        setAddUser({...addUser, [event.target.name]: event.target.value})
+        if (event.target.name === 'isAdmin') {
+            setAddUser({...addUser, [event.target.name]: !isAdmin})
+        } else  {
+            setAddUser({...addUser, [event.target.name]: event.target.value});
+        }
     }
 
     if (user.isAdmin) {
@@ -52,7 +57,7 @@ const AddUser = ({user, getUsers, states}) => {
                     <input type='password' name='confirmPassword' value={confirmPassword} minLength='7' maxLength='20' required onChange={event => setConfirmPassword(event.target.value)}></input>
                 </div>
                 <div>
-                    <div>isAdmin? <input type='checkbox' name='isAdmin' value={isAdmin} onChange={handleOnChange}></input></div>
+                    <div>isAdmin? <input type='checkbox' name='isAdmin' checked={isAdmin} value={isAdmin} onChange={handleOnChange}></input></div>
                 </div>
                 <div>
                     <div>First Name</div>

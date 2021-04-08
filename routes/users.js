@@ -8,7 +8,7 @@ const {JWT_SECRET = 'nevertell'} = process.env;
 const {requireUser, requireAdmin} = require('./utils');
 
 usersRouter.post('/register', async (req, res, next) => {
-    const {username, password, firstName, lastName, email, address, city, state, zip} = req.body;
+    const {username, password, firstName, lastName, isAdmin, email, address, city, state, zip} = req.body;
 
     try {
         const checkUser = await getUserByUsername(username);
@@ -19,7 +19,7 @@ usersRouter.post('/register', async (req, res, next) => {
             res.status(500).send({message: 'Password must be a minimum of 8 characters.'});
         } else {
 
-            const user = await createUser({firstName, lastName, email, username, password, address, city, state, zip});
+            const user = await createUser({firstName, lastName, email, isAdmin, username, password, address, city, state, zip});
             const token = jwt.sign({
                 id: user.id,
                 username

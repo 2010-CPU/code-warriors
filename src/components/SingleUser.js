@@ -24,7 +24,11 @@ const SingleUser = ({token, user, singleUser, setSingleUser, getUsers, states}) 
     }
 
     const handleOnChange = async (event) => {
-        setSingleUser({...singleUser, [event.target.name]: event.target.value});
+        if (event.target.name === 'isAdmin') {
+            setSingleUser({...singleUser, [event.target.name]: !isAdmin})
+        } else  {
+            setSingleUser({...singleUser, [event.target.name]: event.target.value});
+        }
     }
 
     if (user.isAdmin) {
@@ -38,7 +42,7 @@ const SingleUser = ({token, user, singleUser, setSingleUser, getUsers, states}) 
                         <input required type='text' name='username' minLength='3' maxLength='20' value={username} onChange={handleOnChange}></input>
                     </div>
                     <div>
-                        <div>isAdmin? <input type='checkbox' name='isAdmin' value={!isAdmin} onChange={handleOnChange}></input></div>
+                        <div>isAdmin? <input type='checkbox' name='isAdmin' checked={isAdmin} value={isAdmin} onChange={handleOnChange}></input></div>
                     </div>
                     <div>
                         <div>First Name</div>
