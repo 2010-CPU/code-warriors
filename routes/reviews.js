@@ -20,6 +20,7 @@ reviewsRouter.get('/', async (req, res, next) => {
 })
 
 reviewsRouter.post('/', requireUser, async (req, res, next) => { 
+    const { title, content, stars, userId, productId } = req.body; 
     try {
         const review = await createReview({title, content, stars, userId, productId})
         res.send(review);

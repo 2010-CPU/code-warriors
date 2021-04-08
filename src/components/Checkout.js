@@ -32,8 +32,6 @@ const Checkout = ({ order, user, token }) => {
 
     return (<div className='checkout'>
 
-    <h3> welcome to checkout</h3>
-
     <Cart/>
 
     { token

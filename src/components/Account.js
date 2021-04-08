@@ -1,15 +1,15 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
+import {Reviews} from './index';
 
 // allow profile image choice later
 
-const Account = ({user, token}) => {
+const Account = ({user, token, reviews, setReviews}) => {
     const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
-    user.imageURL = 'images/user-images/muffins.jpg'
 
     if (token && username) {
-        return (<div className='profile'>
-            <div className='bg-image img1'> 
+        return (<><div className='profile'>
+            <div className='acct-container'> 
             <h2>Account Information for {firstName}</h2>
             
             <img className='profile-image' src={imageURL} alt='userphotolink' />
@@ -20,7 +20,10 @@ const Account = ({user, token}) => {
             <div>Address: </div> <div> {address}<br/> {city}, {state} {zip}</div>
             </div>
             </div> 
-        </div>)
+            </div>
+            <div className="acct-view-revs"> 
+            <Reviews reviews={reviews} setReviews={setReviews} /> </div> 
+            </>)
     } else {
         return <Redirect to='/' />
     }

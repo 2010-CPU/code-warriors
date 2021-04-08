@@ -11,35 +11,46 @@ import {
 
 import {Reviews} from './index';
 
-const SmallProduct = ({product}) => {
+const SmallProduct = ({product,reviews, setReviews}) => {
   const {id,name,price,inStock,imageURL} = product;
 
   return (
-    <div className="bg-image img1"> 
+    <div className="shop-container"> 
+    <div className="small-prod-container"> 
     <div className="small-product">
-    <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
-    <h1><Link to={`/products/${id}`}>{name}</Link> - ${price}</h1>
+    <Link to={`/products/${id}`}><img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/> </Link> </div>
+    <h1 className="prod-info">{name}<br/> ${price}</h1>
+    <img className="rev-image" src={"images/5_stars.png" } alt={"5stars"}/>
+    
+    {/* <Reviews reviews={reviews} setReviews={setReviews} productId={id} />  */}
+    
     </div>
     </div>
   )
 }
 
-const Product = ({product}) => {
+const Product = ({product, reviews, setReviews}) => {
   const {id,name,price,inStock,category,description,imageURL} = product;
 
-  return (
-    <div className='bg-image img1'> 
+  return (<div className="prod-container"> 
     <div className="product">
+    <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
+    <div className="prod-details"> 
       <h1>{name}</h1>
       <h2>${price} - {inStock ? "In Stock!" : "Out of Stock!"}</h2>
       <h3>{category}</h3>
       <p>{description}</p>
-      <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
-    </div> </div>
+      </div>
+      <button className="btn"> Add To Cart</button>
+    </div>
+    <div className="prod-reviews"> 
+    <Reviews reviews={reviews} setReviews={setReviews} productId={id}/>
+    </div>
+     </div>
   )
 }
 
-const ProductsView = () => {
+const ProductsView = ({reviews, setReviews}) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -58,14 +69,15 @@ const ProductsView = () => {
     <div className="products">
       {
         products.map(product => (
-          <SmallProduct key={product.id} product={product} />
+          <SmallProduct key={product.id} product={product} reviews={reviews} setReviews={setReviews}/>
+
         ))
       }
     </div>
   )
 }
 
-const ProductView = () => {
+const ProductView = ({reviews, setReviews}) => {
   const [product, setProduct] = useState({});
   const {productId} = useParams();
 
@@ -84,7 +96,7 @@ const ProductView = () => {
   }, [productId]);
 
   return (<>
-    <Product product={product} />
+    <Product product={product} reviews={reviews} setReviews={setReviews} />
     </>
   )
 }

@@ -1,3 +1,4 @@
+
 function requireUser (req, res, next) {
     if (!req.user) {
       res.status(401);
@@ -13,5 +14,6 @@ function requireAdmin (req, res, next) {
   }
   next();
 }
+
 
 module.exports = {requireUser, requireAdmin}

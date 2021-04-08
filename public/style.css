@@ -27,6 +27,9 @@ header {
 body{
   background-color: #2c2c3d;
 }
+footer{
+  background-color: #2c2c3d; 
+}
 .nav-bar a {
   position: sticky;
   top: 0;
@@ -57,6 +60,12 @@ body{
   text-align: center;
   color: red;
   font-weight: 700;
+  color: black;
+  background-color: goldenrod;
+  width: 353px;
+  height: 353px;
+  margin: 37px auto 0;
+  border-radius: 50%;
 }
 .image-row{
   display: flex;
@@ -72,6 +81,8 @@ body{
   background-color: #f2f2f2;
   max-width: 33.33333%;
   font-family: Open sans-serif, sans-serif;
+  line-height: 1.6;
+
 }
 .our-title{
   text-align: center;
@@ -123,25 +134,62 @@ input,
 button {
     border: 1px solid black;
 }
-.small-product{
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
 .small-product h1 {
   font-size: 1.5em;  
 }
 .small-product img {
   width: 250px;
-  border-radius: 10%;
+  height: 308px;
 }
 .profile-image {
-  width: 200px;
+  width: 309px;
+  height: 327px;
+  margin: 0 auto 0 0;
+  object-fit: cover;
+  display: block;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+.product{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* background-color: #e5e5e5; */
 }
 .product-img { 
-  display: flex;
-  align-content: center;
-  height: 550px;
-  width: 400;
+  width: 566px;
+  height: 513px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 39px;
+  object-fit: cover;
+  display: block;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+.prod-details{
+  width: 466px;
+  min-height: 370px;
+  background-image: none;
+  margin: -65px auto;
+  text-align: center;
+  background-color: #e5e5e5;
+  justify-content: center;
+  padding: 55px 45px 45px 55px;
+  line-height: 1.6;
+}
+.btn{
+  color: #ffffff !important;
+  background-color: #e00b4c !important;
+  border-width: 0px;
+  border-style: solid;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 22px auto 0;
+  padding: 10px 38px 10px 37px;
 }
 .account-container{ 
   display: grid;
@@ -159,4 +207,101 @@ button {
   border-bottom-left-radius: 1px black;
   margin-trim: 1px black;
 }
+.products{
+  height: auto;
+  grid-gap: 40px 0px;
+  margin: 39px auto 60px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 33.333333333333336%);
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: center;
+}
+.prod-info{ 
+  width: 213px; 
+  min-height: 117px; 
+  background-size: auto;
+  background-color: #e5e5e5;
+  text-align: center;
+  position: relative;
+  text-align: center;
+  margin: -56px auto 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 15px 15px 15px 15px;
+}
+.shopping-cart-container{
+  min-height: 500px;
+  width: 720px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  color: white;
+  border: white;
+}
+.cart-table{
+  margin-top: 63px;
+  margin-bottom: 60px;
+  min-height: 375px;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 65% 15% 15% 15%;
+  border: white;
+}
+.acct-container{
+  text-align: left;
+  padding: 30px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 439px;
+  height: auto;
+  width: 720px;
+  margin: 60px auto 60px 0;
+  line-height: 1.6;
+  margin-left: 14%;
+  margin-right: 4%;
+}
+.small-rev{
+  color: white;
+}
+.rev-image{
+  height: 30px;
+  width: auto;
+}
+.reviews{
+  display: block;
+  width: 400px;
+  height: 600px;
+  background-color: white;
+}
+.acct-view-revs{
+  margin: 300px auto 60px 0;
 
+}
+.single-user-detail{
+  width: 466px;
+  min-height: 370px;
+  background-image: none;
+  margin: 10px auto;
+  text-align: left;
+  background-color: #e5e5e5;
+  justify-content: center;
+  padding: 55px 45px 45px 55px;
+  line-height: 1.6;
+}
+.users-list{
+  height: auto;
+  grid-gap: 40px 0px;
+  margin: 39px auto 60px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 33.333333333333336%);
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: center;
+  background-color: #e5e5e5;
+}
