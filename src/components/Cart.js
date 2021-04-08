@@ -27,31 +27,27 @@ const Cart = (props) => {
         }
     }, [token])
 
-    const removeItem = async() => {
-        try {
-            const response = await axios.delete('api/orders/cart',{
-                headers:{
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            const {data} = response
-            if(data){
-                setCart(data)
-            }
-        } catch (error) {
-            
-        }
-    }
-    useEffect(() =>{
-        if(token){
-            fetchCart()
-        }
-    }, [token])
-
     if(!token){
         return <div>you must be logged in to view this</div>
     }
-
+    
+    const removeItem = async(id) => {
+        try {
+            const response = await axios.delete(`api/order_products/${id}`,{
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            console.log(response)
+            const {data} = await response
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    
     return (<div className='bg-image img1'>
         <div className="cart">
 
@@ -64,7 +60,7 @@ const Cart = (props) => {
             cart.products ? cart.products.map((product) => {
                 return <Fragment key={product.id}>
                 <h4>Quantity: {product.quantity}</h4>
-                <button onClick={removeItem}>remove</button>
+                <button onClick={removeItem(id)}>remove</button>
                 <SmallProduct product={product}/>
                 
                 </Fragment>
