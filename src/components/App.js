@@ -211,7 +211,7 @@ const states = [
           </Route>
 
           <Route exact path='/users/add'>
-            <AddUser token={token} user={user} singleUser={singleUser} setSingleUser={setSingleUser} getUsers={getUsers} states={states} />
+            <AddUser user={user} singleUser={singleUser} setSingleUser={setSingleUser} getUsers={getUsers} states={states} />
           </Route>
 
           <Route exact path='/users/:userId'>
