@@ -8,7 +8,7 @@ const {JWT_SECRET = 'nevertell'} = process.env;
 const {requireUser, requireAdmin} = require('./utils');
 
 usersRouter.post('/register', async (req, res, next) => {
-    const {username, password, firstName, lastName, email, address, city, state, zip} = req.body;
+    const {username, password, firstName, lastName, isAdmin, email, address, city, state, zip} = req.body;
 
     try {
         const checkUser = await getUserByUsername(username);
@@ -19,7 +19,7 @@ usersRouter.post('/register', async (req, res, next) => {
             res.status(500).send({message: 'Password must be a minimum of 8 characters.'});
         } else {
 
-            const user = await createUser({firstName, lastName, email, username, password, address, city, state, zip});
+            const user = await createUser({firstName, lastName, email, isAdmin, username, password, address, city, state, zip});
             const token = jwt.sign({
                 id: user.id,
                 username
@@ -144,10 +144,14 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
         updateFields.password = password
     }
     try {
-        const oldUser = await getUserByUserId(userId);
+        const oldUser = await getUserById(userId);
+        const user = await getUserByUsername(oldUser.username)
+        console.log('olduser: ', oldUser)
 
-        if(oldUser.id === userId){
+        if(user.id === Number(userId)){
             const updatedUser = await updateUser({id: userId, ...updateFields})
+            console.log('updatedUser: ', updatedUser)
+
             res.send(updatedUser)
         } else {
             res.status(500).send({message: 'User update encountered an error.'});
