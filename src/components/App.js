@@ -58,6 +58,7 @@ const App = () => {
         setUser(meData);
       }
       captureToken();
+      
       const setCart = async () => {
         const response = await fetch(`/api/orders/cart`, {
           method: 'GET',
@@ -67,7 +68,6 @@ const App = () => {
         })
         const cart = await response.json()
         setOrder(cart)
-
       }
       setCart()
     }
@@ -106,7 +106,7 @@ const App = () => {
           </Route>
 
           <Route path="/products/:productId">
-            <ProductView cart={order} token={token} reviews={reviews} setReviews={setReviews}/>
+            <ProductView cart={order} token={token} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route exact path="/products">
@@ -149,7 +149,7 @@ const App = () => {
             <SingleUser token={token} user={user} singleUser={singleUser} setSingleUser={setSingleUser} />
           </Route>
 
-          <Route path="/checkout/success">
+          <Route exact path="/checkout/success">
             <h1>THANK YOU FOR YOUR ORDER</h1>
             <p>
               We appreciate every customer that believes in our dream. <br/>
@@ -158,7 +158,7 @@ const App = () => {
             </p>
           </Route>
 
-          <Route path="/checkout/cancel">
+          <Route exact path="/checkout/cancel">
             <h1>CANCELLED THE ORDER</h1>
             <p>
               We hope you come back soon! <br/>

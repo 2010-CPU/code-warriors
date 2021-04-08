@@ -249,6 +249,7 @@ button {
   display: grid;
   grid-template-columns: 65% 15% 15% 15%;
   border: white;
+  background-color: #e5e5e5;
 }
 .acct-container{
   text-align: left;
@@ -264,6 +265,10 @@ button {
   line-height: 1.6;
   margin-left: 14%;
   margin-right: 4%;
+}
+.cart-img{
+  height: 90px;
+  width: auto;
 }
 .small-rev{
   color: white;
