@@ -7,4 +7,6 @@ export {default as Order} from './Order';
 export {default as Cart} from './Cart';
 export {default as Checkout} from './Checkout';
 export {default as Reviews} from './Reviews';
-export {Users, SingleUser} from './Users';
+export {default as Users} from './Users';
+export {default as SingleUser} from './SingleUser';
+export {default as AddUser} from './AddUser';
