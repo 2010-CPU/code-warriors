@@ -29,10 +29,12 @@ const Users = ({user, token, setSingleUser}) => {
                     const {id, username, isAdmin} = _user;
 
                     return (<div className='single-user' key={id}>
+                        <div className="single-user-detail"> 
                         <br />
                         <Link to={`/users/${id}`}><h3 onClick={() => setSingleUser(_user)}>{username}</h3></Link>
                         <div>User ID: {id}</div>
                         <div>isAdmin? {isAdmin ? 'Yes' : 'No'}</div>
+                        </div>
                     </div>)
                 })}
             </div>

@@ -285,11 +285,10 @@ button {
 }
 .acct-view-revs{
   margin: 300px auto 60px 0;
-
 }
 .single-user-detail{
-  width: 466px;
-  min-height: 370px;
+  width: 266px;
+  min-height: 270px;
   background-image: none;
   margin: 10px auto;
   text-align: left;
@@ -308,5 +307,4 @@ button {
   margin-left: 0 !important;
   margin-right: 0 !important;
   text-align: center;
-  background-color: #e5e5e5;
 }
