@@ -1,11 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Redirect, Link} from 'react-router-dom';
 
-//add state back in after you decide how you want to do this
-/* <div>
-    <div>State</div>
-    <select required name='state' value={state} onChange={handleOnChange}></select>
-</div> */
+//set a message for the username update if the username you are trying to change already exists
 
 const Users = ({user, setSingleUser, getUsers, usersList}) => {
 
@@ -16,7 +12,7 @@ const Users = ({user, setSingleUser, getUsers, usersList}) => {
     if (user.isAdmin) {
         return (<>
             <h2>List of Users</h2>
-            <button>Add A New User</button>
+            <Link to='/users/add'><button>Add A New User</button></Link>
             <div className='users-list'>
                 {usersList.map(_user => {
                     const {id, username, isAdmin} = _user;
@@ -35,7 +31,7 @@ const Users = ({user, setSingleUser, getUsers, usersList}) => {
     }
 }
 
-const SingleUser = ({token, user, singleUser, setSingleUser, getUsers}) => {
+const SingleUser = ({token, user, singleUser, setSingleUser, getUsers, states}) => {
     const {id, username, isAdmin, firstName, lastName, email, address, city, state, zip} = singleUser;
     
     const [showEditUser, setShowEditUser] = useState(false);
@@ -94,6 +90,14 @@ const SingleUser = ({token, user, singleUser, setSingleUser, getUsers}) => {
                         <input required type='text' name='city' value={city} onChange={handleOnChange}></input>
                     </div>
                     <div>
+                        <div>State</div>
+                        <select required name='state' selected={state} value={state} onChange={handleOnChange}>
+                            {states.map((state, index) => {
+                                return <option key={index}>{`${state.value}`}</option>
+                            })}
+                        </select>
+                    </div>
+                    <div>
                         <div>Zip Code</div>
                         <input required type='number' name='zip' minLength='5' maxLength='5' value={zip} onChange={handleOnChange}></input>
                     </div>
@@ -117,4 +121,16 @@ const SingleUser = ({token, user, singleUser, setSingleUser, getUsers}) => {
     }
 }
 
-export {Users, SingleUser};
+const AddUser = ({token, user, singleUser, setSingleUser, getUsers, states}) => {
+    
+    if (user.isAdmin) {
+        return (<div>
+            this is add user
+        </div>)
+    } else {
+        return <Redirect to='/' />
+    }
+
+}
+
+export {Users, SingleUser, AddUser};
