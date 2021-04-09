@@ -6,7 +6,7 @@ import {SmallProduct} from './Product'
 const Cart = (props) => {
     const {token, user} = props
     const [cart, setCart] = useState({})
-    
+
     const fetchCart = async () =>{
         try {
             const response = await axios.get('api/orders/cart',{
@@ -16,9 +16,9 @@ const Cart = (props) => {
             })
             const {data} = response
             if(data){
-                setCart(data)   
+                setCart(data)
             }
-        } catch (error) {   
+        } catch (error) {
         }
     }
     useEffect(() => {
@@ -27,29 +27,32 @@ const Cart = (props) => {
         }
     }, [token])
 
-    const removeItem = async() => {
+    if(!token){
+        return <div>you must be logged in to view this</div>
+    }
+
+    const removeItem = async(id) => {
         try {
-            const response = await axios.delete('api/orders/cart',{
+          const op_rsp = await axios.get(`api/order_products/${cart.id}`); // Get all order products associated with cart
+          const order_products = await op_rsp.data; // Destructure from response Object
+
+          // Get the first order product that matches product id
+          const [order_product] = order_products.filter((order_product) => {
+            return order_product.productId === id;
+          })
+          
+            const response = await axios.delete(`api/order_products/${order_product.id}`,{
                 headers:{
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
             })
-            const {data} = response
-            if(data){
-                setCart(data)
-            }
-        } catch (error) {
-            
-        }
-    }
-    useEffect(() =>{
-        if(token){
+            const {data} = await response
             fetchCart()
+            return data;
+        } catch (error) {
+            console.log(error)
         }
-    }, [token])
-
-    if(!token){
-        return <div>you must be logged in to view this</div>
     }
 
     return (<div className='bg-image img1'>
@@ -64,9 +67,9 @@ const Cart = (props) => {
             cart.products ? cart.products.map((product) => {
                 return <Fragment key={product.id}>
                 <h4>Quantity: {product.quantity}</h4>
-                <button onClick={removeItem}>remove</button>
+                <button onClick={() => removeItem(product.id)}>remove</button>
                 <SmallProduct product={product}/>
-                
+
                 </Fragment>
             }) : null
         }
