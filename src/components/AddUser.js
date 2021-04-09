@@ -23,8 +23,8 @@ const AddUser = ({user, getUsers, states}) => {
                 body: JSON.stringify(addUser)
             })
             const data = await response.json();
-            setAddUser(data);
             setAddUserMessage(data ? 'New user has been added.' : '');
+            setConfirmPassword('');
             getUsers();
             history.push('/users');
         }
@@ -43,6 +43,7 @@ const AddUser = ({user, getUsers, states}) => {
             <div>{addUserMessage}</div>
             <br />
             <h2>Add A New User</h2>
+            <br />
             <form onSubmit={handleSubmit}>
                 <div>
                     <div>Username</div>

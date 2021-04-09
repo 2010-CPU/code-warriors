@@ -10,3 +10,4 @@ export {default as Reviews} from './Reviews';
 export {default as Users} from './Users';
 export {default as SingleUser} from './SingleUser';
 export {default as AddUser} from './AddUser';
+export {default as AllOrders} from './AllOrders';
