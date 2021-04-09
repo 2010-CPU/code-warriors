@@ -52,13 +52,17 @@ const Account = ({user, token, reviews, setReviews}) => {
             </div>
             </div> 
             </div>
-            <h3> Your reviews from your past orders:  </h3>
+            
             <div className="acct-view-revs"> 
-            {userReviews.map((review, idx) => { 
-                return <> <div key={idx}> Title: {review.title} </div> 
-                <div>  Review:  {review.content} </div>
-                <div> Stars rating: {review.stars} </div>
+            <h3 > Your reviews from your past orders:  </h3> <br/>
+            {userReviews.map((review) => { 
+                const {id, title, content, stars, userId, productId} = review;
+                return <> 
+                <div> Title: {title} </div> 
+                <div>  Review:  {content} </div>
+                <div> Stars rating: {stars} </div>
                 <button className="btn" onClick={editReview}> Edit </button> <button className="btn"> Delete </button>
+                <br/>
                 </> 
             })}
             </div> 

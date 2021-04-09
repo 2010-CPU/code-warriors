@@ -292,7 +292,7 @@ button {
   background-color: white;
 }
 .acct-view-revs{
-  margin: 100px auto 60px 0;
+  margin: 20px auto 60px 0;
   display: grid;
   grid-template-columns: auto;
   padding: 55px 45px 45px 55px;
@@ -324,4 +324,14 @@ button {
 }
 .cost-container{
   display: grid;
+}
+.all-orders{
+  background-color: #e5e5e5;
+  min-height: 431px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: 20px;
 }
