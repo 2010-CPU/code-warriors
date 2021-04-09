@@ -146,11 +146,9 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
     try {
         const oldUser = await getUserById(userId);
         const user = await getUserByUsername(oldUser.username)
-        console.log('olduser: ', oldUser)
 
         if(user.id === Number(userId)){
             const updatedUser = await updateUser({id: userId, ...updateFields})
-            console.log('updatedUser: ', updatedUser)
 
             res.send(updatedUser)
         } else {

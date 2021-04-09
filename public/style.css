@@ -5,7 +5,8 @@
   margin: 0;
 }
 
-#is-not-admin {
+#users-is-not-admin,
+#orders-is-not-admin {
   display: none;
 }
 

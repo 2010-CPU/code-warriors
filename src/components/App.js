@@ -20,6 +20,7 @@ import {
   Users,
   SingleUser,
   AddUser,
+  AllOrders,
 
 } from './';
 
@@ -167,7 +168,8 @@ const states = [
       <Link to="/products">Shop</Link>
       <Link to="/cart">Cart</Link>
       <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
-      <Link to='/users' id={user.isAdmin ? '' : 'is-not-admin'}>Users</Link>
+      <Link to='/users' id={user.isAdmin ? '' : 'users-is-not-admin'}>Users</Link>
+      <Link to='/orders' id={user.isAdmin ? '' : 'orders-is-not-admin'}>Orders</Link>
       <Link to="/" id={token ? '' : 'loggedOut-logout'} onClick={handleLogout}>Logout</Link>
       <Link to="/login" id={!token ? '' : 'loggedOut-login'}>Login</Link>
     </nav>
@@ -228,6 +230,10 @@ const states = [
 
           <Route exact path='/users/:userId'>
             <SingleUser token={token} user={user} singleUser={singleUser} setSingleUser={setSingleUser} getUsers={getUsers} states={states} />
+          </Route>
+
+          <Route exact path='/orders'>
+            <AllOrders token={token} user={user} />
           </Route>
 
           <Route exact path="/checkout/success">

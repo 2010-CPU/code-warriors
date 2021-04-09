@@ -11,11 +11,11 @@ const {
   getCartByUser,
   addProductToOrder
 } = require('../db');
-const {requireUser} = require('./utils');
+const {requireUser, requireAdmin} = require('./utils');
 
 //might need to fix completeOrder
 
-ordersRouter.get('/', requireUser, async (req,res,next) => {
+ordersRouter.get('/', requireAdmin, async (req,res,next) => {
   try {
     if (req.user.isAdmin) {
       const orders = await getAllOrders();
