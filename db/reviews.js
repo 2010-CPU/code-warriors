@@ -58,14 +58,24 @@ const getReviewByProductId = async (productId) => {
     }
 }
 
-const updateReview = async ({id, title, content, stars, userId, productId}) => {
+const updateReview = async (fields = {}) => {
+    const {id} = fields;
+
+    const setString = Object.keys(fields).map((key, index) => {
+        if (key === "title" || key === "content" || key === "stars") {
+            return `"${key}"=$${index + 1}`;
+        } else {
+            return `${key}=$${index + 1}`;
+        }
+    }).join(', ');
+    
     try {
         const { rows: [review] } = await client.query(` 
             UPDATE reviews,
-            SET title = $2, content = $3, stars = $4, userId = $5, productId = $6
-            WHERE id = $1
+            SET ${setString}
+            WHERE id = ${id}
             RETURNING *; 
-        `, [id, title, content, stars, userId, productId])
+        `, Object.values(fields))
 
         return review; 
     } catch (error) {
