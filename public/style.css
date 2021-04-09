@@ -239,6 +239,10 @@ button {
   line-height: 1.6;
   padding: 15px 15px 15px 15px;
 }
+.cost-container{
+  table-layout: auto;
+  width: 100%;
+}
 .shopping-cart-container{
   min-height: 500px;
   width: 720px;
@@ -250,14 +254,13 @@ button {
 .cart-table{
   margin-top: 63px;
   margin-bottom: 60px;
-  min-height: 375px;
-  width: 100%;
   border-collapse: collapse;
   text-align: left;
-  display: grid;
-  grid-template-columns: 65% 15% 15% 15%;
+  table-layout: auto;
+  width: 100%;
   border: white;
   background-color: #e5e5e5;
+  color: #2c2c3d;
 }
 .acct-container{
   text-align: left;
@@ -322,9 +325,7 @@ button {
   margin-right: 0 !important;
   text-align: center;
 }
-.cost-container{
-  display: grid;
-}
+
 .all-orders{
   background-color: #e5e5e5;
   min-height: 431px;
