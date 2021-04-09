@@ -67,10 +67,10 @@ const Cart = (props) => {
             cart.products ? cart.products.map((product, idx) => {
                 return <> 
                 <div  key={product.id}>
-                <img className="cart-img" src={product.imageURL}/> 
-                <h4 className="prod-col" key={idx-1}> {product.name}</h4>
-                <h4>Quantity: {product.quantity}</h4>
-                <h4 className="sub-col" key={idx+2}> ${product.price}.00</h4>
+                <img className="cart-img" key={idx-1}src={product.imageURL}/> 
+                <h4 className="prod-col" key={idx-200}> {product.name}</h4>
+                <h4 key={idx-300}>Quantity: {product.quantity}</h4>
+                <h4 className="sub-col" key={idx-4}> ${product.price}.00</h4>
                 <button className="btn" onClick={removeItem}>remove</button>
                 
                 </div>

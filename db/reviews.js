@@ -62,11 +62,9 @@ const updateReview = async (fields = {}) => {
     const {id} = fields;
 
     const setString = Object.keys(fields).map((key, index) => {
-        if (key === "title" || key === "content" || key === "stars") {
-            return `"${key}"=$${index + 1}`;
-        } else {
+        if (key === 'title' || key === 'content' || key === 'stars') {
             return `${key}=$${index + 1}`;
-        }
+        } 
     }).join(', ');
     
     try {

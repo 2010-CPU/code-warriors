@@ -10,8 +10,6 @@ import {
   getProductById
 } from '../api';
 
-import {Reviews} from './index';
-
 const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
   const {id,name,price,inStock,imageURL} = product;
   
@@ -29,6 +27,15 @@ const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
       console.log(error)
     }
   }
+  const shopReviews = reviews.filter((review) => {
+    if(product.id === review.productId){
+      return review
+    }
+  })
+  const stars = shopReviews.map((review) => { 
+    return review.stars
+  })
+  const avgStars = stars.reduce((a,b) => a + b, 0) / stars.length
 
   return (
     <div className="shop-container"> 
@@ -36,11 +43,10 @@ const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
     <div className="small-product">
     <Link to={`/products/${id}`}><img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/> </Link> </div>
     <h1 className="prod-info">{name}<br/> ${price}</h1>
-    <img className="rev-image" src={"images/5_stars.png" } alt={"5stars"}/>
-    
-    {/* <Reviews reviews={reviews} setReviews={setReviews} productId={id} />  */}
-    
-    <button onClick={addToCart}> add to cart </button>
+    <h2 className="rev-image">{avgStars > 4 
+    ? <img className="rev-image" src={'/images/5.stars.png'}/> 
+    : <img className="rev-image" src={'/images/4_stars.png'}/>}</h2> 
+    <button className="btn" onClick={addToCart}> add to cart </button>
     </div>
     </div>
   )
@@ -77,7 +83,6 @@ const Product = ({product, reviews, setReviews, cart, token}) => {
       <button className="btn" onClick={addToCart}> Add To Cart</button>
     </div>
     <div className="prod-reviews"> 
-    <Reviews reviews={reviews} setReviews={setReviews} productId={id}/>
     </div>
      </div>
   )
@@ -105,7 +110,7 @@ const ProductsView = ({cart, token, reviews, setReviews}) => {
 
           <SmallProduct key={product.id} product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token}/>
 
-        ))
+          ))
       }
     </div>
   )
@@ -129,8 +134,25 @@ const ProductView = ({ reviews, setReviews, cart, token}) => {
     getProduct();
   }, [productId]);
 
+  const prodReviews = reviews.filter( review => { 
+    if(product.id === review.productId) { 
+        return review;
+    }
+})
+console.log(prodReviews)
+
   return (<>
-    <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token} />
+    <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token} key={productId} />
+    <div className="prod-reviews"> 
+    <h2> See what our customers have to say about {product.name}:</h2> <br/>
+
+      {prodReviews.map((review,idx) => { 
+        return <>
+        <h3 key={idx-1}> {review.title} Star Rating: {review.stars}</h3> 
+        <div key={idx-100}> {review.content} </div> <br/> 
+        </>
+      })}
+    </div>
     </>
   )
 }

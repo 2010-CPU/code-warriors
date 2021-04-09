@@ -154,8 +154,6 @@ button {
 .product{
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* background-color: #e5e5e5; */
 }
 .product-img { 
   width: 566px;
@@ -179,6 +177,11 @@ button {
   justify-content: center;
   padding: 55px 45px 45px 55px;
   line-height: 1.6;
+}
+.prod-reviews{
+  background-color: white;
+  padding: 1% 1% 1% 1%;
+  margin: 10px auto;
 }
 .btn{
   color: #ffffff !important;
@@ -284,7 +287,13 @@ button {
   background-color: white;
 }
 .acct-view-revs{
-  margin: 300px auto 60px 0;
+  margin: 100px auto 60px 0;
+  display: grid;
+  grid-template-columns: auto;
+  padding: 55px 45px 45px 55px;
+  background-color: #e5e5e5;
+  border: 2px black thin;
+
 }
 .single-user-detail{
   width: 266px;

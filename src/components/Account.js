@@ -1,33 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom';
 import {Reviews} from './index';
 
 // allow profile image choice later
 
 const Account = ({user, token, reviews, setReviews}) => {
-    const {id, firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
-    const {title, content, stars, userId, productId} = reviews;  
+    const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
+    const {id} = reviews; 
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [stars, setStars] = useState(0);
 
-    const mappedRev = reviews.map((review,idx) => { 
-        console.log(review.userId)
-        if(user.id === review.userId){
-            return <div> {review} </div>
-        }
-    })
+    const editReview = async(event) => {
+        event.preventDefault();
 
-    const userReviews = mappedRev.filter( review => { 
-        if(user.id === mappedRev) { 
-            console.log('review inside of filter', review)
+        const response = await fetch(`/api/account/${reviews.id}`, { 
+            method: 'PATCH',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                title, 
+                content, 
+                stars
+            })
+        }); 
+        const data = await response.json();
+        setTitle('');
+        setContent('');
+        setStars('');
+    }
+
+    const userReviews = reviews.filter( review => { 
+        if(user.id === review.userId) { 
             return review;
         }
     })
-
-    console.log('up top reviews', reviews)
-    console.log('up top rev.userId', mappedRev)
-    console.log('user.id', user.id)
-
-    mappedRev === user.id ? console.log('winner winner') : console.log('not today sucka')
-    
 
     if (token && username) {
         return (<><div className='profile'>
@@ -43,11 +52,13 @@ const Account = ({user, token, reviews, setReviews}) => {
             </div>
             </div> 
             </div>
+            <h3> Your reviews from your past orders:  </h3>
             <div className="acct-view-revs"> 
             {userReviews.map((review, idx) => { 
-                console.log(review)
-                return <> <div key={idx}> {review.title} </div> 
-                <div> {review.content} </div>
+                return <> <div key={idx}> Title: {review.title} </div> 
+                <div>  Review:  {review.content} </div>
+                <div> Stars rating: {review.stars} </div>
+                <button className="btn" onClick={editReview}> Edit </button> <button className="btn"> Delete </button>
                 </> 
             })}
             </div> 

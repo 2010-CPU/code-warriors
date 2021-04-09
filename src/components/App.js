@@ -38,6 +38,21 @@ const App = () => {
 
   const history = useHistory();
 
+  const getReviews = async () => {
+    const response = await fetch(`/api/reviews`, {
+        method: 'GET',
+        headers: {
+            'Content-Type' : 'Application/json'
+        }
+    });
+    const data = await response.json();
+    setReviews(data);
+}
+
+useEffect( () => {
+    getReviews();
+}, [])
+
   useEffect( () => {
     getSomething()
       .then(response => {

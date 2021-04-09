@@ -2,20 +2,7 @@ import React, { useEffect } from 'react';
 
 const Reviews = ({reviews, setReviews, productId}) => { 
 
-    const getReviews = async () => {
-        const response = await fetch(`/api/reviews`, {
-            method: 'GET',
-            headers: {
-                'Content-Type' : 'Application/json'
-            }
-        });
-        const data = await response.json();
-        setReviews(data);
-    }
-
-    useEffect( () => {
-        getReviews();
-    }, [])
+    
 
     return (<>
         <div className="reviews"> 
