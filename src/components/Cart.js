@@ -33,9 +33,6 @@ const Cart = (props) => {
 
     const removeItem = async(id) => {
         try {
-          // ### CHANGES
-          // ### CHANGES
-          // ### CHANGES
           const op_rsp = await axios.get(`api/order_products/${cart.id}`); // Get all order products associated with cart
           const order_products = await op_rsp.data; // Destructure from response Object
 
@@ -50,9 +47,8 @@ const Cart = (props) => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            //console.log(response)
             const {data} = await response
-            //console.log(data)
+            fetchCart()
             return data;
         } catch (error) {
             console.log(error)

@@ -28,9 +28,6 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
     }
 };
 
-// ### CHANGES
-// ### CHANGES
-// ### CHANGES
 const getAllOrderProducts = async (orderId) => {
   // SQL to find each order product associated with order
   try {

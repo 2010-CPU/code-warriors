@@ -32,9 +32,6 @@ orderProductsRouter.patch('/:orderProductId', async (req, res, next) => {
     }
 })
 
-// ### CHANGES
-// ### CHANGES
-// ### CHANGES
 orderProductsRouter.get('/:orderId', async (req,res,next) => {
   // take orderId parameter, get all order_products for order (getAllOrderProducts)
 
@@ -45,10 +42,7 @@ orderProductsRouter.get('/:orderId', async (req,res,next) => {
   } catch (error) {
     next(error);
   }
-
-  //return them
 })
-
 
 orderProductsRouter.delete('/:orderProductId', async (req, res, next) => {
     const {orderProductId} = req.params;
