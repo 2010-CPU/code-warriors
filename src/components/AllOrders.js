@@ -2,12 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import moment from 'moment';
 
-//use a piece of state and a ternary that shows product details
-//if showProduct is true and id is id tied to this product, then show
-//boolean and orderId on the state
-//ternary for detail would check if orderId matches the id and the boolean is true
-//onClick of the product, it would set the state for true and change the id 
-
 const AllOrders = ({token, user}) => {
     const [orders, setOrders] = useState([]);
 
@@ -20,7 +14,6 @@ const AllOrders = ({token, user}) => {
             }
         });
         const data = await response.json();
-        console.log('data: ', data)
         setOrders(data);
     }
 

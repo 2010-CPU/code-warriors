@@ -10,6 +10,10 @@
   display: none;
 }
 
+.single-product {
+  text-indent: 2em;
+}
+
 #loggedOut-account, #loggedOut-logout, #loggedOut-login {
   display: none;
 }
