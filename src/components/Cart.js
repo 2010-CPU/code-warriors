@@ -3,9 +3,8 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {SmallProduct} from './Product'
 
-const Cart = (props) => {
-    const {token, user} = props
-    const [cart, setCart] = useState({})
+const Cart = ({token, user}) => {
+    const [cart, setCart] = useState({});
 
     const fetchCart = async () =>{
         try {
@@ -77,6 +76,10 @@ const Cart = (props) => {
                 <td><h4 >Quantity: {quantity}</h4></td>
                 <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
                 <button className="btn" onClick={removeItem}>remove</button> 
+                {/* <button onClick={() =>  setCount(count + 1)}>+</button>
+                {(product.quantity = count)}
+                <button onClick={() => { shoe.qty > 1 ? setCount(count - 1) : setCount(1);}}>
+                    -</button> */}
                 </Fragment>
             })
             : ''
