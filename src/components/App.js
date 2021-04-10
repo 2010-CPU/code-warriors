@@ -39,6 +39,7 @@ const App = () => {
 
   const history = useHistory();
 
+
   useEffect( () => {
     getSomething()
       .then(response => {
@@ -159,6 +160,21 @@ const states = [
   { 'label':'Wyoming', 'value': 'WY'}
   ];
 
+  const getReviews = async () => {
+    const response = await fetch(`/api/reviews`, {
+        method: 'GET',
+        headers: {
+            'Content-Type' : 'Application/json'
+        }
+    });
+    const data = await response.json();
+    setReviews(data);
+}
+
+useEffect( () => {
+    getReviews();
+}, [])
+
   return (<>
   <div id="logo-head">
   <h1 className="logo">FOOD WITH FRIENDS</h1>
@@ -185,11 +201,11 @@ const states = [
           </Route>
 
           <Route path="/products/:productId">
-            <ProductView cart={order} token={token}/>
+            <ProductView cart={order} token={token} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route exact path="/products">
-            <ProductsView cart={order} token={token}/>
+            <ProductsView cart={order} token={token} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route exact path="/reviews">
@@ -205,7 +221,7 @@ const states = [
           </Route>
 
           <Route path='/account'>
-            <Account user={user} token={token} />
+            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route path='/orders/:orderId'>
@@ -237,21 +253,25 @@ const states = [
           </Route>
 
           <Route exact path="/checkout/success">
+            <div className="success">
             <h1>THANK YOU FOR YOUR ORDER</h1>
             <p>
               We appreciate every customer that believes in our dream. <br/>
               If you have any questions, please e-mail <br/>
               <a href="mailto:orders@example.com">orders@example.com</a>
             </p>
+            </div>
           </Route>
 
           <Route exact path="/checkout/cancel">
+            <div className="cancelled"> 
             <h1>CANCELLED THE ORDER</h1>
             <p>
               We hope you come back soon! <br/>
               If you have any questions, please e-mail <br/>
               <a href="mailto:orders@example.com">orders@example.com</a>
             </p>
+            </div>
           </Route>
 
         </Switch>

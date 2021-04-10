@@ -4,16 +4,13 @@
   padding: 0;
   margin: 0;
 }
-
 #users-is-not-admin,
 #orders-is-not-admin {
   display: none;
 }
-
 .single-product {
   text-indent: 2em;
 }
-
 #loggedOut-account, #loggedOut-logout, #loggedOut-login {
   display: none;
 }
@@ -31,6 +28,9 @@ header {
 }
 body{
   background-color: #2c2c3d;
+}
+footer{
+  background-color: #2c2c3d; 
 }
 .nav-bar a {
   position: sticky;
@@ -60,8 +60,13 @@ body{
 }
 .FP-logo{
   text-align: center;
-  color: red;
   font-weight: 700;
+  color: black;
+  background-color: goldenrod;
+  width: 353px;
+  height: 353px;
+  margin: 37px auto 0;
+  border-radius: 50%;
 }
 .image-row{
   display: flex;
@@ -77,6 +82,8 @@ body{
   background-color: #f2f2f2;
   max-width: 33.33333%;
   font-family: Open sans-serif, sans-serif;
+  line-height: 1.6;
+
 }
 .our-title{
   text-align: center;
@@ -119,7 +126,7 @@ body{
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
-  flex: 0 0 66.66666%
+  flex: 0 0 66.66666%;
 }
 .logo-image{
   margin-top: 90px;
@@ -128,25 +135,84 @@ input,
 button {
     border: 1px solid black;
 }
-.small-product{
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
 .small-product h1 {
   font-size: 1.5em;  
 }
 .small-product img {
   width: 250px;
-  border-radius: 10%;
+  height: 308px;
+}
+.acct-container{
+  text-align: left;
+  padding: 30px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 439px;
+  margin: 60px auto 60px 0;
+  line-height: 1.6;
+  margin-left: 4%;
+  margin-right: 4%;
 }
 .profile-image {
-  width: 200px;
+  width: 309px;
+  height: 327px;
+  margin: 0 auto 0 0;
+  object-fit: cover;
+  display: block;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+.profile{ 
+  display: grid;
+  grid-template-columns: 40% 60% ;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+.product{
+  display: flex;
+  flex-direction: column;
 }
 .product-img { 
-  display: flex;
-  align-content: center;
-  height: 550px;
-  width: 400;
+  width: 566px;
+  height: 513px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 39px;
+  object-fit: cover;
+  display: block;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+.prod-details{
+  width: 466px;
+  min-height: 370px;
+  background-image: none;
+  margin: -65px auto;
+  text-align: center;
+  background-color: #e5e5e5;
+  justify-content: center;
+  padding: 55px 45px 45px 55px;
+  line-height: 1.6;
+}
+.prod-reviews{
+  background-color: white;
+  padding: 0% 10%;
+  margin: 2px 10% 10% 10%;
+}
+.btn{
+  color: #ffffff !important;
+  background-color: #e00b4c !important;
+  border-width: 0px;
+  border-style: solid;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 22px auto 0;
+  padding: 10px 38px 10px 37px;
 }
 .account-container{ 
   display: grid;
@@ -156,12 +222,164 @@ button {
   display: grid;
   grid-template-columns: 25% 60%;
 }
-.profile{ 
-  display: grid;
-  grid-template-columns: 25% 60% ;
-}
 .state-drop{ 
   border-bottom-left-radius: 1px black;
   margin-trim: 1px black;
 }
-
+.products{
+  height: auto;
+  grid-gap: 40px 0px;
+  margin: 39px auto 60px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 33.333333333333336%);
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: center;
+}
+.prod-info{ 
+  width: 213px; 
+  min-height: 117px; 
+  background-size: auto;
+  background-color: #e5e5e5;
+  text-align: center;
+  position: relative;
+  text-align: center;
+  margin: -56px auto 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 15px 15px 15px 15px;
+}
+.cost-container{
+  table-layout: auto;
+  width: 100%;
+}
+.shopping-cart-container{
+  min-height: 500px;
+  width: 720px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  color: white;
+  border: white;
+}
+.cart-table{
+  margin-top: 63px;
+  border-collapse: collapse;
+  text-align: left;
+  table-layout: initial;
+  width: 100%;
+  border: 1px solid black;  
+  background-color: #e5e5e5;
+  color: #2c2c3d;
+}
+table td:nth-child(1){
+  width: 10%;
+}
+table td:nth-child(2){
+  width: 55%;
+}
+table td:nth-child(3){
+  width: 20%;
+}
+table td:nth-child(4){
+  width: 10%;
+}
+.cart-img{
+  height: 90px;
+  width: auto;
+}
+.small-rev{
+  color: white;
+}
+.rev-image{
+  height: 30px;
+  width: auto;
+}
+.reviews{
+  display: block;
+  width: 400px;
+  height: 600px;
+  background-color: white;
+}
+.acct-view-revs{
+  margin: 20px auto 60px 0;
+  display: grid;
+  grid-template-columns: auto;
+  padding: 55px 45px 45px 55px;
+  background-color: #e5e5e5;
+  border: 2px black thin;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+.single-user-detail{
+  width: 266px;
+  min-height: 270px;
+  background-image: none;
+  margin: 10px auto;
+  text-align: left;
+  background-color: #e5e5e5;
+  justify-content: center;
+  padding: 55px 45px 45px 55px;
+  line-height: 1.6;
+}
+.users-list{
+  height: auto;
+  grid-gap: 40px 0px;
+  margin: 39px auto 60px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 33.333333333333336%);
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  text-align: center;
+}
+.all-orders{
+  background-color: #e5e5e5;
+  min-height: 431px;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: 4%;
+}
+.orders-list{
+  margin: 2% 10% 10% 10%;
+}
+.add-user{
+  background-color: #e5e5e5;
+  min-height: 431px;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: 20px;
+}
+.checkout{
+  background-color: #e5e5e5;
+  min-height: 131px;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: 4%;
+  line-height: 1.6;
+}
+.checkout-detail{
+  text-transform: uppercase;
+}
+.success{
+  width: 466px;
+  min-height: 370px;
+  background-image: none;
+  margin: 4% auto;
+  text-align: center;
+  background-color: #e5e5e5;
+  justify-content: center;
+  padding: 55px 45px 45px 55px;
+  line-height: 1.6;
+}
+.cancelled{
+  width: 466px;
+  min-height: 370px;
+  background-image: none;
+  margin: 4% auto;
+  text-align: center;
+  background-color: #e5e5e5;
+  justify-content: center;
+  padding: 55px 45px 45px 55px;
+  line-height: 1.6;
+}

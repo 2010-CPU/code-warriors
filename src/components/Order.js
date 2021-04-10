@@ -22,6 +22,7 @@ const Order = ({token, order, setOrder}) => {
     }, [])
 
     return (<div className='order'>
+        <div className='order-container'>
         <div>Order Information</div>
         <div>Order Status: {status}</div>
         <div>Ordered By: User ID {userId}</div>
@@ -29,6 +30,7 @@ const Order = ({token, order, setOrder}) => {
         <br />
         <div>Products Ordered</div>
         <div>hold for products!!!!</div>
+        </div>
     </div>)
 }
 

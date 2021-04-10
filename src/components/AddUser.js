@@ -92,7 +92,7 @@ const AddUser = ({user, getUsers, states}) => {
                     <div>Zip Code</div>
                     <input type='number' name='zip' value={zip} required minLength='5' maxLength='5' onChange={handleOnChange} ></input>
                 </div>
-                <button type='submit'>Add User</button>
+                <button className="btn" type='submit'>Add User</button>
             </form>
         </div>)
     } else {

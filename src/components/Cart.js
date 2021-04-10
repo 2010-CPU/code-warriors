@@ -55,7 +55,7 @@ const Cart = (props) => {
         }
     }
 
-    return (<div className='bg-image img1'>
+    return (
         <div className="cart">
 
         <h2>My Cart</h2>
@@ -63,20 +63,30 @@ const Cart = (props) => {
         <p>{cart.id}</p>
         <p>{cart.status}</p>
         <h3>Products</h3>
+        <div className="shopping-cart-container" >
+        <div > 
+        <div className="cost-container" >
+            </div>
         {
             cart.products ? cart.products.map((product) => {
-                return <Fragment key={product.id}>
-                <h4>Quantity: {product.quantity}</h4>
-                <button onClick={() => removeItem(product.id)}>remove</button>
-                <SmallProduct product={product}/>
-
+                const {id, imageURL, name, quantity, price} = product; 
+                return <Fragment key={product.id}> 
+                <table className="cart-table"><tbody>
+                <tr><td><img className="cart-img" src={imageURL}/> </td>
+                <td><h4 className="prod-col" > {name}</h4></td>
+                <td><h4 >Quantity: {quantity}</h4></td>
+                <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
+                <button className="btn" onClick={removeItem}>remove</button> 
                 </Fragment>
-            }) : null
+            })
+            : ''
         }
+        </div> 
         </div>
 
-    <button> <Link to='/cart/checkout'> CHECKOUT </Link> </button>
-    </div>)
+        <button className="btn"> <Link to='/cart/checkout'> CHECKOUT </Link> </button>
+    </div>
+    )
 }
 
 export default Cart;

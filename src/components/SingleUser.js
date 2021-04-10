@@ -18,7 +18,6 @@ const SingleUser = ({token, user, singleUser, setSingleUser, getUsers, states}) 
             body: JSON.stringify(singleUser)
         })
         const data = await response.json();
-        console.log('data: ', data)
         setShowEditUser(!showEditUser);
         getUsers();
     }
