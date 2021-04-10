@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 
 import {
-  getAllProducts,
   getProductById
 } from '../api';
 
@@ -73,24 +72,15 @@ const Product = ({product, cart, token}) => {
   )
 }
 
-const ProductsView = (props) => {
-  const{cart, token} = props
-  const [products, setProducts] = useState([]);
+const ProductsView = ({cart, token, user, products, getProducts}) => {
 
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const _products = await getAllProducts();
-        setProducts(_products);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
     getProducts();
   },[]);
+
   return (
     <div className="products">
+      {user.isAdmin ? <Link to='/products/add'><button>Add A New Product</button></Link> : ''}
       {
         products.map(product => (
           <SmallProduct key={product.id} product={product} cart={cart} token={token}/>
@@ -101,8 +91,7 @@ const ProductsView = (props) => {
 }
 
 const ProductView = (props) => {
-  const{cart, token} = props
-  const [product, setProduct] = useState({});
+  const{cart, token, product, setProduct} = props
   const {productId} = useParams();
 
   useEffect(() => {
