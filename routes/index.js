@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const {getUserById} = require('../db');
 
 const {JWT_SECRET = 'nevertell',
-        STRIPE_SECRET
+  STRIPE_SECRET
 } = process.env;
 
 const stripe = require('stripe')(STRIPE_SECRET);

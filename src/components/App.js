@@ -24,10 +24,6 @@ import {
 
 } from './';
 
-import {
-  getSomething
-} from '../api';
-
 const App = () => {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState({});
@@ -41,13 +37,6 @@ const App = () => {
 
 
   useEffect( () => {
-    getSomething()
-      .then(response => {
-        setMessage(response.message);
-      })
-      .catch(error => {
-        setMessage(error.message);
-      });
 
   setToken(localStorage.getItem('token'));
 

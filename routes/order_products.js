@@ -51,10 +51,6 @@ orderProductsRouter.delete('/:orderProductId', async (req, res, next) => {
         const product = await getOrderProductById(Number(orderProductId));
         const order = await getOrderById(product.orderId);
 
-        console.log(product);
-        console.log(order);
-        console.log(req.user.id);
-
         if (order && order.userId === req.user.id) {
             const orderProduct = await destroyOrderProduct(orderProductId);
 
