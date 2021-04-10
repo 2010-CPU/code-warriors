@@ -8,7 +8,6 @@ const Account = ({user, token, reviews, setReviews}) => {
     const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
 
     const userReviews = reviews.filter( review => { 
-        console.log('filter at account line 10', reviews)
         if(user.id === review.userId) { 
             return review;
         }

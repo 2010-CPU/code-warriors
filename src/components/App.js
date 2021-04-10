@@ -169,7 +169,6 @@ const states = [
     });
     const data = await response.json();
     setReviews(data);
-    console.log('reviews on app.js', reviews)
 }
 
 useEffect( () => {

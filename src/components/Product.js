@@ -12,7 +12,6 @@ import {
 
 const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
   const {id,name,price,inStock,imageURL} = product;
-  console.log(cart)
   
   const addToCart = async () => {
     try {
@@ -140,7 +139,6 @@ const ProductView = ({ reviews, setReviews, cart, token}) => {
         return review;
     }
 })
-console.log(prodReviews)
 
   return (<>
   <button className={'btn'} >  Return To Shop</button>
