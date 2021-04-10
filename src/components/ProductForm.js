@@ -37,6 +37,7 @@ const ProductForm = ({user, token, getProducts, product, setProduct}) => {
         return (<div className='add-product'>
             <h2>Add Product</h2>
             <form onSubmit={handleSubmit}>
+                <div>Come back soon to add a new product!</div>
                 <button type='submit'>Add Product</button>
             </form>
         </div>)
