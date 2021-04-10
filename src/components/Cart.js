@@ -84,7 +84,7 @@ const Cart = (props) => {
         </div> 
         </div>
 
-        <button className="btn"> <Link to='/cart/checkout'> CHECKOUT </Link> </button>
+        <Link to='/cart/checkout'><button className="btn"> CHECKOUT </button></Link>
     </div>
     )
 }
