@@ -1,26 +1,16 @@
 import React, { useEffect } from 'react';
 
-const Reviews = ({reviews, setReviews}) => { 
-    
-    const getReviews = async () => {
-        const response = await fetch(`/api/reviews`, {
-            method: 'GET',
-            headers: {
-                'Content-Type' : 'Application/json'
-            }
-        });
-        const data = await response.json();
-        setReviews(data);
-    }
+const Reviews = ({reviews, setReviews, productId}) => { 
 
-    useEffect( () => {
-        getReviews();
-    }, [])
+    
 
     return (<>
-        <div className='bg-image img1'> 
+        <div className="reviews"> 
+               
+        <p>Customer Reviews:  </p>
 
-        {reviews.map((review, idx) => {
+        {
+        reviews.map((review, idx) => {
             const {id, title, content, stars, userId, productId} = review;
             return(
             <div key={idx}> 
@@ -30,6 +20,7 @@ const Reviews = ({reviews, setReviews}) => {
             <p > Product Id:  {productId}</p>
             </div> )
             })}
+
             </div> 
 
     </> )

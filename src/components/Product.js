@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   useParams,
-  Link
+  Link,
+  useHistory
 } from 'react-router-dom';
 
 import {
   getProductById
 } from '../api';
 
-import {Reviews} from './index';
-
-const SmallProduct = ({product, token, cart}) => {
+const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
   const {id,name,price,inStock,imageURL} = product;
   
   const addToCart = async () => {
@@ -28,19 +27,32 @@ const SmallProduct = ({product, token, cart}) => {
       console.log(error)
     }
   }
+  const shopReviews = reviews.filter((review) => {
+    if(product.id === review.productId){
+      return review
+    }
+  })
+  const stars = shopReviews.map((review) => { 
+    return review.stars
+  })
+  const avgStars = stars.reduce((a,b) => a + b, 0) / stars.length
 
   return (
-    <div className="bg-image img1"> 
+    <div className="shop-container"> 
+    <div className="small-prod-container"> 
     <div className="small-product">
-    <img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
-    <h1><Link to={`/products/${id}`}>{name}</Link> - ${price}</h1>
-    <button onClick={addToCart}> add to cart </button>
+    <Link to={`/products/${id}`}><img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/> </Link> </div>
+    <h1 className="prod-info">{name}<br/> ${price}</h1>
+    <h2 className="rev-image">{avgStars > 4 
+    ? <img className="rev-image" src={'/images/5.stars.png'}/> 
+    : <img className="rev-image" src={'/images/4_stars.png'}/>}</h2> 
+    <button className="btn" onClick={addToCart}> add to cart </button>
     </div>
     </div>
   )
 }
 
-const Product = ({product, cart, token}) => {
+const Product = ({product, reviews, setReviews, cart, token}) => {
   const {id,name,price,inStock,category,description,imageURL} = product;
 
   const addToCart = async () => {
@@ -59,20 +71,24 @@ const Product = ({product, cart, token}) => {
     }
   }
 
-  return (
-    <div className='bg-image img1'> 
+    return (<div className="prod-container"> 
     <div className="product">
+    <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
+    <div className="prod-details"> 
       <h1>{name}</h1>
       <h2>${price} - {inStock ? "In Stock!" : "Out of Stock!"}</h2>
       <h3>{category}</h3>
       <p>{description}</p>
-      <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
-      <button onClick={addToCart}> ADD TO CART </button>
-    </div> </div>
+      </div>
+      <button className="btn" onClick={addToCart}> Add To Cart</button>
+    </div>
+    <div className="prod-reviews"> 
+    </div>
+     </div>
   )
 }
 
-const ProductsView = ({cart, token, user, products, getProducts}) => {
+const ProductsView = ({cart, token, user, products, getProducts, reviews, setReviews}) => {
 
   useEffect(() => {
     getProducts();
@@ -83,15 +99,16 @@ const ProductsView = ({cart, token, user, products, getProducts}) => {
       {user.isAdmin ? <Link to='/products/add'><button>Add A New Product</button></Link> : ''}
       {
         products.map(product => (
-          <SmallProduct key={product.id} product={product} cart={cart} token={token}/>
-        ))
+
+          <SmallProduct key={product.id} product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token}/>
+
+          ))
       }
     </div>
   )
 }
 
-const ProductView = (props) => {
-  const{cart, token, product, setProduct} = props
+const ProductView = ({cart, token, product, setProduct, reviews, setReviews}) => {
   const {productId} = useParams();
 
   useEffect(() => {
@@ -108,8 +125,31 @@ const ProductView = (props) => {
     getProduct();
   }, [productId]);
 
-  return (
-    <Product product={product} cart={cart} token={token}/>
+  let history = useHistory();
+    const goToPreviousPath = () => {
+        history.goBack()}
+
+  const prodReviews = reviews.filter( review => { 
+    if(product.id === review.productId) { 
+        return review;
+    }
+})
+
+  return (<>
+  <button className={'btn'} onClick={goToPreviousPath} >  Return To Shop</button>
+    <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token} key={product.id}  />
+    <div className="prod-reviews"> 
+    <h2> See what our customers have to say about {product.name}:</h2> <br/>
+
+      {prodReviews.map((review,idx) => { 
+        const {title, content, stars} = review;
+        return <>
+        <h3 > {title} Star Rating: {stars}</h3> 
+        <div > {content} </div> <br/> 
+        </>
+      })}
+    </div>
+    </>
   )
 }
 
