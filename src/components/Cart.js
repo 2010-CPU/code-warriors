@@ -70,15 +70,14 @@ const Cart = (props) => {
         {
             cart.products ? cart.products.map((product) => {
                 const {id, imageURL, name, quantity, price} = product; 
-                return <> <div key={product.id}> 
+                return <Fragment key={product.id}> 
                 <table className="cart-table"><tbody>
                 <tr><td><img className="cart-img" src={imageURL}/> </td>
                 <td><h4 className="prod-col" > {name}</h4></td>
                 <td><h4 >Quantity: {quantity}</h4></td>
                 <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
                 <button className="btn" onClick={removeItem}>remove</button> 
-                </div>
-                </>
+                </Fragment>
             })
             : ''
         }
@@ -86,7 +85,8 @@ const Cart = (props) => {
         </div>
 
         <button className="btn"> <Link to='/cart/checkout'> CHECKOUT </Link> </button>
-    </div>)
+    </div>
+    )
 }
 
 export default Cart;

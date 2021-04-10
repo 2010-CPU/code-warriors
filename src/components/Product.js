@@ -13,7 +13,6 @@ import {
 const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
   const {id,name,price,inStock,imageURL} = product;
   console.log(cart)
-  // const { id, status, userId, datePlaced, products } = cart; 
   
   const addToCart = async () => {
     try {
