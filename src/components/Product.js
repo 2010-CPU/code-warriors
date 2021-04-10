@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   useParams,
-  Link
+  Link,
+  useHistory
 } from 'react-router-dom';
 
 import {
@@ -134,6 +135,10 @@ const ProductView = ({ reviews, setReviews, cart, token}) => {
     getProduct();
   }, [productId]);
 
+  let history = useHistory();
+    const goToPreviousPath = () => {
+        history.goBack()}
+
   const prodReviews = reviews.filter( review => { 
     if(product.id === review.productId) { 
         return review;
@@ -141,8 +146,8 @@ const ProductView = ({ reviews, setReviews, cart, token}) => {
 })
 
   return (<>
-  <button className={'btn'} >  Return To Shop</button>
-    <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token}  />
+  <button className={'btn'} onClick={goToPreviousPath} >  Return To Shop</button>
+    <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token} key={product.id}  />
     <div className="prod-reviews"> 
     <h2> See what our customers have to say about {product.name}:</h2> <br/>
 
