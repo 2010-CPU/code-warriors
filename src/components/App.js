@@ -234,7 +234,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path='/cart/checkout'>
-            <Checkout order={order} user={user} token={token} reviews={reviews} setReviews={setReviews} />
+            <Checkout order={order} user={user} token={token} />
           </Route>
 
           <Route exact path='/users' >

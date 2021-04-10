@@ -12,6 +12,8 @@ import {
 
 const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
   const {id,name,price,inStock,imageURL} = product;
+  console.log(cart)
+  // const { id, status, userId, datePlaced, products } = cart; 
   
   const addToCart = async () => {
     try {
@@ -143,14 +145,15 @@ console.log(prodReviews)
 
   return (<>
   <button className={'btn'} >  Return To Shop</button>
-    <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token} key={productId} />
+    <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token}  />
     <div className="prod-reviews"> 
     <h2> See what our customers have to say about {product.name}:</h2> <br/>
 
       {prodReviews.map((review,idx) => { 
+        const {title, content, stars} = review;
         return <>
-        <h3 key={idx-1}> {review.title} Star Rating: {review.stars}</h3> 
-        <div key={idx-100}> {review.content} </div> <br/> 
+        <h3 > {title} Star Rating: {stars}</h3> 
+        <div > {content} </div> <br/> 
         </>
       })}
     </div>

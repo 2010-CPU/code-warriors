@@ -124,13 +124,13 @@ async function populateInitialData() {
       { status: 'created', userId: 1},
       { status: 'created', userId: 2},
       { status: 'created', userId: 3, datePlaced: '2021-03-26' },
-      { status: 'shipped', userId: 2, datePlaced: '2021-03-23' },
-      { status: 'cancelled', userId: 2, datePlaced: '2021-03-23' },
-      { status: 'cancelled', userId: 2, datePlaced: '2021-03-23' },
-      { status: 'in-progress', userId: 2, datePlaced: '2021-03-23' },
-      { status: 'cancelled', userId: 2, datePlaced: '2021-03-23' },
-      { status: 'back-ordered', userId: 2, datePlaced: '2021-03-23' },
-      { status: 'completed', userId: 1, datePlaced: '2021-03-23' }
+      { status: 'shipped', userId: 4, datePlaced: '2021-03-23' },
+      { status: 'cancelled', userId: 5, datePlaced: '2021-03-23' },
+      { status: 'cancelled', userId: 6, datePlaced: '2021-03-23' },
+      { status: 'in-progress', userId: 1, datePlaced: '2021-03-23' },
+      { status: 'cancelled', userId: 4, datePlaced: '2021-03-23' },
+      { status: 'back-ordered', userId: 5, datePlaced: '2021-03-23' },
+      { status: 'completed', userId: 6, datePlaced: '2021-03-23' }
     ]
     const orders = await Promise.all(ordersToCreate.map(createOrder));
     console.log('orders created: ')
