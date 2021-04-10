@@ -137,7 +137,7 @@ const completeOrder = async ({ id }) => {
     }
 }
 
-const cancelOrder = async ({ id }) => {
+const cancelOrder = async ( id ) => {
     try {
         const { rows: [order] } = await client.query(`
             UPDATE orders

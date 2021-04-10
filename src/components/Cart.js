@@ -6,7 +6,7 @@ import {SmallProduct} from './Product'
 const Cart = (props) => {
     const {token, user} = props
     const [cart, setCart] = useState({})
-    
+
     const fetchCart = async () =>{
         try {
             const response = await axios.get('api/orders/cart',{
@@ -16,9 +16,9 @@ const Cart = (props) => {
             })
             const {data} = response
             if(data){
-                setCart(data)   
+                setCart(data)
             }
-        } catch (error) {   
+        } catch (error) {
         }
     }
     useEffect(() => {
@@ -27,29 +27,32 @@ const Cart = (props) => {
         }
     }, [token])
 
-    const removeItem = async() => {
+    if(!token){
+        return <div>you must be logged in to view this</div>
+    }
+
+    const removeItem = async(id) => {
         try {
-            const response = await axios.delete('api/orders/cart',{
+          const op_rsp = await axios.get(`api/order_products/${cart.id}`); // Get all order products associated with cart
+          const order_products = await op_rsp.data; // Destructure from response Object
+
+          // Get the first order product that matches product id
+          const [order_product] = order_products.filter((order_product) => {
+            return order_product.productId === id;
+          })
+          
+            const response = await axios.delete(`api/order_products/${order_product.id}`,{
                 headers:{
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
             })
-            const {data} = response
-            if(data){
-                setCart(data)
-            }
-        } catch (error) {
-            
-        }
-    }
-    useEffect(() =>{
-        if(token){
+            const {data} = await response
             fetchCart()
+            return data;
+        } catch (error) {
+            console.log(error)
         }
-    }, [token])
-
-    if(!token){
-        return <div>you must be logged in to view this</div>
     }
 
     return (
@@ -65,24 +68,24 @@ const Cart = (props) => {
         <div className="cost-container" >
             </div>
         {
-            cart.products ? cart.products.map((product, idx) => {
+            cart.products ? cart.products.map((product) => {
+                const {id, imageURL, name, quantity, price} = product; 
                 return <> 
-                <table className="cart-table" key={product.id}>
-                <tr><td><img className="cart-img" key={idx-1}src={product.imageURL}/> </td>
-                <td><h4 className="prod-col" key={idx-200}> {product.name}</h4></td>
-                <td><h4 key={idx-300}>Quantity: {product.quantity}</h4></td>
-                <td><h4 className="sub-col" key={idx-4}> ${product.price}.00</h4></td>
+                <table className="cart-table">
+                <tr><td><img className="cart-img" src={imageURL}/> </td>
+                <td><h4 className="prod-col" > {name}</h4></td>
+                <td><h4 >Quantity: {quantity}</h4></td>
+                <td><h4 className="sub-col" > ${price}.00</h4></td>
                 <button className="btn" onClick={removeItem}>remove</button> </tr>
-                
                 </table>
-                
                 </>
-            }) : null
+            })
+            : ''
         }
         </div> 
         </div>
 
-    <button className="btn"> <Link to='/cart/checkout'> CHECKOUT </Link> </button>
+        <button className="btn"> <Link to='/cart/checkout'> CHECKOUT </Link> </button>
     </div>)
 }
 
