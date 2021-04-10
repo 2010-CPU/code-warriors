@@ -39,20 +39,6 @@ const App = () => {
 
   const history = useHistory();
 
-  const getReviews = async () => {
-    const response = await fetch(`/api/reviews`, {
-        method: 'GET',
-        headers: {
-            'Content-Type' : 'Application/json'
-        }
-    });
-    const data = await response.json();
-    setReviews(data);
-}
-
-useEffect( () => {
-    getReviews();
-}, [])
 
   useEffect( () => {
     getSomething()
@@ -174,6 +160,22 @@ const states = [
   { 'label':'Wyoming', 'value': 'WY'}
   ];
 
+  const getReviews = async () => {
+    const response = await fetch(`/api/reviews`, {
+        method: 'GET',
+        headers: {
+            'Content-Type' : 'Application/json'
+        }
+    });
+    const data = await response.json();
+    setReviews(data);
+    console.log('reviews on app.js', reviews)
+}
+
+useEffect( () => {
+    getReviews();
+}, [])
+
   return (<>
   <div id="logo-head">
   <h1 className="logo">FOOD WITH FRIENDS</h1>
@@ -232,7 +234,7 @@ const states = [
           </Route>
 
           <Route exact path='/cart/checkout'>
-            <Checkout order={order} user={user} token={token} />
+            <Checkout order={order} user={user} token={token} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route exact path='/users' >
@@ -252,21 +254,25 @@ const states = [
           </Route>
 
           <Route exact path="/checkout/success">
+            <div className="success">
             <h1>THANK YOU FOR YOUR ORDER</h1>
             <p>
               We appreciate every customer that believes in our dream. <br/>
               If you have any questions, please e-mail <br/>
               <a href="mailto:orders@example.com">orders@example.com</a>
             </p>
+            </div>
           </Route>
 
           <Route exact path="/checkout/cancel">
+            <div className="cancelled"> 
             <h1>CANCELLED THE ORDER</h1>
             <p>
               We hope you come back soon! <br/>
               If you have any questions, please e-mail <br/>
               <a href="mailto:orders@example.com">orders@example.com</a>
             </p>
+            </div>
           </Route>
 
         </Switch>
