@@ -19,7 +19,7 @@ const AllOrders = ({token, user}) => {
 
     useEffect( () => {
         getOrders();
-    }, [])
+    }, []);
 
     if (user.isAdmin) {
         return (<div className='all-orders'>
@@ -42,7 +42,7 @@ const AllOrders = ({token, user}) => {
                                 return (<div className='single-product' key={id}>
                                     <div>Product: {name}</div>
                                     <div>Number Purchased: {quantity}</div>
-                                    <div>Total Price: ${price}</div>
+                                    <div>Total Price: ${price}.00</div>
                                     <br />
                                 </div>)
                             })}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Redirect} from 'react-router-dom';
 import {Reviews} from './index';
 
@@ -31,14 +31,14 @@ const Account = ({user, token, reviews, setReviews}) => {
             <div className="acct-view-revs"> 
             <h3 > Your reviews from your past orders:  </h3> <br/>
             {userReviews.map((review) => { 
-                const {title, content, stars, userId, productId} = review;
-                return <> 
+                const {id, title, content, stars, userId, productId} = review;
+                return <div key={id}> 
                 <div> Title: {title} </div> 
                 <div>  Review:  {content} </div>
                 <div> Stars rating: {stars} </div>
                 <button className="btn" > Edit </button> <button className="btn"> Delete </button>
                 <br/>
-                </> 
+                </div> 
             })}
             </div> 
             </>)

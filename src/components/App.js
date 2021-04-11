@@ -41,7 +41,6 @@ const App = () => {
 
   const history = useHistory();
 
-
   useEffect( () => {
 
   setToken(localStorage.getItem('token'));
@@ -58,18 +57,6 @@ const App = () => {
         setUser(meData);
       }
       captureToken();
-      
-      const setCart = async () => {
-        const response = await fetch(`/api/orders/cart`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-        const cart = await response.json()
-        setOrder(cart)
-      }
-      setCart()
     }
   }, [token]);
 
@@ -78,7 +65,7 @@ const App = () => {
     setUser({});
     setToken('');
     localStorage.clear();
-    history.push('/')
+    history.push('/');
   }
 
   const getUsers = async () => {
@@ -242,7 +229,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path='/cart'>
-            <Cart token={token} order={order} user={user} />
+            <Cart token={token} order={order} user={user} order={order} setOrder={setOrder} />
           </Route>
 
           <Route exact path='/cart/checkout'>
