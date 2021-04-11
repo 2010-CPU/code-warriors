@@ -16,17 +16,21 @@ const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
   const addToCart = async () => {
     try {
       const response = await axios.post(`/api/orders/${cart.id}/products`,{
-        productId:id, price: price, quantity: 1
+        productId: id, 
+        price: price, 
+        quantity: 1
       },{
         headers: {
           "content-type" : "application/json",
           "Authorization" : `Bearer ${token}`
         }
       })
+      const {data} = await response;
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
+
   const shopReviews = reviews.filter((review) => {
     if(product.id === review.productId){
       return review
@@ -60,16 +64,18 @@ const Product = ({product, reviews, setReviews, cart, token}) => {
   const addToCart = async () => {
     try {
       const response = await axios.post(`/api/orders/${cart.id}/products`,{
-        productId:id, price: price, quantity: 1
+        productId: id, 
+        price: price, 
+        quantity: 1
       },{
         headers: {
           "content-type" : "application/json",
           "Authorization" : `Bearer ${token}`
         }
       })
-
+      const {data} = await response;
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
