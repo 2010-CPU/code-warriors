@@ -37,7 +37,7 @@ const Checkout = ({ order, user, token, reviews, setReviews, cart, setCart }) =>
     ?  <> <div className="checkout"><div> Your order will be sent to the following address: </div>
         <div className="checkout-detail"> <div> {firstName} {lastName}</div>
         <div> {address} </div>
-        <div> {city} {state} {zip}</div>
+        <div> {city}, {state} {zip}</div>
         <div> {email} </div></div> </div> 
         </>
         
