@@ -54,6 +54,8 @@ const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
 
 const Product = ({product, reviews, setReviews, cart, token}) => {
   const {id,name,price,inStock,category,description,imageURL} = product;
+  
+
 
   const addToCart = async () => {
     try {
@@ -96,7 +98,6 @@ const ProductsView = ({cart, token, user, products, getProducts, reviews, setRev
 
   return (
     <div className="products">
-      {user.isAdmin ? <Link to='/products/add'><button>Add A New Product</button></Link> : ''}
       {
         products.map(product => (
 
@@ -104,6 +105,8 @@ const ProductsView = ({cart, token, user, products, getProducts, reviews, setRev
 
           ))
       }
+            {user.isAdmin ? <Link to='/products/add'><button className="btn">Add A New Product</button></Link> : ''}
+
     </div>
   )
 }

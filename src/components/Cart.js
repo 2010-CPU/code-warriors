@@ -3,32 +3,32 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {SmallProduct} from './Product'
 
-const Cart = ({token, user}) => {
-    const [cart, setCart] = useState({});
+const Cart = ({token, user, cart, setCart}) => {
+    const [quantity, setQuantity] = useState(1)
 
-    const fetchCart = async () =>{
-        try {
-            const response = await axios.get('api/orders/cart',{
-                headers:{
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            const {data} = response
-            if(data){
-                setCart(data)
-            }
-        } catch (error) {
-        }
-    }
-    useEffect(() => {
-        if(token){
-            fetchCart()
-        }
-    }, [token])
+    // const fetchCart = async () =>{
+    //     try {
+    //         const response = await axios.get('api/orders/cart',{
+    //             headers:{
+    //                 'Authorization': `Bearer ${token}`
+    //             }
+    //         })
+    //         const {data} = response
+    //         if(data){
+    //             setCart(data)
+    //         }
+    //     } catch (error) {
+    //     }
+    // }
+    // useEffect(() => {
+    //     if(token){
+    //         fetchCart()
+    //     }
+    // }, [token])
 
-    if(!token){
-        return <div>you must be logged in to view this</div>
-    }
+    // if(!token){
+    //     return <div>you must be logged in to view this</div>
+    // }
 
     const removeItem = async(id) => {
         try {
@@ -47,11 +47,16 @@ const Cart = ({token, user}) => {
                 }
             })
             const {data} = await response
-            fetchCart()
+            // fetchCart()
             return data;
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const updateQuantity = async (event) => { 
+        event.preventDefault();
+        setQuantity(event.target.value)
     }
 
     return (
@@ -73,13 +78,10 @@ const Cart = ({token, user}) => {
                 <table className="cart-table"><tbody>
                 <tr><td><img className="cart-img" src={imageURL}/> </td>
                 <td><h4 className="prod-col" > {name}</h4></td>
-                <td><h4 >Quantity: {quantity}</h4></td>
+                <td><select name='quantity' value='this is the value'  option='options' selected='selected'></select></td>
                 <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
                 <button className="btn" onClick={removeItem}>remove</button> 
-                {/* <button onClick={() =>  setCount(count + 1)}>+</button>
-                {(product.quantity = count)}
-                <button onClick={() => { shoe.qty > 1 ? setCount(count - 1) : setCount(1);}}>
-                    -</button> */}
+                
                 </Fragment>
             })
             : ''
