@@ -152,10 +152,10 @@ const ProductView = ({cart, token, product, setProduct, reviews, setReviews}) =>
 
       {prodReviews.map((review,idx) => { 
         const {title, content, stars} = review;
-        return <>
+        return <div key={idx}>
         <h3 > {title} Star Rating: {stars}</h3> 
         <div > {content} </div> <br/> 
-        </>
+        </div>
       })}
     </div>
     </>
