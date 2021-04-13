@@ -13,3 +13,4 @@ export {default as AddUser} from './AddUser';
 export {default as AllOrders} from './AllOrders';
 export {default as ProductForm} from './ProductForm';
 export {default as EditProduct} from './EditProduct';
+export {default as AddReview} from './AddReview'

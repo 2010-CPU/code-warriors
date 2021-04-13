@@ -27,7 +27,7 @@ import {
   AllOrders,
   ProductForm,
   EditProduct,
-
+  AddReview
 } from './';
 
 const App = () => {
@@ -40,6 +40,11 @@ const App = () => {
   const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({id: null, name: '', description: '', price: '', image: '', inStock: false, category: ''});
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [stars, setStars] = useState(0);
+  const [userId, setUserId] = useState(0);
+  const [productId, setProductId] = useState(0);
 
   const history = useHistory();
 
@@ -227,7 +232,7 @@ useEffect( () => {
           </Route>
 
           <Route path='/account'>
-            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} />
+            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} />
           </Route>
 
           <Route path='/orders/:orderId'>

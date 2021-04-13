@@ -1,11 +1,12 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-import {Reviews} from './index';
+import {AddReview} from './index';
 
 // allow profile image choice later
 
-const Account = ({user, token, reviews, setReviews}) => {
+const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStars, setUserId, setProductId }) => {
     const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
+    const {id, title, content, stars, userId, productId} = reviews; 
 
     const userReviews = reviews.filter( review => { 
         if(user.id === review.userId) { 
@@ -14,7 +15,8 @@ const Account = ({user, token, reviews, setReviews}) => {
     })
 
     if (token && username) {
-        return (<><div >
+        return (<><div >            
+            <div className='tab-list' ><li>Profile</li><li>Orders</li><li>Reviews</li> </div>
             <div className='acct-container'> 
             <h2>Account Information for {firstName}</h2>
             
@@ -36,10 +38,9 @@ const Account = ({user, token, reviews, setReviews}) => {
                 <div> Title: {title} </div> 
                 <div>  Review:  {content} </div>
                 <div> Stars rating: {stars} </div>
-                <button className="btn" > Edit </button> <button className="btn"> Delete </button>
-                <br/>
                 </div> 
             })}
+            <AddReview reviews={reviews} setReviews={setReviews} token={token} user={user} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} />
             </div> 
             </>)
     } else {

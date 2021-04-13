@@ -63,7 +63,7 @@ productsRouter.delete('/:productId', requireAdmin, async (req, res, next) => {
 
 productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
     const {name, description, price, imageURL, inStock, category} = req.body;
-    const {id} = req.params;
+    const {productId} = req.params;
 
     const updateFields = {};
 
@@ -92,11 +92,10 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
     }
 
     try {
-        const originalProduct = await getProductById(Number(id));
+        const originalProduct = await getProductById(Number(productId));
 
-        if (originalProduct.id === Number(id)) {
-            const updatedProduct = await updateProduct({id: Number(id), ...updateFields});
-
+        if (Number(originalProduct.id) === Number(productId)) {
+            const updatedProduct = await updateProduct({id: Number(productId), ...updateFields});
             res.send(updatedProduct);
         }
 

@@ -26,9 +26,9 @@ const ProductForm = ({user, token, getProducts, product, setProduct}) => {
 
     const handleOnChange = async (event) => {
         if (event.target.name === 'inStock') {
-            setProduct({...product, [event.target.name]: !inStock})
+            setProduct({...product, [event.target.name]: !inStock});
         } else {
-            setProduct({...product, [event.target.name]: event.target.value})
+            setProduct({...product, [event.target.name]: event.target.value});
         }
     }
 

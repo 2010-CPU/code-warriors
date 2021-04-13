@@ -1,9 +1,10 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, useHistory} from 'react-router-dom';
 
 const EditProduct = ({user, token, product, setProduct, getProducts}) => {
-    console.log('product: ', product)
     const {id, name, description, inStock, price, category, imageURL} = product;
+
+    const history = useHistory();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -17,13 +18,15 @@ const EditProduct = ({user, token, product, setProduct, getProducts}) => {
             body: JSON.stringify(product)
         })
         const data = await response.json();
-        console.log('data: ', data)
         getProducts();
+        history.push(`/products/${id}`);
     }
 
     const handleOnChange = async (event) => {
         if (event.target.name === 'inStock') {
             setProduct({...product, [event.target.name]: !inStock});
+        } else if (event.target.name === 'price') {
+            setProduct({...product, [event.target.name]: Number(event.target.value)});
         } else {
             setProduct({...product, [event.target.name]: event.target.value});
         }
