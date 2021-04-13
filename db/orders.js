@@ -87,7 +87,7 @@ const getOrdersByProduct = async (id) => {
 
     return orders;
   } catch (err) {
-    next(err);
+    throw (err);
   }
 }
 
@@ -102,7 +102,7 @@ const getCartByUser = async (id) => {
 
     return order;
   } catch (err) {
-    next(err);
+    throw (err);
   }
 }
 

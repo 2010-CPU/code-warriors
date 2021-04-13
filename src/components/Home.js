@@ -8,13 +8,6 @@ const Home = ({user}) => {
         <div className='FP-logo'>
     
     <div> <img id="logo-image" src={'/images/FWF_LOGO.png'} /></div>
-    {/* <h2> {firstName}!</h2> */}
-        <br/> 
-            {/* {firstName ?
-            
-            <div> You are currently logged in as <b>{username.toUpperCase()}</b>.</div>
-            :
-            <div>Please login above or register for an account</div>} */}
     </div> </div>
     <div className='image-container'> 
     <div className='image-row'> 
@@ -55,7 +48,7 @@ const Home = ({user}) => {
     </div> </div>   
     <div className="footer"> 
     <p> <br/> site created by </p>
-    <p> Sam Runyan, Amadeo Ramirez and Crystal Joyce</p></div>
+    <p> Samantha Runyan, Amadeo Ramirez and Crystal Joyce</p></div>
     </>)
 }
 

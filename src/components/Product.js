@@ -121,7 +121,7 @@ const ProductsView = ({cart, token, user, products, getProducts, reviews, setRev
   )
 }
 
-const ProductView = ({user, cart, token, product, setProduct, reviews, setReviews}) => {
+const ProductView = ({user, cart, token, product, setProduct, getProducts, reviews, setReviews}) => {
   const {productId} = useParams();
 
   useEffect(() => {
@@ -139,19 +139,38 @@ const ProductView = ({user, cart, token, product, setProduct, reviews, setReview
   }, [productId]);
 
   let history = useHistory();
-    const goToPreviousPath = () => {
-        history.goBack()}
+  const goToPreviousPath = () => {
+    history.push('/products') }
+
+  const handleDelete = async (id) => {
+    if (user.isAdmin) {
+      try {
+        const response = await axios.delete(`/api/products/${id}`, { 
+          headers: {
+            'Content-Type': 'Application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const {data} = await response;
+        setProduct(data);
+        getProducts();
+        history.push('/products');
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
 
   const prodReviews = reviews.filter( review => { 
     if(product.id === review.productId) { 
-        return review;
+      return review;
     }
-})
+  })
 
   return (<>
     <button className={'btn'} onClick={goToPreviousPath} >  Return To Shop</button>
     {user.isAdmin ? <Link to={`/products/edit/${product.id}`}><button className="btn-product" >Edit Product</button></Link> : ''}
-    {user.isAdmin ? <button className="btn-product" >Delete Product</button> : ''}
+    {user.isAdmin ? <button className="btn-product" onClick={() => handleDelete(product.id)} >Delete Product</button> : ''}
     <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token} key={product.id}  />
     <div className="prod-reviews"> 
     <h2> See what our customers have to say about {product.name}:</h2> <br/>
