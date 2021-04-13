@@ -22,7 +22,7 @@
   display: block;
 }
 header {
-  font-family: 'Montserrat', sans-serif;	
+  font-family: "Helvetica Neue", "Arial", sans-serif;
   height:100px;
   padding:50px 6% 0 6%;
 }
@@ -45,6 +45,7 @@ footer{
 .logo{ 
   color: black;
   height: 45px;
+  align-content: center;
 }
 .bg-image {
   background-image: url('./images/brick.jpg');
