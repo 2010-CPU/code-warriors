@@ -8,7 +8,7 @@ const {JWT_SECRET = 'nevertell'} = process.env;
 const {requireUser, requireAdmin} = require('./utils');
 
 usersRouter.post('/register', async (req, res, next) => {
-    const {username, password, firstName, lastName, isAdmin, email, address, city, state, zip} = req.body;
+    const {username, password, firstName, lastName, isAdmin=false, email, address, city, state, zip} = req.body;
 
     try {
         const checkUser = await getUserByUsername(username);

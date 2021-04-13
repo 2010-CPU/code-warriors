@@ -24,8 +24,6 @@ const EditProduct = ({user, token, product, setProduct, getProducts}) => {
     const handleOnChange = async (event) => {
         if (event.target.name === 'inStock') {
             setProduct({...product, [event.target.name]: !inStock});
-        } else if (event.target.name === 'price') {
-            setProduct({...product, [event.target.name]: Number(event.target.value)})
         } else {
             setProduct({...product, [event.target.name]: event.target.value});
         }
@@ -56,7 +54,7 @@ const EditProduct = ({user, token, product, setProduct, getProducts}) => {
                 </div>
                 <div>
                     <div>Image URL</div>
-                    <input name='imageURL' value={imageURL} onChange={handleOnChange}></input>
+                    <input type='text' name='imageURL' value={imageURL} onChange={handleOnChange}></input>
                 </div>
                 <button type='submit'>Update Product</button>
             </form>

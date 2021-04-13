@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom';
-import ImageUploader from 'react-images-upload';
 
 const ProductForm = ({user, token, getProducts, product, setProduct}) => {
     const {name, price, inStock, category, description, imageURL} = product;
@@ -59,13 +58,7 @@ const ProductForm = ({user, token, getProducts, product, setProduct}) => {
                 </div>
                 <div>
                     <div>Image</div>
-                    <ImageUploader
-                        withIcon={false}
-                        buttonText='Choose Image'
-                        name='imageURL'
-                        value={imageURL}
-                        onChange={handleOnChange}
-                    />
+                    <input type='text' name='imageURL' value={imageURL} onChange={handleOnChange}></input>
                 </div>
                 <button type='submit'>Add Product</button>
             </form>

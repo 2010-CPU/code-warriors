@@ -39,7 +39,7 @@ const App = () => {
   const [usersList, setUsersList] = useState([]);
   const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
   const [products, setProducts] = useState([]);
-  const [product, setProduct] = useState({id: null, name: '', description: '', price: null, image: '', inStock: false, category: ''});
+  const [product, setProduct] = useState({id: null, name: '', description: '', price: '', image: '', inStock: false, category: ''});
 
   const history = useHistory();
 
