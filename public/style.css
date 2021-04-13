@@ -22,15 +22,19 @@
   display: block;
 }
 header {
-  font-family: 'Montserrat', sans-serif;	
   height:100px;
   padding:50px 6% 0 6%;
 }
 body{
   background-color: #2c2c3d;
 }
-footer{
-  background-color: #2c2c3d; 
+.footer{
+  background-color: white; 
+  height: 100px;
+  text-align: center;
+  margin-top: 4%;
+  bottom: 0;
+  width: 100%;
 }
 .nav-bar a {
   position: sticky;
@@ -41,9 +45,12 @@ footer{
   font-size:0.95em;
   padding:4px 18px;
   color: black;
+  font-family: Open sans-serif, sans-serif;
 }
 .logo{ 
   color: black;
+  height: 45px;
+  align-content: center;
 }
 .bg-image {
   background-image: url('./images/brick.jpg');
@@ -57,16 +64,21 @@ footer{
   background-size: cover;
   margin-left: 4%;
   margin-right: 4%;
+  margin-top: 4%;
 }
-.FP-logo{
+.fp-logo{
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  grid-auto-rows: 100px;
+  grid-template-areas:
+    "a b c";
+  align-items: start;
+}
+#logo-image{
+  grid-area: b;
   text-align: center;
-  font-weight: 700;
-  color: black;
-  background-color: goldenrod;
-  width: 353px;
-  height: 353px;
-  margin: 37px auto 0;
-  border-radius: 50%;
+  max-width: 100%;
 }
 .image-row{
   display: flex;
@@ -83,7 +95,6 @@ footer{
   max-width: 33.33333%;
   font-family: Open sans-serif, sans-serif;
   line-height: 1.6;
-
 }
 .our-title{
   text-align: center;
@@ -290,6 +301,7 @@ button {
   position: relative;
   text-align: center;
   margin: -56px auto 0;
+  font-family: Open sans-serif, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   padding: 15px 15px 15px 15px;
@@ -299,12 +311,23 @@ button {
   width: 100%;
 }
 .shopping-cart-container{
+  font-family: Open sans-serif, sans-serif;
   min-height: 500px;
   width: 720px;
   margin: 0 auto;
   box-sizing: border-box;
   color: white;
   border: white;
+}
+#shop-head{ 
+  font-family: Open sans-serif, sans-serif;
+  text-align: center;
+  color: white;
+  font-weight: 400;
+  font-family: Allerta;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  margin-top: 4%;
 }
 .cart-table{
   margin-top: 63px;
@@ -337,7 +360,7 @@ button {
   color: white;
 }
 .rev-image{
-  height: 30px;
+  height: 50px;
   width: auto;
 }
 .reviews{
@@ -455,13 +478,51 @@ button {
   line-height: 1.6;
 }
 .empty-cart{
-  width: 466px;
-  min-height: 370px;
-  background-image: none;
-  margin: 4% auto;
-  text-align: center;
-  background-color: #e5e5e5;
-  justify-content: center;
-  padding: 55px 45px 45px 55px;
+  border-color: white;
+  border-style: solid;
+  border-width: 2px;
+}
+.inner-cart{
+  width: 940px;
+  margin-top: 63px;
+  margin-bottom: 60px;
+  min-height: 375px;
+  box-sizing: border-box;
+}
+.inner-cart table{ 
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  display: ta;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-color: grey;
+}
+.login-form{
+  margin-top: 4%;
+  align-content: center;
+}
+.login-row{
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  min-height: 100%;
+  min-width: 100%;
+  margin: 0 auto 0 0 ;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+.login-image {
+  background-image: url('./images/quiche.jpg');
+  min-height: 431px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.login-text-container{
+  background-color: #f2f2f2;
+  font-family: Open sans-serif, sans-serif;
   line-height: 1.6;
+  padding: 4%;
+  position: sticky;
 }
