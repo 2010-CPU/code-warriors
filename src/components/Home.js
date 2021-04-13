@@ -5,9 +5,9 @@ const Home = ({user}) => {
 
     return (<>
     <div className="bg-image img1">
-        <div id='FP-logo'>
+        <div className='FP-logo'>
     
-    <div> <img src={'/images/FWF_LOGO.png'} /></div>
+    <div> <img id="logo-image" src={'/images/FWF_LOGO.png'} /></div>
     {/* <h2> {firstName}!</h2> */}
         <br/> 
             {/* {firstName ?
@@ -53,6 +53,9 @@ const Home = ({user}) => {
     between food and beverage. How your beverage balances your dish to create that glorious harmony we look for in a great pairing, is what we aim to supply you with
     with each delicious box.</div></div>
     </div> </div>   
+    <div className="footer"> 
+    <p> <br/> site created by </p>
+    <p> Sam Runyan, Amadeo Ramirez and Crystal Joyce</p></div>
     </>)
 }
 
