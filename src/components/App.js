@@ -70,6 +70,7 @@ const App = () => {
   const handleLogout = (event) => {
     event.preventDefault();
     setUser({});
+    setOrder({});
     setToken('');
     localStorage.clear();
     history.push('/');
