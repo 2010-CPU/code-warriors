@@ -53,14 +53,18 @@ const Cart = ({token, user, order, setOrder}) => {
     }
 
     const updateQuantity = async (event) => { 
-        event.preventDefault();
+        // event.preventDefault();
 
         try {
             const op_rsp = await axios.get(`/api/order_products/${order.id}`); 
             const order_products = await op_rsp.data; 
-
+            console.log(order_products)
             const [order_product] = order_products.filter((order_product) => {
+                console.log(order_product)
+                console.log(order_product.productId)
+
             return order_product.productId === id;
+
             });
           
             const response = await axios.patch(`/api/order_products/${order_product.id}`,{

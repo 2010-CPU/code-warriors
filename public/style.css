@@ -155,6 +155,39 @@ button {
   margin-left: 4%;
   margin-right: 4%;
 }
+.tab-list{
+  display: flex;
+  color: white;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 0 0 -5px;
+  color: #ffffff !important;
+  background-color: #e63269 !important;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px; 
+  font-size: 1.25rem;
+  background-image: none;
+  font-weight: 600;
+  padding: 10px 25px;
+}
+.tab-list li{
+  display: list-item;
+}
+.tab-list active{ 
+  color: #111111 !important;
+  background-color: #ffffff !important;
+}
+.tab-list inactive{
+  color: #ffffff !important;
+  background-color: #e63269 !important;
+}
 .profile-image {
   width: 309px;
   height: 327px;

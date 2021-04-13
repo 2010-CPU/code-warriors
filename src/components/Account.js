@@ -35,7 +35,8 @@ const Account = ({user, token, reviews, setReviews, setTitle={setTitle}, setCont
     }
 
     if (token && username) {
-        return (<><div >
+        return (<><div >            
+            <div className='tab-list' ><li>Profile</li><li>Orders</li><li>Reviews</li> </div>
             <div className='acct-container'> 
             <h2>Account Information for {firstName}</h2>
             

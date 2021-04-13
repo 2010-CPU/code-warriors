@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 const AddReview = ({token, reviews, setReviews, user, setTitle, setContent, setStars, setUserId, setProductId }) => { 
-    console.log('user in addreview: ', user)
     const { id } = user; 
     const {title, content, stars, userId, productId} = reviews; 
 

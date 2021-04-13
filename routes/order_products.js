@@ -2,8 +2,9 @@ const express = require('express');
 const orderProductsRouter = express.Router();
 
 const {getOrderById, getOrderProductById, updateOrderProduct, destroyOrderProduct, getAllOrderProducts} = require('../db');
+// const {requireUser} = require('./utils');
 
-orderProductsRouter.patch('/:orderProductId', async (req, res, next) => {
+orderProductsRouter.patch('/:orderProductId',  async (req, res, next) => {
     const {price, quantity} = req.body;
     const {orderProductId} = req.params;
     const updateFields = {};
