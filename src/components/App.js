@@ -260,14 +260,6 @@ useEffect( () => {
             <AllOrders token={token} user={user} />
           </Route>
 
-          <Route exact path='/editreview'>
-            <EditReview token={token} user={user} reviews={reviews} setReviews={setReviews} />
-          </Route>
-
-          <Route exact path='/editreview'>
-            <DeleteReview token={token} user={user} reviews={reviews} setReviews={setReviews} />
-          </Route>
-
           <Route exact path="/checkout/success">
             <div className="success">
             <h1>THANK YOU FOR YOUR ORDER</h1>

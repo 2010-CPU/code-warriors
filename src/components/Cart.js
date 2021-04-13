@@ -52,25 +52,29 @@ const Cart = ({token, user, order, setOrder}) => {
         }
     }
 
-    const updateQuantity = async (event) => { 
-        // event.preventDefault();
+    const updateQuantity = async (id) => { 
 
         try {
             const op_rsp = await axios.get(`/api/order_products/${order.id}`); 
             const order_products = await op_rsp.data; 
             console.log(order_products)
             const [order_product] = order_products.filter((order_product) => {
-                console.log(order_product)
-                console.log(order_product.productId)
+                console.log('',order_product)
+                console.log('productId',order_product.productId)
+                console.log('id',order_product.id)
+                
 
             return order_product.productId === id;
 
             });
-          
+          const {quantity} = order_product; 
             const response = await axios.patch(`/api/order_products/${order_product.id}`,{
                 headers:{
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
+                }, 
+                data: { 
+                    quantity
                 }
             });
             const {data} = await response;
@@ -80,12 +84,10 @@ const Cart = ({token, user, order, setOrder}) => {
         } catch (error) {
             console.error(error)
         }
-
     }
 
     const handleCoupon = async (event) => {
         event.preventDefault();
-        
     }
 
     const cartQuantity = [{label: 0, value: 0},{label: 1, value: 1},{label: 2, value: 2},{label: 3, value: 3},{label: 4, value: 4},{label: 5, value: 5},{label: 6, value: 6},{label: 7, value: 7},{label: 8, value: 8},{label: 9, value: 9}];
@@ -112,13 +114,14 @@ const Cart = ({token, user, order, setOrder}) => {
             <div>
                 {products ? products.map((product) => {
                     const {id, imageURL, name, quantity, price} = product; 
-
+                        console.log(product.id)
                     return <div key={id}> 
                         <table className="cart-table"><tbody>
                         <tr><td><img className="cart-img" src={imageURL}/> </td>
                         <td><h4 className="prod-col" > {name}</h4></td>
                         <td><h4 >Quantity:
-                        <select required name='quantity' selected={newQuantity} value={quantity} onChange={event => updateQuantity(setNewQuantity)}>
+                            {console.log(product.id)}
+                        <select required name='quantity' selected={quantity} value={quantity} onChange={event => updateQuantity(product.id)}>
                             {cartQuantity.map((quant, index) => {
                                 return <option key={index}>{`${quant.label}`}</option>
                             })}
