@@ -26,8 +26,6 @@ import {
   AddUser,
   AllOrders,
   ProductForm,
-  EditReview,
-  DeleteReview,
   AddReview
 } from './';
 

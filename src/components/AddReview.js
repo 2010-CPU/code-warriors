@@ -21,10 +21,7 @@ const AddReview = ({token, reviews, setReviews, user, setTitle, setContent, setS
                 productId
             })
         });
-        console.log('response in addReview', response)
         const data = await response.json();
-        console.log('reviews data: ', data);
-        // setReviews([...reviews]);
         setTitle('');
         setContent('');
         setStars('');

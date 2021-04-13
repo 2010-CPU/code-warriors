@@ -57,13 +57,8 @@ const Cart = ({token, user, order, setOrder}) => {
         try {
             const op_rsp = await axios.get(`/api/order_products/${order.id}`); 
             const order_products = await op_rsp.data; 
-            console.log(order_products)
             const [order_product] = order_products.filter((order_product) => {
-                console.log('',order_product)
-                console.log('productId',order_product.productId)
-                console.log('id',order_product.id)
-                
-
+            
             return order_product.productId === id;
 
             });
@@ -114,13 +109,11 @@ const Cart = ({token, user, order, setOrder}) => {
             <div>
                 {products ? products.map((product) => {
                     const {id, imageURL, name, quantity, price} = product; 
-                        console.log(product.id)
                     return <div key={id}> 
                         <table className="cart-table"><tbody>
                         <tr><td><img className="cart-img" src={imageURL}/> </td>
                         <td><h4 className="prod-col" > {name}</h4></td>
                         <td><h4 >Quantity:
-                            {console.log(product.id)}
                         <select required name='quantity' selected={quantity} value={quantity} onChange={event => updateQuantity(product.id)}>
                             {cartQuantity.map((quant, index) => {
                                 return <option key={index}>{`${quant.label}`}</option>
