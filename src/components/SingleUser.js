@@ -75,7 +75,7 @@ const SingleUser = ({token, user, singleUser, setSingleUser, getUsers, states}) 
                         <div>Zip Code</div>
                         <input required type='number' name='zip' minLength='5' maxLength='5' value={zip} onChange={handleOnChange}></input>
                     </div>
-                    <button type='submit'>Save User</button>
+                    <button type='submit' className='btn'>Save User</button>
                 </form>
                 </>
                 :
@@ -86,7 +86,7 @@ const SingleUser = ({token, user, singleUser, setSingleUser, getUsers, states}) 
                 <div>Name: {firstName} {lastName}</div>
                 <div>Email: {email}</div>
                 <div>Address: {address} {city}, {state} {zip}</div>
-                <button onClick={() => setShowEditUser(!showEditUser)}>Edit User</button>
+                <button className='btn' onClick={() => setShowEditUser(!showEditUser)}>Edit User</button>
                 </>
             }
         </div>)

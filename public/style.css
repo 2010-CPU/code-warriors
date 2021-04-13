@@ -155,6 +155,39 @@ button {
   margin-left: 4%;
   margin-right: 4%;
 }
+.tab-list{
+  display: flex;
+  color: white;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 0 0 -5px;
+  color: #ffffff !important;
+  background-color: #e63269 !important;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px; 
+  font-size: 1.25rem;
+  background-image: none;
+  font-weight: 600;
+  padding: 10px 25px;
+}
+.tab-list li{
+  display: list-item;
+}
+.tab-list active{ 
+  color: #111111 !important;
+  background-color: #ffffff !important;
+}
+.tab-list inactive{
+  color: #ffffff !important;
+  background-color: #e63269 !important;
+}
 .profile-image {
   width: 309px;
   height: 327px;
@@ -268,20 +301,21 @@ button {
   text-align: left;
   table-layout: initial;
   width: 100%;
+  height: 120px;
   border: 1px solid black;  
   background-color: #e5e5e5;
   color: #2c2c3d;
 }
-table td:nth-child(1){
+.cart-table table td:nth-child(1){
   width: 10%;
 }
-table td:nth-child(2){
+.cart-table table td:nth-child(2){
   width: 55%;
 }
-table td:nth-child(3){
+.cart-table table td:nth-child(3){
   width: 20%;
 }
-table td:nth-child(4){
+.cart-table table td:nth-child(4){
   width: 10%;
 }
 .cart-img{
@@ -300,6 +334,12 @@ table td:nth-child(4){
   width: 400px;
   height: 600px;
   background-color: white;
+}
+.review-form{
+  display: grid;
+  grid-template-columns: 25% 60%;
+  line-height: 2;
+  grid-gap: 20px 0px;
 }
 .acct-view-revs{
   margin: 20px auto 60px 0;
@@ -361,6 +401,26 @@ table td:nth-child(4){
 .checkout-detail{
   text-transform: uppercase;
 }
+.cart-tot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 30px;
+  position: relative;
+  line-height: 2;
+}
+.cart-tot input{
+  height: 30px;
+}
+.cart-h2 { 
+  text-align: right;
+}
+.sub-tot{ 
+  display: grid;
+  grid-template-columns: 50% 50%;
+  text-align: right;
+  height: 46px;
+  font-weight: 700;
+}
 .success{
   width: 466px;
   min-height: 370px;
@@ -373,6 +433,17 @@ table td:nth-child(4){
   line-height: 1.6;
 }
 .cancelled{
+  width: 466px;
+  min-height: 370px;
+  background-image: none;
+  margin: 4% auto;
+  text-align: center;
+  background-color: #e5e5e5;
+  justify-content: center;
+  padding: 55px 45px 45px 55px;
+  line-height: 1.6;
+}
+.empty-cart{
   width: 466px;
   min-height: 370px;
   background-image: none;
