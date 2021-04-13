@@ -44,6 +44,7 @@ footer{
 }
 .logo{ 
   color: black;
+  height: 45px;
 }
 .bg-image {
   background-image: url('./images/brick.jpg');
@@ -57,16 +58,13 @@ footer{
   background-size: cover;
   margin-left: 4%;
   margin-right: 4%;
+  margin-top: 4%;
 }
-.FP-logo{
-  text-align: center;
-  font-weight: 700;
-  color: black;
-  background-color: goldenrod;
-  width: 353px;
-  height: 353px;
-  margin: 37px auto 0;
-  border-radius: 50%;
+#FP-logo img{ 
+  align-content: center;
+  margin-left: 15% ;
+  height: 700px;
+
 }
 .image-row{
   display: flex;
@@ -295,6 +293,15 @@ button {
   color: white;
   border: white;
 }
+.shop-head{ 
+  /* font-family: 'Open Sans',sans-serif; */
+  text-align: center;
+  color: white;
+  font-weight: 400;
+  font-family: Allerta;
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
 .cart-table{
   margin-top: 63px;
   border-collapse: collapse;
@@ -326,7 +333,7 @@ button {
   color: white;
 }
 .rev-image{
-  height: 30px;
+  height: 50px;
   width: auto;
 }
 .reviews{

@@ -179,7 +179,7 @@ useEffect( () => {
 
   return (<>
   <div id="logo-head">
-  <h1 className="logo">FOOD WITH FRIENDS</h1>
+  <img className="logo" src={'/images/navlogo.png'}/>
   <div className="nav-bar">
     <nav>
       <Link to="/">Home</Link>

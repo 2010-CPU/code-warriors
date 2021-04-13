@@ -48,7 +48,7 @@ const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
     <Link to={`/products/${id}`}><img src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/> </Link> </div>
     <h1 className="prod-info">{name}<br/> ${price}</h1>
     <h2 className="rev-image">{avgStars > 4 
-    ? <img className="rev-image" src={'/images/5.stars.png'}/> 
+    ? <img className="rev-image" src={'/images/5_stars.png'}/> 
     : <img className="rev-image" src={'/images/4_stars.png'}/>}</h2> 
     <button className="btn" onClick={addToCart}> add to cart </button>
     </div>
@@ -102,11 +102,14 @@ const ProductsView = ({cart, token, user, products, getProducts, reviews, setRev
     getProducts();
   },[]);
 
-  return (
+  return (<>
+    <div className='shop-head'> <h2>Food With Friends</h2>
+    <h3>We're adding new meal kits every week. Check back often to enjoy new offerings.</h3></div>
     <div className="products">
+      
       {
         products.map(product => (
-
+          
           <SmallProduct key={product.id} product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token}/>
 
           ))
@@ -114,6 +117,7 @@ const ProductsView = ({cart, token, user, products, getProducts, reviews, setRev
             {user.isAdmin ? <Link to='/products/add'><button className="btn">Add A New Product</button></Link> : ''}
 
     </div>
+    </>
   )
 }
 

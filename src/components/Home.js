@@ -5,14 +5,16 @@ const Home = ({user}) => {
 
     return (<>
     <div className="bg-image img1">
-        <div className='FP-logo'>
-    <h2> <br/><br/><br/><br/> Welcome to Food With Friends {firstName}!</h2>
+        <div id='FP-logo'>
+    
+    <div> <img src={'/images/FWF_LOGO.png'} /></div>
+    {/* <h2> {firstName}!</h2> */}
         <br/> 
-            {firstName ?
+            {/* {firstName ?
             
             <div> You are currently logged in as <b>{username.toUpperCase()}</b>.</div>
             :
-            <div>Please login above or register for an account</div>}
+            <div>Please login above or register for an account</div>} */}
     </div> </div>
     <div className='image-container'> 
     <div className='image-row'> 

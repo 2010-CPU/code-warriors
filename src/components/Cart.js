@@ -101,12 +101,12 @@ const Cart = ({token, user, order, setOrder}) => {
 
         {order.products ?  
             <>
-            <h2>My Cart</h2>
+            {/* <h2>My Cart</h2>
             <p>Date Placed: {moment(datePlaced).format("LL")}</p>
             <p>Order ID: {id}</p>
-            <p>Order Status: {status}</p>
+            <p>Order Status: {status}</p> */}
             <div className="shopping-cart-container" >
-            <div>
+            <div> <h2>Shopping Cart</h2>
                 {products ? products.map((product) => {
                     const {id, imageURL, name, quantity, price} = product; 
                     return <div key={id}> 
