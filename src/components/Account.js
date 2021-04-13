@@ -4,7 +4,7 @@ import {AddReview} from './index';
 
 // allow profile image choice later
 
-const Account = ({user, token, reviews, setReviews, setTitle={setTitle}, setContent={setContent},setStars={setStars}, setUserId={setUserId}, setProductId={setProductId}}) => {
+const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStars, setUserId, setProductId }) => {
     const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
     const {id, title, content, stars, userId, productId} = reviews; 
 
