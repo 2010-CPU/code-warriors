@@ -258,6 +258,17 @@ button {
   margin: 22px auto 0;
   padding: 10px 38px 10px 37px;
 }
+.btn-product {
+  color: #ffffff !important;
+  background-color: #e00b4c !important;
+  border-width: 0px;
+  border-style: solid;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 22px 0px 0px 5px;
+  padding: 10px 38px 10px 37px;
+}
 .account-container{ 
   display: grid;
   grid-template-columns: 25% 60%;

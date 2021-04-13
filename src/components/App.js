@@ -26,6 +26,7 @@ import {
   AddUser,
   AllOrders,
   ProductForm,
+  EditProduct,
   AddReview
 } from './';
 
@@ -38,7 +39,7 @@ const App = () => {
   const [usersList, setUsersList] = useState([]);
   const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
   const [products, setProducts] = useState([]);
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState({id: null, name: '', description: '', price: '', image: '', inStock: false, category: ''});
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [stars, setStars] = useState(0);
@@ -206,8 +207,12 @@ useEffect( () => {
             <ProductForm user={user} token={token} getProducts={getProducts} product={product} setProduct={setProduct} />
           </Route>
 
+          <Route exact path='/products/edit/:productId'>
+            <EditProduct user={user} token={token} product={product} setProduct={setProduct} getProducts={getProducts} />
+          </Route>
+
           <Route path="/products/:productId">
-            <ProductView cart={order} token={token} product={product} setProduct={setProduct} reviews={reviews} setReviews={setReviews} />
+            <ProductView user={user} cart={order} token={token} product={product} setProduct={setProduct} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route exact path="/products">
