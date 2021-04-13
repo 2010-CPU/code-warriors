@@ -48,7 +48,7 @@ const Home = ({user}) => {
     </div> </div>   
     <div className="footer"> 
     <p> <br/> site created by </p>
-    <p> Sam Runyan, Amadeo Ramirez and Crystal Joyce</p></div>
+    <p> Samantha Runyan, Amadeo Ramirez and Crystal Joyce</p></div>
     </>)
 }
 

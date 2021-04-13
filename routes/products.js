@@ -50,11 +50,11 @@ productsRouter.post('/', requireAdmin, async (req, res, next) => {
 })
 
 productsRouter.delete('/:productId', requireAdmin, async (req, res, next) => {
-    const {id} = req.params;
+    const {productId} = req.params;
 
     try {
-        const product = await destroyProduct(id);
-
+        const product = await destroyProduct(productId);
+        console.log('product: ', product)
         res.send(product);
     } catch (error) {
         next(error);

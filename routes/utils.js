@@ -8,6 +8,7 @@ function requireUser (req, res, next) {
 }
 
 function requireAdmin (req, res, next) {
+  console.log('req.user: ', req.user)
   if (!req.user.isAdmin) {
     res.status(403);
     next({message: 'You are not authorized to access this route.'});
