@@ -24,7 +24,7 @@ const SingleUser = ({token, user, singleUser, setSingleUser, getUsers, states}) 
 
     const handleOnChange = async (event) => {
         if (event.target.name === 'isAdmin') {
-            setSingleUser({...singleUser, [event.target.name]: !isAdmin})
+            setSingleUser({...singleUser, [event.target.name]: !isAdmin});
         } else  {
             setSingleUser({...singleUser, [event.target.name]: event.target.value});
         }

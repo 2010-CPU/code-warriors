@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
-import {Redirect} from 'react-router-dom';
+import React from 'react';
+import {Redirect, useHistory} from 'react-router-dom';
 
-const ProductForm = ({user, token, getProducts, product, setProduct}) => {
-    const {name, price, inStock, category, description, imageURL} = product;
+const EditProduct = ({user, token, product, setProduct, getProducts}) => {
+    const {id, name, description, inStock, price, category, imageURL} = product;
 
-    const [addMessage, setAddMessage] = useState('');
+    const history = useHistory();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await fetch('/api/products', {
-            method: 'POST',
+        const response  = await fetch(`/api/products/${id}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'Application/json',
                 'Authorization': `Bearer ${token}`
@@ -18,24 +18,23 @@ const ProductForm = ({user, token, getProducts, product, setProduct}) => {
             body: JSON.stringify(product)
         })
         const data = await response.json();
-        setProduct(data);
-        setAddMessage(data ? 'Product has been added' : '');
-        setProduct({id: null, name: '', description: '', price: '', image: '', inStock: false, category: ''})
         getProducts();
+        history.push(`/products/${id}`);
     }
 
     const handleOnChange = async (event) => {
         if (event.target.name === 'inStock') {
             setProduct({...product, [event.target.name]: !inStock});
+        } else if (event.target.name === 'price') {
+            setProduct({...product, [event.target.name]: Number(event.target.value)});
         } else {
             setProduct({...product, [event.target.name]: event.target.value});
         }
     }
 
     if (user.isAdmin) {
-        return (<div className='add-product'>
-            <h2>Add Product</h2>
-            {addMessage}
+        return (<div className='edit-product'>
+            <h3>Edit Product</h3>
             <form onSubmit={handleSubmit}>
                 <div>
                     <div>Name</div>
@@ -46,7 +45,7 @@ const ProductForm = ({user, token, getProducts, product, setProduct}) => {
                     <textarea required type='text' name='description' value={description} onChange={handleOnChange}></textarea>
                 </div>
                 <div>
-                    <div>inStock? <input type='checkbox' name='inStock' checked={inStock} value={inStock} onChange={handleOnChange}></input></div>
+                    <div>inStock?<input type='checkbox' name='inStock' checked={inStock} value={inStock} onChange={handleOnChange}></input></div>
                 </div>
                 <div>
                     <div>Price</div>
@@ -57,15 +56,16 @@ const ProductForm = ({user, token, getProducts, product, setProduct}) => {
                     <input required type='text' name='category' value={category} onChange={handleOnChange}></input>
                 </div>
                 <div>
-                    <div>Image</div>
+                    <div>Image URL</div>
                     <input type='text' name='imageURL' value={imageURL} onChange={handleOnChange}></input>
                 </div>
-                <button type='submit'>Add Product</button>
+                <button type='submit'>Update Product</button>
             </form>
         </div>)
     } else {
         return <Redirect to='/' />
     }
+
 }
 
-export default ProductForm;
+export default EditProduct;
