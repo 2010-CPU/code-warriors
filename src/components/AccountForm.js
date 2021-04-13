@@ -81,9 +81,18 @@ const AccountForm = ({type, setToken, setUser, states}) => {
     })
 
     return (
-        <div className='bg-image img1'> 
-        <div className='account-form'>
-        <div>{loginMessage}</div>
+        // <div className='bg-image img1'> 
+        // <div >
+        <div className='login-form'>
+        <div className='image-container'> 
+    <div className='login-row'> 
+    <div className="login-image img3"></div>
+    <div className='login-text-container'> 
+    
+    <div className='our-text'> 
+    </div> 
+
+        <div className='our-title'>{loginMessage}</div>
         <br />
         <h2>{title}</h2>
         <form onSubmit={handleSubmit}>
@@ -141,6 +150,8 @@ const AccountForm = ({type, setToken, setUser, states}) => {
             <button type='submit'>{title}</button>
         </form>
         <div id='opposite-account-form'><Link to={`/${oppositeType}`}>{oppositeTitle}</Link></div>
+    </div>
+    </div>
     </div>
     </div>)
 }

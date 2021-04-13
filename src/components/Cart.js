@@ -144,7 +144,14 @@ const Cart = ({token, user, order, setOrder}) => {
 
             <Link to='/cart/checkout'><button className="btn"> Proceed to Checkout </button></Link>
             </>
-        : <div className='empty-cart'>You have not yet started an order!</div>}
+        : <div className='empty-cart'>
+            <div className="inner-cart"> You have not yet started an order!
+                {/* <table>
+                    <colgroup>
+                        <col  />
+                    </colgroup>
+                </table> */}
+            </div> </div>}
 
     </div>
     )

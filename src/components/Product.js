@@ -103,7 +103,7 @@ const ProductsView = ({cart, token, user, products, getProducts, reviews, setRev
   },[]);
 
   return (<>
-    <div className='shop-head'> <h2>Food With Friends</h2>
+    <div id='shop-head'> <h2>Food With Friends</h2>
     <h3>We're adding new meal kits every week. Check back often to enjoy new offerings.</h3></div>
     <div className="products">
       

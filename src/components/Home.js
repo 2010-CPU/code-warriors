@@ -52,14 +52,7 @@ const Home = ({user}) => {
     <div className='our-text'> The mission of Food With Friends is to give you the tools and information to explore the best ways to find that balance and harmony 
     between food and beverage. How your beverage balances your dish to create that glorious harmony we look for in a great pairing, is what we aim to supply you with
     with each delicious box.</div></div>
-    </div> </div>
-
-    <div className="footer"> This is a footer</div>
-   
-        
-            
-            
-           
+    </div> </div>   
     </>)
 }
 
