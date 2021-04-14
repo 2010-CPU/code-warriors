@@ -110,18 +110,19 @@ const Cart = ({token, user, order, setOrder}) => {
                 {products ? products.map((product) => {
                     const {id, imageURL, name, quantity, price} = product; 
                     return <div key={id}> 
-                        <table className="cart-table"><tbody>
-                        <tr><td><img className="cart-img" src={imageURL}/> </td>
-                        <td><h4 className="prod-col" > {name}</h4></td>
-                        <td><h4 >Quantity:
-                        <select required name='quantity' selected={quantity} value={quantity} onChange={event => updateQuantity(product.id)}>
-                            {cartQuantity.map((quant, index) => {
-                                return <option key={index}>{`${quant.label}`}</option>
-                            })}
-                            
-                        </select>   </h4></td>
-                        <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
-                        <button className="btn" onClick={() => removeItem(product.id)}>remove</button> 
+                        <table className="cart-table">
+                            <tbody>
+                            <tr>
+                            <td><img className="cart-img" src={imageURL}/> </td>
+                            <td><h4 className="prod-col" > {name}</h4></td>
+                            <td><h4 >Quantity:
+                                <select required name='quantity' selected={quantity} value={quantity} onChange={event => updateQuantity(product.id)}>
+                                    {cartQuantity.map((quant, index) => {
+                                    return <option key={index}>{`${quant.label}`}</option>
+                                })}</select>
+                            </h4></td>
+                            <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
+                    <button className="btn" onClick={() => removeItem(product.id)}>remove</button> 
                     </div>
                 }) : 
                 ''}
