@@ -18,7 +18,6 @@ const Cart = ({token, order, setOrder}) => {
 
             const data = await response.json();
             setOrder(data);
-            console.log('order: ', order)
         } catch (error) {
             console.error(error);
         }
