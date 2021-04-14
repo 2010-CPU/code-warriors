@@ -81,8 +81,6 @@ const AccountForm = ({type, setToken, setUser, states}) => {
     })
 
     return (
-        // <div className='bg-image img1'> 
-        // <div >
         <div className='login-form'>
         <div className='image-container'> 
     <div className='login-row'> 

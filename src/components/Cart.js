@@ -101,10 +101,6 @@ const Cart = ({token, user, order, setOrder}) => {
 
         {order.products ?  
             <>
-            {/* <h2>My Cart</h2>
-            <p>Date Placed: {moment(datePlaced).format("LL")}</p>
-            <p>Order ID: {id}</p>
-            <p>Order Status: {status}</p> */}
             <div className="shopping-cart-container" >
             <div> <h2>Shopping Cart</h2>
                 {products ? products.map((product) => {
@@ -147,11 +143,6 @@ const Cart = ({token, user, order, setOrder}) => {
             </>
         : <div className='empty-cart'>
             <div className="inner-cart"> You have not yet started an order!
-                {/* <table>
-                    <colgroup>
-                        <col  />
-                    </colgroup>
-                </table> */}
             </div> </div>}
 
     </div>

@@ -16,7 +16,6 @@ import {
   ProductsView,
   AccountForm,
   Account,
-  Order,
   Cart,
   Home,
   Checkout,
@@ -70,6 +69,7 @@ const App = () => {
   const handleLogout = (event) => {
     event.preventDefault();
     setUser({});
+    setOrder({});
     setToken('');
     localStorage.clear();
     history.push('/');
@@ -212,7 +212,7 @@ useEffect( () => {
           </Route>
 
           <Route path="/products/:productId">
-            <ProductView user={user} cart={order} token={token} product={product} setProduct={setProduct} reviews={reviews} setReviews={setReviews} />
+            <ProductView user={user} cart={order} token={token} product={product} setProduct={setProduct} getProducts={getProducts} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route exact path="/products">
@@ -233,10 +233,6 @@ useEffect( () => {
 
           <Route path='/account'>
             <Account user={user} token={token} reviews={reviews} setReviews={setReviews} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} />
-          </Route>
-
-          <Route path='/orders/:orderId'>
-            <Order token={token} order={order} setOrder={setOrder} />
           </Route>
 
           <Route exact path='/cart'>
