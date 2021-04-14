@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import moment from 'moment';
-import { getAllProducts } from '../api';
 import CartItem from './CartItem';
 
 const Cart = ({token, order, setOrder}) => {
