@@ -81,10 +81,10 @@ const updateReview = async (fields = {}) => {
     }
 }
 
-const destroyReview = async ({id}) => { 
+const destroyReview = async (id) => { 
     try {
         const { rows: [reviews] } = await client.query(` 
-            DELETE FROM reviews,
+            DELETE FROM reviews
             WHERE id = $1
             RETURNING *; 
         `, [id]);

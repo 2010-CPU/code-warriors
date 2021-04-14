@@ -68,7 +68,7 @@ async function buildTables() {
         stars INTEGER NOT NULL, 
         "userId" INTEGER REFERENCES users(id),
         "productId" INTEGER REFERENCES products(id)
-      )
+      );
     `);
 
     await client.query(`
