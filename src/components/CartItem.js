@@ -37,9 +37,9 @@ const CartItem = ({token, product, removeItem, order, fetchCart}) => {
             <tr><td><img className="cart-img" src={imageURL}/> </td>
             <td><h4 className="prod-col" > {name}</h4></td>
             <td><h4 >Quantity:
-            <input required type='number' value={quantity} onChange={(event) => updateQuantity(event.target.value, id)}></input> 
+            <input required type='number' min='0' value={quantity} onChange={(event) => updateQuantity(event.target.value, id)}></input> 
             </h4></td>
-            <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
+            <td><h4 className="sub-col" > ${price * quantity}.00</h4></td></tr></tbody></table>
             <button className="btn" onClick={() => removeItem(product.id)}>remove</button> 
         </div>
     </div>)
