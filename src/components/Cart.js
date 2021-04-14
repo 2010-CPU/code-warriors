@@ -20,6 +20,7 @@ const Cart = ({token, order, setOrder}) => {
 
             const data = await response.json();
             setOrder(data);
+            console.log('order: ', order)
         } catch (error) {
             console.error(error);
         }
@@ -48,19 +49,19 @@ const Cart = ({token, order, setOrder}) => {
             const {data} = await response;
             fetchCart();
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
-
-    const subtotal = products ? products.map((product) => {
-        const {id, imageURL, name, quantity, price} = product; 
-        return price
+    let cartTotal = 0
+    if (Object.keys(order).length > 0) {
+        let totalPrice = 0
+        order.products.forEach(product => {
+            let currentPrice = (product.price * product.quantity)
+            totalPrice += currentPrice
         })
-        : '';
-
-    const cartTotal = subtotal ? subtotal.reduce((a,b) => a + b, 0) 
-        : '';
+        cartTotal = totalPrice
+    }
 
     return (
         <div className="cart">
