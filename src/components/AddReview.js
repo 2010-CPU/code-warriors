@@ -1,68 +1,66 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 
-const AddReview = ({user}) => { 
+const AddReview = ({token, user, product, review, setReview}) => { 
+    const {title, content, stars} = review;
+    const starRatings = [1, 2, 3, 4, 5];
+    const {id, name} = product;
 
-    return (<div>
-        this is reviews
+    const history = useHistory();
+
+    const handleSubmit = async (event) => {
+        try {
+            event.preventDefault();
+
+            const response = await fetch(`/api/reviews`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'Application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    title, 
+                    content,
+                    stars,
+                    userId: user.id,
+                    productId: product.id
+                })
+            })
+            const data = await response.json();
+            setReview(data);
+            history.push('/account');
+            setReview({id: null, title: '', content: '', stars: 0, userId: null, productId: null});
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleOnChange = async (event) => {
+        setReview({...review, [event.target.name]: event.target.value});
+    }
+
+    return (<div className='add-review'>
+        <h3>Reviewing {name}</h3>
+        <form onSubmit={handleSubmit}>
+            <div>
+                <div>Title</div>
+                <input required type='text' name='title' value={title} onChange={handleOnChange}></input>
+            </div>
+            <div>
+                <div>Content</div>
+                <textarea required type='text' name='content' value={content} onChange={handleOnChange}></textarea>
+            </div>
+            <div>
+                <div>Star Rating</div>
+                <select required name='stars' value={stars} onChange={handleOnChange}>
+                    {starRatings.map((star, index) => {
+                        return <option key={index + 1}>{star}</option>
+                    })}
+                </select>
+            </div>
+            <button type='submit' className='btn'>Submit Review</button>
+        </form>
     </div>)
-    
-    // {token, reviews, setReviews, user, setTitle, setContent, setStars, setUserId, setProductId }
-    // const { id } = user; 
-    // const {title, content, stars, userId, productId} = reviews; 
-
-    // const handleSubmit = async (event) => { 
-    //     event.preventDefault();
-
-    //     const response = await fetch('/api/reviews', { 
-    //         method: 'POST',
-    //         headers: { 
-    //             'Content-Type': 'Application/json',
-    //             'Authorization': `Bearer ${token}`
-    //         }, 
-    //         body: JSON.stringify({ 
-    //             title, 
-    //             content, 
-    //             stars, 
-    //             userId: id,
-    //             productId: product.id
-    //         })
-    //     });
-    //     const data = await response.json();
-    //     setTitle('');
-    //     setContent('');
-    //     setStars('');
-    //     setUserId('');
-    //     setProductId('');
-    // }
-
-    // const productList = [ 
-    //     {label: 'Crepes and Mimosas with Dom', value: 1},
-    //     {label: 'Churros and Margaritas with Jose', value: 2},
-    //     {label: 'Chops and Shots with Jameson', value: 3},
-    //     {label: 'Jerk Chicken and Hurricanes with Morgan', value: 4},
-    //     {label: 'Pulled Pork and Mai Tais with Mahina', value: 5},
-    //     {label: 'Brunch with Mary', value: 6}
-    // ];
-
-    // return ( <>
-    //     <h2> Create a new review: </h2>
-    //     <form  className="review-form" onSubmit={handleSubmit}> 
-    //         <label>Title</label>
-    //         <input type='text' placeholder='title' value={title} onChange={(event) => setTitle(event.target.value)}></input>
-    //         <label>Review</label>
-    //         <textarea type='text' placeholder='Please share your love for your Food With Friends kit ... ' value={content} onChange={(event) => setContent(event.target.value)}></textarea>
-    //         <label>Star Rating</label>
-    //         <input type='number' placeholder='stars' max={5} min={1} value={stars} onChange={(event) => setStars(event.target.value)}></input>
-    //         <label> Product</label>
-    //         <select required name='productId' value={productId} placeholder={'Select a product to review'} onChange={(event) => setProductId(event.target.value)}>
-    //                     {productList.map((product, index) => {
-    //                         return <option key={index}>{`${product.label}`}</option>
-    //                     })}
-    //                 </select>   
-    //         <input hidden={true} value={user.id} onChange={(event) => setUserId(event.target.value)}/> 
-    //         <br/> <button type='submit' className="btn">Submit</button>
-    //     </form>
-    // </>)
 }
 
 export default AddReview;

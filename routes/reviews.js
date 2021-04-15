@@ -14,9 +14,9 @@ reviewsRouter.get('/', async (req, res, next) => {
     }
 })
 
-reviewsRouter.post('/:productId', requireUser, async (req, res, next) => { 
-    const { title, content, stars, userId, productId } = req.body; 
-    console.log('req.body: ', req.body)
+reviewsRouter.post('/', requireUser, async (req, res, next) => { 
+    const { title, content, stars, productId } = req.body; 
+
     const reviewData = {};
 
     try {

@@ -35,16 +35,12 @@ const App = () => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
-  const [reviews, setReviews] = useState([]);
   const [usersList, setUsersList] = useState([]);
   const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({id: null, name: '', description: '', price: '', image: '', inStock: false, category: ''});
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [stars, setStars] = useState(0);
-  const [userId, setUserId] = useState(0);
-  const [productId, setProductId] = useState(0);
+  const [reviews, setReviews] = useState([]);
+  const [review, setReview] = useState({id: null, title: '', content: '', stars: 0, userId: null, productId: null});
   const [orders, setOrders] = useState([]);
 
   const history = useHistory();
@@ -151,6 +147,19 @@ const App = () => {
       setOrders(data);
   }
 
+  const getReviews = async () => {
+    const response = await fetch('/api/reviews', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'Application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    const data = await response.json();
+    data.sort((a, b) => (a.id > b.id) ? 1 : -1);
+    setReviews(data);
+  }
+
   const states = [
     { 'label':'Alabama', 'value': 'AL' },
     { 'label':'Alaska', 'value': 'AK'},
@@ -213,21 +222,6 @@ const App = () => {
     { 'label':'Wyoming', 'value': 'WY'}
     ];
 
-  const getReviews = async () => {
-    const response = await fetch(`/api/reviews`, {
-        method: 'GET',
-        headers: {
-            'Content-Type' : 'Application/json'
-        }
-    });
-    const data = await response.json();
-    setReviews(data);
-}
-
-useEffect( () => {
-    getReviews();
-}, [])
-
   return (<>
   <div id="logo-head">
   <img className="logo" src={'/images/navlogo.png'}/>
@@ -281,7 +275,7 @@ useEffect( () => {
           </Route>
 
           <Route path='/account'>
-            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} orders={orders} setOrders={setOrders} />
+            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} orders={orders} setOrders={setOrders} setProduct={setProduct} getReviews={getReviews} />
           </Route>
 
           <Route exact path='/cart'>
@@ -309,7 +303,7 @@ useEffect( () => {
           </Route>
 
           <Route path='/reviews/:productId'>
-            <AddReview user={user} />
+            <AddReview token={token} user={user} product={product} review={review} setReview={setReview} />
           </Route>
 
           <Route exact path="/checkout/success">

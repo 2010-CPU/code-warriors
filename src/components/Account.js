@@ -4,12 +4,11 @@ import {PastOrders, AddReview} from './index';
 
 // allow profile image choice later
 
-const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStars, setUserId, setProductId, orders, setOrders }) => {
+const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduct, getReviews }) => {
     const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
-    const {id, title, content, stars, userId, productId} = reviews; 
 
     const userReviews = reviews.filter( review => { 
-        if(user.id === review.userId) { 
+        if (user.id === review.userId) { 
             return review;
         }
     })
@@ -28,6 +27,7 @@ const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStar
 
     useEffect( ()=> {
         getPastOrders();
+        getReviews();
     }, [])
 
     if (token && username) {
@@ -50,21 +50,24 @@ const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStar
                 <h3>Past Orders</h3>
                 {orders.length > 1 ? orders.map(order => {
                     return order.status === 'completed' ?
-                        <PastOrders key={order.id} order={order} /> : ''
+                        <PastOrders key={order.id} order={order} setProduct={setProduct} /> : ''
                 }) : 'You have no past orders!'}
             </div>
             
             <div className="acct-view-revs"> 
-            <h3 > Reviews From Past Orders  </h3> <br/>
+            <h3> Reviews From Past Orders  </h3> <br/>
             {userReviews.map((review) => { 
-                const {id, title, content, stars, userId, productId} = review;
-                return <div key={id}> 
-                    <div> Title: {title} </div> 
-                    <div>  Review:  {content} </div>
-                    <div> Star Rating: {stars} </div>
-                </div> 
+                const {id, title, content, stars} = review;
+
+                return (<div key={id}> 
+                    <div>Title: {title} </div> 
+                    <div>Review:  {content} </div>
+                    <div>Star Rating: {stars} </div>
+                    <br />
+                </div>)
             })}
-            <AddReview reviews={reviews} setReviews={setReviews} token={token} user={user} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} />
+
+            {/* <AddReview reviews={reviews} setReviews={setReviews} token={token} user={user} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} /> */}
             </div> 
             </>)
     } else {

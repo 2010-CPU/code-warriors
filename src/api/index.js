@@ -19,11 +19,3 @@ export async function getProductById (id) {
   }
 }
 
-export async function getAllReviews () {
-  try {
-    const response = await axios.get('/api/reviews');
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-}
