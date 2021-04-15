@@ -61,6 +61,9 @@ const App = () => {
           }
         })
         const meData = await response.json();
+
+        const order = await fetchOrder(token);
+        setOrder(order);
         setUser(meData);
       }
       captureToken();
@@ -76,6 +79,22 @@ const App = () => {
     history.push('/');
   }
 
+  const fetchOrder = async (token) => {
+    try {
+      const order_rsp = await fetch(`/api/orders/cart`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+
+      const order = await order_rsp.json();
+      console.log(order);
+      return order;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const getUsers = async () => {
     try {
       const response = await fetch('/api/users', {
@@ -87,7 +106,7 @@ const App = () => {
       });
       const data = await response.json();
       setUsersList(data);
-      
+
     } catch (error) {
       console.error(error);
     }
@@ -213,11 +232,11 @@ useEffect( () => {
           </Route>
 
           <Route path="/products/:productId">
-            <ProductView user={user} order={order} token={token} product={product} setProduct={setProduct} getProducts={getProducts} reviews={reviews} setReviews={setReviews} />
+            <ProductView user={user} order={order} token={token} product={product} setProduct={setProduct} getProducts={getProducts} reviews={reviews} setReviews={setReviews} fetchOrder={fetchOrder} setOrder={setOrder} />
           </Route>
 
           <Route exact path="/products">
-            <ProductsView order={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} setReviews={setReviews} />
+            <ProductsView order={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} setReviews={setReviews} fetchOrder={fetchOrder} setOrder={setOrder}/>
           </Route>
 
           <Route exact path="/reviews">
@@ -225,11 +244,11 @@ useEffect( () => {
           </Route>
 
           <Route path ='/login'>
-            <AccountForm type={'login'} setToken={setToken} setUser={setUser} states={states} />
+            <AccountForm type={'login'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder}/>
           </Route>
 
           <Route path='/register'>
-            <AccountForm  type={'register'} setToken={setToken} setUser={setUser} states={states} />
+            <AccountForm  type={'register'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder}/>
           </Route>
 
           <Route path='/account'>
@@ -237,7 +256,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path='/cart'>
-            <Cart token={token} order={order} user={user} order={order} setOrder={setOrder} />
+            <Cart token={token} order={order} user={user} order={order} setOrder={setOrder} fetchOrder={fetchOrder}/>
           </Route>
 
           <Route exact path='/cart/checkout'>
@@ -272,7 +291,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path="/checkout/cancel">
-            <div className="cancelled"> 
+            <div className="cancelled">
             <h1>CANCELLED THE ORDER</h1>
             <p>
               We hope you come back soon! <br/>

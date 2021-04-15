@@ -27,11 +27,11 @@ export async function getProductById (id) {
   }
 }
 
-export async function getAllReviews () { 
+export async function getAllReviews () {
   try {
     const response = await axios.get('/api/reviews');
-    return response.data; 
+    return response.data;
   } catch (error) {
-    throw error; 
+    throw error;
   }
 }
