@@ -1,13 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import Account from './Account';
-import Cart from './Cart';
 import { loadStripe } from '@stripe/stripe-js';
 
 // Load stripe once instead of on every render
 const stripePromise = loadStripe('pk_test_51IbHarLk15zqG3FqAIpqPc0vFDQpQRLADB7RKQlvrwRVdHJgx0S4UMy014DDa4O9dmFRKuEMNC7kx0ZhkiMj41CC00QyNGxLnj')
 
-const Checkout = ({ order, user, token, reviews, setReviews, cart, setCart }) => {
+const Checkout = ({ order, user, token }) => {
   const {id, firstName, lastName, email, address, city, state, zip } = user;
 
     const handleClick = async (event) => {

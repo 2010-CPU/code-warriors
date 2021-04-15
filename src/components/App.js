@@ -287,7 +287,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path='/cart'>
-            <Cart token={token} order={order} user={user} order={order} setOrder={setOrder} fetchOrder={fetchOrder}/>
+            <Cart token={token} user={user} order={order} setOrder={setOrder} fetchOrder={fetchOrder}/>
           </Route>
 
           <Route exact path='/cart/checkout'>
@@ -299,7 +299,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path='/users/add'>
-            <AddUser user={user} singleUser={singleUser} setSingleUser={setSingleUser} getUsers={getUsers} states={states} />
+            <AddUser user={user} getUsers={getUsers} states={states} />
           </Route>
 
           <Route exact path='/users/:userId'>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import {
   useParams,
@@ -11,7 +11,7 @@ import {
 } from '../api';
 
 const SmallProduct = ({user, product, reviews, setReviews, token, order, fetchOrder, setOrder}) => {
-  const {id,name,price,inStock,imageURL} = product;
+  const {id,name,price,imageURL} = product;
 
   const addToCart = async () => {
     try {
@@ -115,7 +115,7 @@ const ProductsView = ({order, token, user, products, getProducts, reviews, setRe
       {
         products.map(product => (
 
-          <SmallProduct user={user} key={product.id} product={product} reviews={reviews} setReviews={setReviews} order={order} token={token} fetchOrder={fetchOrder} setOrder={setOrder}/>
+          <SmallProduct user={user} key={product.id} product={product} reviews={reviews} setReviews={setReviews} token={token} order={order} fetchOrder={fetchOrder} setOrder={setOrder}/>
           ))
       }
 

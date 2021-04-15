@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-import {
-  Switch,
-  Link,
-  Route,
-  useHistory,
-  useLocation
-} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Success = ({token, user, setOrder, createOrder}) => {
   const location = useLocation();
