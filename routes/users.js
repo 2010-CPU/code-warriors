@@ -107,7 +107,7 @@ usersRouter.get('/', requireAdmin, async (req, res, next) => {
 })
 
 usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => { 
-    const { firstName, lastName, email, address, city, state, zip, isAdmin=false, username, password} = req.body;
+    const { firstName, lastName, email, address, city, state, zip, isAdmin, username, password} = req.body;
     const { userId } = req.params;
 
     const updateFields = {}; 
