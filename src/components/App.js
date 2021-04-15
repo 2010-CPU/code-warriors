@@ -40,7 +40,7 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({id: null, name: '', description: '', price: '', image: '', inStock: false, category: ''});
   const [reviews, setReviews] = useState([]);
-  const [review, setReview] = useState({id: null, title: '', content: '', stars: 0, userId: null, productId: null});
+  const [review, setReview] = useState({id: null, title: '', content: '', stars: 5, userId: null, productId: null});
   const [orders, setOrders] = useState([]);
 
   const history = useHistory();

@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 
 const AddReview = ({token, user, product, review, setReview}) => { 
     const {title, content, stars} = review;
-    const starRatings = [1, 2, 3, 4, 5];
+    const starRatings = [5, 4, 3, 2, 1];
     const {id, name} = product;
 
     const history = useHistory();
@@ -29,7 +29,7 @@ const AddReview = ({token, user, product, review, setReview}) => {
             const data = await response.json();
             setReview(data);
             history.push('/account');
-            setReview({id: null, title: '', content: '', stars: 0, userId: null, productId: null});
+            setReview({id: null, title: '', content: '', stars: 5, userId: null, productId: null});
         } catch (error) {
             console.error(error);
         }
