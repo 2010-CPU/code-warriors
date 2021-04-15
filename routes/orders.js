@@ -11,18 +11,18 @@ const {
   getCartByUser,
   addProductToOrder
 } = require('../db');
-const {requireUser} = require('./utils');
+const {requireUser, requireAdmin} = require('./utils');
 
 //might need to fix completeOrder
 
-ordersRouter.get('/', requireUser, async (req,res,next) => {
+ordersRouter.get('/', requireAdmin, async (req,res,next) => {
   try {
     if (req.user.isAdmin) {
       const orders = await getAllOrders();
       res.send(orders);
     } else {
-      res.status(401);
-      throw new Error("Access denied!");
+      res.status(401).send({message: 'Access denied!'});
+      
     }
 
   } catch (err) {
@@ -107,7 +107,7 @@ ordersRouter.post('/:orderId/products', async (req, res, next) => {
       if (product) {
         res.send(product);
       } else {
-        next({message: 'Product was not added to the order'})
+        res.status(500).send({message: 'Product was not added to the order.'});
       }
 
     } catch (error) {

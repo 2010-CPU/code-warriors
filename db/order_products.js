@@ -7,13 +7,13 @@ const getOrderProductById = async (id) => {
           FROM order_products
           WHERE id = $1;
         `, [id]);
-        
+
         return order_products;
     }catch (error) {
         throw error;
     }
 };
-  
+
 const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
     try{
       const { rows: [order_products] } = await client.query(`
@@ -21,28 +21,49 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
         VALUES ($1, $2, $3, $4)
         RETURNING *;
       `, [orderId, productId, price, quantity]);
-      
+
       return order_products;
     } catch (error){
       throw error;
     }
 };
-  
-const updateOrderProduct = async ({ id, price, quantity }) => {
+
+const getAllOrderProducts = async (orderId) => {
+  // SQL to find each order product associated with order
+  try {
+    const { rows: order_products } = await client.query(`
+      SELECT op.* FROM order_products op
+      JOIN orders o ON op."orderId" = o.id
+      WHERE o.id = $1;
+    `, [orderId]);
+
+    return order_products;
+  } catch (err) {
+    throw err;
+  }
+}
+
+const updateOrderProduct = async (fields = {}) => {
+  const {id} = fields;
+
+  const setString = Object.keys(fields).map((key, index) => {
+    return `${key}=$${index + 1}`
+  });
+
     try{
       const { rows: [order_products] } = await client.query(`
         UPDATE order_products
-        SET price = $2, quantity = $3
-        WHERE id= $1
+        SET ${setString}
+        WHERE id= ${id}
         RETURNING *;
-      `, [id, price, quantity])
+      `, Object.values(fields));
 
       return order_products;
     }catch (error){
       throw error;
     }
 };
-  
+
 const destroyOrderProduct = async (id) => {
     try {
       const {rows: [deletedOrderProduct]} = await client.query(`
@@ -56,10 +77,11 @@ const destroyOrderProduct = async (id) => {
       throw error;
     }
 };
- 
+
 module.exports = {
     getOrderProductById,
     addProductToOrder,
     updateOrderProduct,
-    destroyOrderProduct
+    destroyOrderProduct,
+    getAllOrderProducts
 }

@@ -39,7 +39,7 @@ const getProductById = async (id) => {
     }
 }
 
-const destroyProduct = async ({id}) => {
+const destroyProduct = async (id) => {
     try {
         const {rows: [product]} = await client.query(`
             DELETE FROM products
@@ -60,7 +60,7 @@ const updateProduct = async (fields = {}) => {
         if (key === "imageURL" || key === "inStock") {
             return `"${key}"=$${index + 1}`;
         } else {
-            return `${key}=$${index + 1}`
+            return `${key}=$${index + 1}`;
         }
     }).join(', ');
 

@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {Dropdown} from 'react-dropdown';
+import Dropdown from 'react-dropdown';
 
-
-const AccountForm = ({type, setToken, setUser}) => {
+const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,6 +20,19 @@ const AccountForm = ({type, setToken, setUser}) => {
     const oppositeTitle = type === 'login' ? 'Not yet registered? Sign up here!' : 'Already registered? Login here!'
     const oppositeType = type === 'login' ? 'register' : 'login';
 
+    const createOrder = async (token) => {
+      const order_rsp = await fetch(`/api/orders`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+
+      const order = await order_rsp.json();
+
+      return order;
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -37,15 +49,15 @@ const AccountForm = ({type, setToken, setUser}) => {
                     password,
                     firstName,
                     lastName,
-                    email, 
-                    address, 
-                    city, 
+                    email,
+                    address,
+                    city,
                     state,
                     zip
                 })
             })
             const data = await response.json();
-            setLoginMessage(data.message)
+            setLoginMessage(data.message);
 
             const token = data.token ? data.token : '';
             localStorage.setItem('token', token);
@@ -60,6 +72,10 @@ const AccountForm = ({type, setToken, setUser}) => {
                 })
 
                 const meData = await response.json();
+
+                const order = await (type === 'register' ? createOrder(token) : fetchOrder(token));
+
+                setOrder(order);
                 setUser(meData);
                 setUsername('');
                 setPassword('');
@@ -67,88 +83,31 @@ const AccountForm = ({type, setToken, setUser}) => {
                 history.push('/');
             }
         }
-        
+
     }
+
     const handleSelectState = (event) => {
         setState(event.value)
     }
-    const states = [
-        { 'label':'Alabama', 'value': 'AL' },
-        { 'label':'Alaska', 'value': 'AK'},
-        { 'label':'American Samoa', 'value': 'AS'},
-        { 'label':'Arizona', 'value': 'AZ'},
-        { 'label':'Arkansas', 'value': 'AR'},
-        { 'label':'California', 'value': 'CA'},
-        { 'label':'Colorado', 'value': 'CO'},
-        { 'label':'Connecticut', 'value': 'CT'},
-        { 'label':'Delaware', 'value': 'DE'},
-        { 'label':'District of Columbia', 'value': 'DC'},
-        { 'label':'States of Micronesia', 'value': 'FM'},
-        { 'label':'Florida', 'value': 'FL'},
-        { 'label':'Georgia', 'value': 'GA'},
-        { 'label':'Guam', 'value': 'GU'},
-        { 'label':'Hawaii', 'value': 'HI'},
-        { 'label':'Idaho', 'value': 'ID'},
-        { 'label':'Illinois', 'value': 'IL'},
-        { 'label':'Indiana', 'value': 'IN'},
-        { 'label':'Iowa', 'value': 'IA'},
-        { 'label':'Kansas', 'value': 'KS'},
-        { 'label':'Kentucky', 'value': 'KY'},
-        { 'label':'Louisiana', 'value': 'LA'},
-        { 'label':'Maine', 'value': 'ME'},
-        { 'label':'Marshall Islands', 'value': 'MH'},
-        { 'label':'Maryland', 'value': 'MD'},
-        { 'label':'Massachusetts', 'value': 'MA'},
-        { 'label':'Michigan', 'value': 'MI'},
-        { 'label':'Minnesota', 'value': 'MN'},
-        { 'label':'Mississippi', 'value': 'MS'},
-        { 'label':'Missouri', 'value': 'MO'},
-        { 'label':'Montana', 'value': 'MT'},
-        { 'label':'Nebraska', 'value': 'NE'},
-        { 'label':'Nevada', 'value': 'NV'},
-        { 'label':'New Hampshire', 'value': 'NH'},
-        { 'label':'New Jersey', 'value': 'NJ'},
-        { 'label':'New Mexico', 'value': 'NM'},
-        { 'label':'New York', 'value': 'NY'},
-        { 'label':'North Carolina', 'value': 'NC'},
-        { 'label':'North Dakota', 'value': 'ND'},
-        { 'label':'Northern Mariana Islands', 'value': 'MP'},
-        { 'label':'Ohio', 'value': 'OH'},
-        { 'label':'Oklahoma', 'value': 'OK'},
-        { 'label':'Oregan', 'value': 'OR'},
-        { 'label':'Palau', 'value': 'PW'},
-        { 'label':'Pennsilvania', 'value': 'PA'},
-        { 'label':'Puerto Rico', 'value': 'PR'},
-        { 'label':'Rhode Island', 'value': 'RI'},
-        { 'label':'South Carolina', 'value': 'SC'},
-        { 'label':'South Dakota', 'value': 'SD'},
-        { 'label':'Tennessee', 'value': 'TN'},
-        { 'label':'Texas', 'value': 'TX'},
-        { 'label':'Utah', 'value': 'UT'},
-        { 'label':'Vermont', 'value': 'VT'},
-        { 'label':'Virgin Islands', 'value': 'VI'},
-        { 'label':'Virginia', 'value': 'VA'},
-        { 'label':'Washington', 'value': 'WA'},
-        { 'label':'West Virginia', 'value': 'WV'},
-        { 'label':'Wisconsin', 'value': 'WI'},
-        { 'label':'Wyoming', 'value': 'WY'}
-        ];
 
-    console.log('states array',states)
-    const options = states.map((state) => { 
+    const options = states.map((state) => {
         return {
             value: state.value,
             label: state.label
         }
     })
-    console.log('STATE NAME',state)
-    console.log('STATE ',state)
-
 
     return (
-        <div className='bg-image img1'> 
-        <div className='account-form'>
-        <div>{loginMessage}</div>
+        <div className='login-form'>
+        <div className='image-container'>
+    <div className='login-row'>
+    <div className="login-image img3"></div>
+    <div className='login-text-container'>
+
+    <div className='our-text'>
+    </div>
+
+        <div className='our-title'>{loginMessage}</div>
         <br />
         <h2>{title}</h2>
         <form onSubmit={handleSubmit}>
@@ -181,11 +140,11 @@ const AccountForm = ({type, setToken, setUser}) => {
                         </div>
                         <div>
                             <div>Address</div>
-                            <input type='address' value={address} required onChange={event => setAddress(event.target.value)} ></input>
+                            <input type='text' value={address} required onChange={event => setAddress(event.target.value)} ></input>
                         </div>
                         <div>
                             <div>City</div>
-                            <input type='city' value={city} required onChange={event => setCity(event.target.value)} ></input>
+                            <input type='text' value={city} required onChange={event => setCity(event.target.value)} ></input>
                         </div>
                         <div>
                             <div>State</div>
@@ -194,11 +153,11 @@ const AccountForm = ({type, setToken, setUser}) => {
                                 options={options}
                                 selected={options}
                                 onChange={handleSelectState}
-                                placeholder={"select your state"}/> 
+                                placeholder={"select your state"}/>
                         </div>
                         <div>
                             <div>Zip Code</div>
-                            <input type='zip' value={zip} required onChange={event => setZip(event.target.value)} ></input>
+                            <input type='number' value={zip} required minLength='5' maxLength='5' onChange={event => setZip(event.target.value)} ></input>
                         </div>
                     </>
                 : ''}
@@ -206,6 +165,8 @@ const AccountForm = ({type, setToken, setUser}) => {
             <button type='submit'>{title}</button>
         </form>
         <div id='opposite-account-form'><Link to={`/${oppositeType}`}>{oppositeTitle}</Link></div>
+    </div>
+    </div>
     </div>
     </div>)
 }

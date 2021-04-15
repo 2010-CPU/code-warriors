@@ -5,14 +5,10 @@ const Home = ({user}) => {
 
     return (<>
     <div className="bg-image img1">
-    <h2 className='FP-logo'>Welcome to Food With Friends {firstName}</h2>
-        
-            {firstName ?
-            
-            <div> You are currently logged in as <b>{username}</b>.</div>
-            :
-            <div>Please login above or register for an account</div>}
-    </div>
+        <div className='FP-logo'>
+    
+    <div> <img id="logo-image" src={'/images/FWF_LOGO.png'} /></div>
+    </div> </div>
     <div className='image-container'> 
     <div className='image-row'> 
     <div className='text-container'> 
@@ -49,12 +45,10 @@ const Home = ({user}) => {
     <div className='our-text'> The mission of Food With Friends is to give you the tools and information to explore the best ways to find that balance and harmony 
     between food and beverage. How your beverage balances your dish to create that glorious harmony we look for in a great pairing, is what we aim to supply you with
     with each delicious box.</div></div>
-    </div> </div>
-   
-        
-            
-            
-           
+    </div> </div>   
+    <div className="footer"> 
+    <p> <br/> site created by </p>
+    <p> Samantha Runyan, Amadeo Ramirez and Crystal Joyce</p></div>
     </>)
 }
 

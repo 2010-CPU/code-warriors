@@ -2,25 +2,51 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import Account from './Account';
 import Cart from './Cart';
+import { loadStripe } from '@stripe/stripe-js';
 
-const Checkout = ({ order, user, token }) => {
-    const { firstName, lastName, address, city, state, zip } = user; 
-    console.log('this is the user in checkout', user)
+// Load stripe once instead of on every render
+const stripePromise = loadStripe('pk_test_51IbHarLk15zqG3FqAIpqPc0vFDQpQRLADB7RKQlvrwRVdHJgx0S4UMy014DDa4O9dmFRKuEMNC7kx0ZhkiMj41CC00QyNGxLnj')
+
+const Checkout = ({ order, user, token, reviews, setReviews, cart, setCart }) => {
+  const {id, firstName, lastName, email, address, city, state, zip } = user;
+
+    const handleClick = async (event) => {
+      // Get Stripe.js instance
+      const stripe = await stripePromise;
+
+      // Call backend to create checkout sessions
+      const rsp = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+      });
+
+      const session = await rsp.json();
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        console.error(result.error.message);
+      }
+    }
 
     return (<div className='checkout'>
+
+
+    { token
+    ?  <> <div className="checkout"><div> Your order will be sent to the following address: </div>
+        <div className="checkout-detail"> <div> {firstName} {lastName}</div>
+        <div> {address} </div>
+        <div> {city}, {state} {zip}</div>
+        <div> {email} </div></div> </div> 
+        </>
         
-    <h3> welcome to checkout</h3>
-
-    <Cart/>
-
-    { token 
-    ?   <Account firstName={firstName} lastName={lastName} address={address} city={city} state={state} zip={zip} /> 
     : <h3> You must be a registered user before you can checkout. Please register <Link to='/register'>here.</Link></h3>
-       
-    }
-    <br/> 
 
-    <button> Complete Order </button>
+    }
+    <br/>
+
+    <button className="btn" role="link" onClick={handleClick} > Complete Order </button>
 
 
     </div>)
