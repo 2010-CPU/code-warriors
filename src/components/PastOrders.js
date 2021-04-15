@@ -28,7 +28,7 @@ const PastOrders = ({order}) => {
                     <div>Product: {name}</div>
                     <div>Number Purchased: {quantity}</div>
                     <div>Price: ${price}.00</div>
-                    <button>Review Product</button>
+                    <button className='btn'>Review Product</button>
                     <br />
                 </div>)
             })}
