@@ -46,6 +46,7 @@ const App = () => {
   const [stars, setStars] = useState(0);
   const [userId, setUserId] = useState(0);
   const [productId, setProductId] = useState(0);
+  const [orders, setOrders] = useState([]);
 
   const history = useHistory();
   const location = useLocation();
@@ -136,6 +137,19 @@ const App = () => {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  const getOrders = async () => {
+      const response = await fetch('/api/orders', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'Application/json',
+              'Authorization': `Bearer ${token}`
+          }
+      });
+      const data = await response.json();
+      data.sort((a, b) => (a.id > b.id) ? 1 : -1);
+      setOrders(data);
   }
 
   const states = [
@@ -269,7 +283,7 @@ useEffect( () => {
           </Route>
 
           <Route path='/account'>
-            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} />
+            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} orders={orders} setOrders={setOrders} />
           </Route>
 
           <Route exact path='/cart'>
@@ -293,7 +307,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path='/orders'>
-            <AllOrders token={token} user={user} />
+            <AllOrders user={user} orders={orders} getOrders={getOrders} />
           </Route>
 
           <Route exact path="/checkout/success">

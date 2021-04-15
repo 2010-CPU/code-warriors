@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
-import {AddReview} from './index';
+import {PastOrders, AddReview} from './index';
 
 // allow profile image choice later
 
-const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStars, setUserId, setProductId }) => {
+const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStars, setUserId, setProductId, orders, setOrders }) => {
     const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
     const {id, title, content, stars, userId, productId} = reviews; 
 
@@ -13,6 +13,22 @@ const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStar
             return review;
         }
     })
+    
+    const getPastOrders = async () => {
+        const response = await fetch(`/api/users/${user.id}/orders`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'Application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const data = await response.json();
+        setOrders(data);
+    }
+
+    useEffect( ()=> {
+        getPastOrders();
+    }, [])
 
     if (token && username) {
         return (<><div >            
@@ -32,7 +48,10 @@ const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStar
 
             <div className='past-orders-container'>
                 <h3>Past Orders</h3>
-                <div>helllllllllllllllllllo</div>
+                {orders.length > 1 ? orders.map(order => {
+                    return order.status === 'completed' ?
+                        <PastOrders key={order.id} order={order} /> : ''
+                }) : 'You have no past orders!'}
             </div>
             
             <div className="acct-view-revs"> 
