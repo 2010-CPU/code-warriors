@@ -3,6 +3,7 @@
   border: 0;
   padding: 0;
   margin: 0;
+  font-family: Open sans-serif, sans-serif;
 }
 #users-is-not-admin,
 #orders-is-not-admin {
@@ -404,14 +405,14 @@ button {
   margin-right: 4%;
 }
 .single-user-detail{
-  width: 266px;
+  width: 300px;
   min-height: 270px;
   background-image: none;
   margin: 10px auto;
   text-align: left;
   background-color: #e5e5e5;
   justify-content: center;
-  padding: 55px 45px 45px 55px;
+  padding: 55px 35px 45px 35px;
   line-height: 1.6;
 }
 .users-list{
@@ -428,19 +429,20 @@ button {
 .all-orders{
   background-color: #e5e5e5;
   min-height: 431px;
-  margin-left: 4%;
-  margin-right: 4%;
-  margin-top: 4%;
+  line-height: 1.6;
+  padding: 1% 4% 1% 4%;
+  margin: 5% 20% 5% 20%;
 }
+
 .orders-list{
   margin: 2% 10% 10% 10%;
 }
 .add-user{
   background-color: #e5e5e5;
+  padding: 1% 4% 1% 4%;
+  line-height: 1.4;
   min-height: 431px;
-  margin-left: 4%;
-  margin-right: 4%;
-  margin-top: 20px;
+  margin: 5% 20% 5% 20%;
 }
 .checkout{
   background-color: #e5e5e5;
@@ -543,4 +545,30 @@ button {
   line-height: 1.6;
   padding: 4%;
   position: sticky;
+}
+
+.add-product {
+  background-color: #f2f2f2;
+  line-height: 1.6;
+  padding: 1% 4% 1% 4%;
+  margin: 5% 20% 5% 20%;
+}
+
+.add-product textarea {
+  border: 1px solid black;
+  width: 156px;
+  height: 156px;
+}
+
+.edit-product {
+  background-color: #f2f2f2;
+  line-height: 1.6;
+  padding: 1% 4% 1% 4%;
+  margin: 5% 20% 5% 20%;
+}
+
+.edit-product textarea {
+  border: 1px solid black;
+  width: 156px;
+  height: 156px;
 }
