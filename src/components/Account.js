@@ -29,6 +29,11 @@ const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStar
             </div>
             </div> 
             </div>
+
+            <div className='past-orders-container'>
+                <h3>Past Orders</h3>
+                <div>helllllllllllllllllllo</div>
+            </div>
             
             <div className="acct-view-revs"> 
             <h3 > Your reviews from your past orders:  </h3> <br/>

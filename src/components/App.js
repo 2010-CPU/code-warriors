@@ -237,7 +237,7 @@ useEffect( () => {
         <Switch>
 
           <Route exact path='/'>
-            <Home user={user} />
+            <Home />
           </Route>
 
           <Route exact path ='/products/add'>
