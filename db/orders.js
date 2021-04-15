@@ -3,11 +3,13 @@ const {client} = require('./client');
 const createOrder = async ({ status, userId, datePlaced }) => {
   try {
     const _datePlaced = datePlaced || new Date().toJSON();
-    const { rows: [order] } = await client.query(`
+    const { rows: [orderId] } = await client.query(`
       INSERT INTO orders (status, "userId", "datePlaced")
       VALUES ($1, $2, $3)
-      RETURNING *;
+      RETURNING id;
     `, [status, userId, _datePlaced]);
+
+    const order = await getOrderById(orderId.id);
 
     return order;
   } catch (error) {

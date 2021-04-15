@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 
-const AccountForm = ({type, setToken, setUser, states}) => {
+const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,6 +20,19 @@ const AccountForm = ({type, setToken, setUser, states}) => {
     const oppositeTitle = type === 'login' ? 'Not yet registered? Sign up here!' : 'Already registered? Login here!'
     const oppositeType = type === 'login' ? 'register' : 'login';
 
+    const createOrder = async (token) => {
+      const order_rsp = await fetch(`/api/orders`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+
+      const order = await order_rsp.json();
+
+      return order;
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -36,9 +49,9 @@ const AccountForm = ({type, setToken, setUser, states}) => {
                     password,
                     firstName,
                     lastName,
-                    email, 
-                    address, 
-                    city, 
+                    email,
+                    address,
+                    city,
                     state,
                     zip
                 })
@@ -59,6 +72,10 @@ const AccountForm = ({type, setToken, setUser, states}) => {
                 })
 
                 const meData = await response.json();
+
+                const order = await (type === 'register' ? createOrder(token) : fetchOrder(token));
+
+                setOrder(order);
                 setUser(meData);
                 setUsername('');
                 setPassword('');
@@ -66,14 +83,14 @@ const AccountForm = ({type, setToken, setUser, states}) => {
                 history.push('/');
             }
         }
-        
+
     }
-    
+
     const handleSelectState = (event) => {
         setState(event.value)
     }
 
-    const options = states.map((state) => { 
+    const options = states.map((state) => {
         return {
             value: state.value,
             label: state.label
@@ -82,13 +99,13 @@ const AccountForm = ({type, setToken, setUser, states}) => {
 
     return (
         <div className='login-form'>
-        <div className='image-container'> 
-    <div className='login-row'> 
+        <div className='image-container'>
+    <div className='login-row'>
     <div className="login-image img3"></div>
-    <div className='login-text-container'> 
-    
-    <div className='our-text'> 
-    </div> 
+    <div className='login-text-container'>
+
+    <div className='our-text'>
+    </div>
 
         <div className='our-title'>{loginMessage}</div>
         <br />
@@ -136,7 +153,7 @@ const AccountForm = ({type, setToken, setUser, states}) => {
                                 options={options}
                                 selected={options}
                                 onChange={handleSelectState}
-                                placeholder={"select your state"}/> 
+                                placeholder={"select your state"}/>
                         </div>
                         <div>
                             <div>Zip Code</div>
