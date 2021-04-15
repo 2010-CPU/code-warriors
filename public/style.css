@@ -11,7 +11,7 @@
 .single-product {
   text-indent: 2em;
 }
-#loggedOut-account, #loggedOut-logout, #loggedOut-login {
+#loggedOut-account, #loggedOut-logout, #loggedOut-login, #loggedOut-cart {
   display: none;
 }
 #logo-head{ 

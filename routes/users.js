@@ -48,7 +48,6 @@ usersRouter.post('/login', async (req, res, next) => {
 
     try {
         const user = await getUser({username, password});
-
         const token = jwt.sign({
             id: user.id,
             username
@@ -108,7 +107,7 @@ usersRouter.get('/', requireAdmin, async (req, res, next) => {
 })
 
 usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => { 
-    const { firstName, lastName, email, address, city, state, zip, isAdmin, username, password} = req.body;
+    const { firstName, lastName, email, address, city, state, zip, isAdmin=false, username, password} = req.body;
     const { userId } = req.params;
 
     const updateFields = {}; 
@@ -134,7 +133,7 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
     if(zip){
         updateFields.zip = zip
     }
-    if(isAdmin){
+    if(isAdmin === true || isAdmin === false){
         updateFields.isAdmin = isAdmin
     }
     if(username){

@@ -5,7 +5,6 @@ import CartItem from './CartItem';
 
 const Cart = ({token, user, order, setOrder, fetchOrder}) => {
     const {products} = order;
-    // const [newQuantity, setNewQuantity] = useState(0);
 
     const removeItem = async (id) => {
         try {
@@ -33,37 +32,6 @@ const Cart = ({token, user, order, setOrder, fetchOrder}) => {
             console.error(error)
         }
     }
-
-    // const updateQuantity = async (id) => {
-
-    //     try {
-    //         const op_rsp = await axios.get(`/api/order_products/${order.id}`);
-    //         const order_products = await op_rsp.data;
-    //         const [order_product] = order_products.filter((order_product) => {
-
-    //         return order_product.productId === id;
-
-    //         });
-    //       const {quantity} = order_product;
-    //         const response = await axios.patch(`/api/order_products/${order_product.id}`,{
-    //             headers:{
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${token}`
-    //             },
-    //             data: {
-    //                 quantity
-    //             }
-    //         });
-    //         const {data} = await response;
-
-    //         const nextOrder = await fetchOrder(token);
-    //         setOrder(nextOrder);
-
-    //         return data;
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
 
     let cartTotal = 0
     if (Object.keys(order).length > 0) {
