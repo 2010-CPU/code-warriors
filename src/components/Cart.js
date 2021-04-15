@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect,useState} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import CartItem from './CartItem';
@@ -81,25 +81,12 @@ const Cart = ({token, user, order, setOrder, fetchOrder}) => {
         {order.products ?
             <>
             <div className="shopping-cart-container" >
-            <div> <h2>Shopping Cart</h2>
-                {products ? products.map((product) => {
-                    const {id, imageURL, name, quantity, price} = product;
-                    return <div key={id}>
-                        <table className="cart-table"><tbody>
-                        <tr><td><img className="cart-img" src={imageURL}/> </td>
-                        <td><h4 className="prod-col" > {name}</h4></td>
-                        <td><h4 >Quantity:
-                        <select required name='quantity' selected={quantity} value={quantity} onChange={event => updateQuantity(product.id)}>
-                            {cartQuantity.map((quant, index) => {
-                                return <option key={index}>{`${quant.label}`}</option>
-                            })}
-
-                        </select>   </h4></td>
-                        <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
-                        <button className="btn" onClick={() => removeItem(product.id)}>remove</button>
-                    </div>
-                }) :
-                ''}
+            <div>
+            <h2>Shopping Cart</h2>
+            {products ? products.map((product) => {
+                return <CartItem key={product.id} token={token} product={product} removeItem={removeItem} order={order} fetchOrder={fetchOrder} setOrder={setOrder}/>
+            }) :
+            ''}
 
                 <div className='cart-tot'>
                 <Link to='/products'><button className="btn" > continue shopping </button></Link>
