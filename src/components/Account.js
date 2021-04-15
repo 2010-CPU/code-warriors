@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
-import {PastOrders, AddReview} from './index';
+import {PastOrders} from './index';
 
 // allow profile image choice later
 
@@ -12,6 +12,23 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
             return review;
         }
     })
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`api/reviews/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'Application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const data = await response.json();
+            setReviews(userReviews);
+            getReviews();
+        } catch (error) {
+            console.error(error);
+        }
+    }
     
     const getPastOrders = async () => {
         const response = await fetch(`/api/users/${user.id}/orders`, {
@@ -33,17 +50,17 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
     if (token && username) {
         return (<><div >            
             <div className='tab-list' ><li>Profile</li><li>Orders</li><li>Reviews</li> </div>
-            <div className='acct-container'> 
-            <h3>Account Information</h3>
-            
-            <img className='profile-image' src={imageURL} alt='userphotolink' />
-            <div className='profile'> 
-            <div>Username: </div> <div> {username}</div>
-            <div>Email: </div> <div> {email}</div>
-            <div>Name:</div> <div> {firstName} {lastName}</div> 
-            <div>Address: </div> <div> {address}<br/> {city}, {state} {zip}</div>
-            </div>
-            </div> 
+                <div className='acct-container'> 
+                    <h3>Account Information</h3>
+                    
+                    <img className='profile-image' src={imageURL} alt='userphotolink' />
+                    <div className='profile'> 
+                        <div>Username: </div> <div> {username}</div>
+                        <div>Email: </div> <div> {email}</div>
+                        <div>Name:</div> <div> {firstName} {lastName}</div> 
+                        <div>Address: </div> <div> {address}<br/> {city}, {state} {zip}</div>
+                    </div>
+                </div> 
             </div>
 
             <div className='past-orders-container'>
@@ -59,15 +76,14 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
             {userReviews.map((review) => { 
                 const {id, title, content, stars} = review;
 
-                return (<div key={id}> 
+                return (<div key={id} className='review-detail'> 
+                    <br />
                     <div>Title: {title} </div> 
                     <div>Review:  {content} </div>
                     <div>Star Rating: {stars} </div>
-                    <br />
+                    <button className='btn' onClick={() => handleDelete(review.id)}>Delete Review</button>
                 </div>)
             })}
-
-            {/* <AddReview reviews={reviews} setReviews={setReviews} token={token} user={user} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} /> */}
             </div> 
             </>)
     } else {

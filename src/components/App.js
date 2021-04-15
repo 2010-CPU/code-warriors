@@ -259,7 +259,7 @@ const App = () => {
           </Route>
 
           <Route exact path="/products">
-            <ProductsView order={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} setReviews={setReviews} fetchOrder={fetchOrder} setOrder={setOrder}/>
+            <ProductsView order={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} fetchOrder={fetchOrder} setOrder={setOrder}/>
           </Route>
 
           <Route exact path="/reviews">
@@ -303,7 +303,7 @@ const App = () => {
           </Route>
 
           <Route path='/reviews/:productId'>
-            <AddReview token={token} user={user} product={product} review={review} setReview={setReview} />
+            <AddReview token={token} user={user} product={product} review={review} setReview={setReview} getReviews={getReviews} />
           </Route>
 
           <Route exact path="/checkout/success">

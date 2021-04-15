@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {useHistory} from 'react-router-dom';
 
-const AddReview = ({token, user, product, review, setReview}) => { 
+const AddReview = ({token, user, product, review, setReview, getReviews}) => { 
     const {title, content, stars} = review;
     const starRatings = [5, 4, 3, 2, 1];
-    const {id, name} = product;
+    const {name} = product;
 
     const history = useHistory();
 
@@ -28,6 +28,7 @@ const AddReview = ({token, user, product, review, setReview}) => {
             })
             const data = await response.json();
             setReview(data);
+            getReviews();
             history.push('/account');
             setReview({id: null, title: '', content: '', stars: 5, userId: null, productId: null});
         } catch (error) {

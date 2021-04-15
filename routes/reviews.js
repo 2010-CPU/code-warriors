@@ -1,7 +1,7 @@
 const express = require('express');
 const reviewsRouter = express.Router();
 
-const { createReview, getAllReviews, getReviewById, getReviewByProductId, destroyReview } = require('../db');
+const { createReview, getAllReviews, destroyReview } = require('../db');
 const {requireUser} = require('./utils');
 
 reviewsRouter.get('/', async (req, res, next) => { 
@@ -34,10 +34,10 @@ reviewsRouter.post('/', requireUser, async (req, res, next) => {
 })
 
 reviewsRouter.delete('/:reviewId', requireUser, async (req, res, next) => { 
-    const {productId} = req.params;
-    
+    const {reviewId} = req.params;
+
     try {
-        const reviews = await destroyReview(productId);
+        const reviews = await destroyReview(reviewId);
 
         res.send(reviews);
     } catch (error) {
