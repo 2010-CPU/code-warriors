@@ -88,7 +88,6 @@ const App = () => {
       })
 
       const order = await order_rsp.json();
-      console.log(order);
       return order;
     } catch (err) {
       console.log(err);
