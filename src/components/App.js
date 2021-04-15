@@ -32,7 +32,6 @@ import {
 } from './';
 
 const App = () => {
-  const [message, setMessage] = useState('');
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
@@ -246,7 +245,6 @@ useEffect( () => {
   </div>
   </div>
       <div className="App">
-        <h2>{ message }</h2>
 
         <Switch>
 
@@ -308,6 +306,10 @@ useEffect( () => {
 
           <Route exact path='/orders'>
             <AllOrders user={user} orders={orders} getOrders={getOrders} />
+          </Route>
+
+          <Route path='/reviews/:productId'>
+            <AddReview user={user} />
           </Route>
 
           <Route exact path="/checkout/success">

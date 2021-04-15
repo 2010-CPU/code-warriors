@@ -14,15 +14,16 @@ reviewsRouter.get('/', async (req, res, next) => {
     }
 })
 
-reviewsRouter.post('/', requireUser, async (req, res, next) => { 
+reviewsRouter.post('/:productId', requireUser, async (req, res, next) => { 
     const { title, content, stars, userId, productId } = req.body; 
+    console.log('req.body: ', req.body)
     const reviewData = {};
 
     try {
         reviewData.title = title;
         reviewData.content = content;
         reviewData.stars = stars;
-        reviewData.userId = userId;
+        reviewData.userId = req.user.id;
         reviewData.productId = productId;
 
         const review = await createReview(reviewData);
