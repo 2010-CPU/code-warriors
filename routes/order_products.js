@@ -4,7 +4,7 @@ const orderProductsRouter = express.Router();
 const {getOrderById, getOrderProductById, updateOrderProduct, destroyOrderProduct, getAllOrderProducts} = require('../db');
 const {requireUser} = require('./utils');
 
-orderProductsRouter.patch('/:orderProductId', requireUser,  async (req, res, next) => {
+orderProductsRouter.patch('/:orderProductId', requireUser, async (req, res, next) => {
     const {price, quantity} = req.body;
     const {orderProductId} = req.params;
     const updateFields = {};
@@ -23,7 +23,7 @@ orderProductsRouter.patch('/:orderProductId', requireUser,  async (req, res, nex
 
         if (order.userId === req.user.id) {
             const orderProduct = await updateOrderProduct({id: orderProductId, ...updateFields});
-
+            
             res.send(orderProduct);
         } else {
             res.status(401).send({message: 'You are not authorized to access this route.'});

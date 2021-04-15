@@ -26,7 +26,8 @@ import {
   AllOrders,
   ProductForm,
   EditProduct,
-  AddReview
+  AddReview,
+
 } from './';
 
 const App = () => {
@@ -212,11 +213,11 @@ useEffect( () => {
           </Route>
 
           <Route path="/products/:productId">
-            <ProductView user={user} cart={order} token={token} product={product} setProduct={setProduct} getProducts={getProducts} reviews={reviews} setReviews={setReviews} />
+            <ProductView user={user} order={order} token={token} product={product} setProduct={setProduct} getProducts={getProducts} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route exact path="/products">
-            <ProductsView cart={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} setReviews={setReviews} />
+            <ProductsView order={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} setReviews={setReviews} />
           </Route>
 
           <Route exact path="/reviews">

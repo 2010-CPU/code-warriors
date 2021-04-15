@@ -61,14 +61,14 @@ async function buildTables() {
     `);
 
     await client.query(`
-        CREATE TABLE reviews ( 
-          id SERIAL PRIMARY KEY,
-          title VARCHAR(255) NOT NULL,
-          content VARCHAR(255) NOT NULL, 
-          stars INTEGER NOT NULL, 
-          "userId" INTEGER REFERENCES users(id),
-          "productId" INTEGER REFERENCES products(id)
-        )
+      CREATE TABLE reviews ( 
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        content VARCHAR(255) NOT NULL, 
+        stars INTEGER NOT NULL, 
+        "userId" INTEGER REFERENCES users(id),
+        "productId" INTEGER REFERENCES products(id)
+      );
     `);
 
     await client.query(`

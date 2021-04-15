@@ -10,12 +10,12 @@ import {
   getProductById
 } from '../api';
 
-const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
+const SmallProduct = ({product, reviews, setReviews, token, order}) => {
   const {id,name,price,inStock,imageURL} = product;
   
   const addToCart = async () => {
     try {
-      const response = await axios.post(`/api/orders/${cart.id}/products`,{
+      const response = await axios.post(`/api/orders/${order.id}/products`,{
         productId: id, 
         price: price, 
         quantity: 1
@@ -56,14 +56,14 @@ const SmallProduct = ({product,reviews, setReviews, token, cart}) => {
   )
 }
 
-const Product = ({product, reviews, setReviews, cart, token}) => {
+const Product = ({product, reviews, setReviews, order, token}) => {
   const {id,name,price,inStock,category,description,imageURL} = product;
   
 
 
   const addToCart = async () => {
     try {
-      const response = await axios.post(`/api/orders/${cart.id}/products`,{
+      const response = await axios.post(`/api/orders/${order.id}/products`,{
         productId: id, 
         price: price, 
         quantity: 1
@@ -96,7 +96,7 @@ const Product = ({product, reviews, setReviews, cart, token}) => {
   )
 }
 
-const ProductsView = ({cart, token, user, products, getProducts, reviews, setReviews}) => {
+const ProductsView = ({order, token, user, products, getProducts, reviews, setReviews}) => {
 
   useEffect(() => {
     getProducts();
@@ -110,7 +110,7 @@ const ProductsView = ({cart, token, user, products, getProducts, reviews, setRev
       {
         products.map(product => (
           
-          <SmallProduct key={product.id} product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token}/>
+          <SmallProduct key={product.id} product={product} reviews={reviews} setReviews={setReviews} order={order} token={token}/>
 
           ))
       }
@@ -121,7 +121,7 @@ const ProductsView = ({cart, token, user, products, getProducts, reviews, setRev
   )
 }
 
-const ProductView = ({user, cart, token, product, setProduct, getProducts, reviews, setReviews}) => {
+const ProductView = ({user, order, token, product, setProduct, getProducts, reviews, setReviews}) => {
   const {productId} = useParams();
 
   useEffect(() => {
@@ -171,7 +171,7 @@ const ProductView = ({user, cart, token, product, setProduct, getProducts, revie
     <button className={'btn'} onClick={goToPreviousPath} >  Return To Shop</button>
     {user.isAdmin ? <Link to={`/products/edit/${product.id}`}><button className="btn-product" >Edit Product</button></Link> : ''}
     {user.isAdmin ? <button className="btn-product" onClick={() => handleDelete(product.id)} >Delete Product</button> : ''}
-    <Product product={product} reviews={reviews} setReviews={setReviews} cart={cart} token={token} key={product.id}  />
+    <Product product={product} reviews={reviews} setReviews={setReviews} order={order} token={token} key={product.id}  />
     <div className="prod-reviews"> 
     <h2> See what our customers have to say about {product.name}:</h2> <br/>
 
