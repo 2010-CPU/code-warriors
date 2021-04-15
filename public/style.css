@@ -209,6 +209,7 @@ button {
 }
 .tab-list li{
   display: list-item;
+  padding-right: 10px;
 }
 .tab-list active{ 
   color: #111111 !important;
