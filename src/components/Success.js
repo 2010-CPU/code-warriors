@@ -31,7 +31,7 @@ const Success = ({token, user, setOrder, createOrder}) => {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({userId: user.id, status: 'processing'})
+            body: JSON.stringify({userId: user.id, status: 'completed'})
           });
           const newOrder = await createOrder(token);
           setOrder(newOrder);

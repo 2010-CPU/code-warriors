@@ -25,11 +25,12 @@ const PastOrders = ({order}) => {
                 const {id, name, price, quantity} = product;
 
                 return (<div className='single-product' key={id}>
+                    <br />
                     <div>Product: {name}</div>
                     <div>Number Purchased: {quantity}</div>
                     <div>Price: ${price}.00</div>
                     <button className='btn'>Review Product</button>
-                    <br />
+
                 </div>)
             })}
         </div>
