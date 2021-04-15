@@ -262,10 +262,6 @@ const App = () => {
             <ProductsView order={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} fetchOrder={fetchOrder} setOrder={setOrder}/>
           </Route>
 
-          <Route exact path="/reviews">
-            <Reviews reviews={reviews} setReviews={setReviews}/>
-          </Route>
-
           <Route path ='/login'>
             <AccountForm type={'login'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder} createOrder={createOrder}/>
           </Route>
