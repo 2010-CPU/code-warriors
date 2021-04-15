@@ -88,6 +88,7 @@ const App = () => {
       })
 
       const order = await order_rsp.json();
+      order.products.sort((a, b) => (a.id > b.id) ? 1 : -1);
       return order;
     } catch (err) {
       console.log(err);
@@ -104,6 +105,7 @@ const App = () => {
         }
       });
       const data = await response.json();
+      data.sort((a, b) => (a.id > b.id) ? 1 : -1);
       setUsersList(data);
 
     } catch (error) {

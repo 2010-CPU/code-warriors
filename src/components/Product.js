@@ -33,6 +33,15 @@ const SmallProduct = ({product, reviews, setReviews, token, order, fetchOrder, s
     }
   }
 
+  if (Object.keys(order).length > 0) {
+    order.products.forEach(singleProduct => {
+
+      if (singleProduct.id === id) {
+        console.log('true')
+      }
+    })
+  }
+
   const shopReviews = reviews.filter((review) => {
     if(product.id === review.productId){
       return review
@@ -52,6 +61,15 @@ const SmallProduct = ({product, reviews, setReviews, token, order, fetchOrder, s
     <h2 className="rev-image">{avgStars > 4
     ? <img className="rev-image" src={'/images/5_stars.png'}/>
     : <img className="rev-image" src={'/images/4_stars.png'}/>}</h2>
+    
+    {/* {Object.keys(order).length > 0 ? 
+      order.products.forEach(singleProduct => {
+        return singleProduct.id === id ? 
+
+          <Link to='/cart'><button className="btn">View in Cart</button></Link> 
+          : <button className="btn" onClick={addToCart}> add to cart </button>}) 
+          : <button className="btn" onClick={addToCart}> add to cart </button>} */}
+
     <button className="btn" onClick={addToCart}> add to cart </button>
     </div>
     </div>
@@ -106,17 +124,17 @@ const ProductsView = ({order, token, user, products, getProducts, reviews, setRe
 
   return (<>
     <div id='shop-head'> <h2>Food With Friends</h2>
-    <h3>We're adding new meal kits every week. Check back often to enjoy new offerings.</h3></div>
+    <h3>We're adding new meal kits every week. Check back often to enjoy new offerings.</h3>
+    {user.isAdmin ? <Link to='/products/add'><button className="btn">Add A New Product</button></Link> : ''}
+    </div>
     <div className="products">
 
       {
         products.map(product => (
 
           <SmallProduct key={product.id} product={product} reviews={reviews} setReviews={setReviews} order={order} token={token} fetchOrder={fetchOrder} setOrder={setOrder}/>
-
           ))
       }
-            {user.isAdmin ? <Link to='/products/add'><button className="btn">Add A New Product</button></Link> : ''}
 
     </div>
     </>
