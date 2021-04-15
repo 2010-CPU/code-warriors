@@ -59,8 +59,6 @@ const SmallProduct = ({product, reviews, setReviews, token, order}) => {
 const Product = ({product, reviews, setReviews, order, token}) => {
   const {id,name,price,inStock,category,description,imageURL} = product;
   
-
-
   const addToCart = async () => {
     try {
       const response = await axios.post(`/api/orders/${order.id}/products`,{

@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import moment from 'moment';
-import { getAllProducts } from '../api';
 import CartItem from './CartItem';
 
 const Cart = ({token, order, setOrder}) => {
@@ -48,22 +46,19 @@ const Cart = ({token, order, setOrder}) => {
             const {data} = await response;
             fetchCart();
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
-    const handleCoupon = async (event) => {
-        event.preventDefault();
-    }
-
-    const subtotal = products ? products.map((product) => {
-        const {id, imageURL, name, quantity, price} = product; 
-        return price
+    let cartTotal = 0
+    if (Object.keys(order).length > 0) {
+        let totalPrice = 0
+        order.products.forEach(product => {
+            let currentPrice = (product.price * product.quantity)
+            totalPrice += currentPrice
         })
-        : '';
-
-    const cartTotal = subtotal ? subtotal.reduce((a,b) => a + b, 0) 
-        : '';
+        cartTotal = totalPrice
+    }
 
     return (
         <div className="cart">
@@ -79,16 +74,10 @@ const Cart = ({token, order, setOrder}) => {
                 ''}
 
                 <div className='cart-tot'> 
-                <Link to='/products'><button className="btn" > continue shopping </button></Link> <Link to='/cart'><button className='btn'>UPDATE CART</button></Link>
+                <Link to='/products'><button className="btn" > continue shopping </button></Link> 
                 
-                    <div><h2>Promotion Code</h2>
-                    <div>
-                        <input type='text' placeholder='coupon code' ></input>
-                        <button className='btn' onClick={handleCoupon} >Apply Code</button>
-                    </div></div>
-                    <div><h2 className='cart-h2'>Cart Totals</h2>
+                    <div><h2 className='cart-h2'>Order Summary</h2>
                     <div className="sub-tot">
-                        <div>Subtotal</div><div>${cartTotal}.00</div> 
                         <div>Total</div><div>${cartTotal}.00</div></div></div>
                     
                 </div>
