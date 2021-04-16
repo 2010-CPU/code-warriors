@@ -88,6 +88,7 @@ const App = () => {
       })
 
       const order = await order_rsp.json();
+      order.products.sort((a, b) => (a.id > b.id) ? 1 : -1);
       return order;
     } catch (err) {
       console.log(err);
@@ -104,6 +105,7 @@ const App = () => {
         }
       });
       const data = await response.json();
+      data.sort((a, b) => (a.id > b.id) ? 1 : -1);
       setUsersList(data);
 
     } catch (error) {
@@ -204,7 +206,7 @@ useEffect( () => {
     <nav>
       <Link to="/">Home</Link>
       <Link to="/products">Shop</Link>
-      <Link to="/cart">Cart</Link>
+      <Link to="/cart" id={token ? '' : 'loggedOut-cart'}>Cart</Link>
       <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
       <Link to='/users' id={user.isAdmin ? '' : 'users-is-not-admin'}>Users</Link>
       <Link to='/orders' id={user.isAdmin ? '' : 'orders-is-not-admin'}>Orders</Link>

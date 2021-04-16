@@ -10,7 +10,7 @@ import {
   getProductById
 } from '../api';
 
-const SmallProduct = ({product, reviews, setReviews, token, order, fetchOrder, setOrder}) => {
+const SmallProduct = ({user, product, reviews, setReviews, token, order, fetchOrder, setOrder}) => {
   const {id,name,price,inStock,imageURL} = product;
 
   const addToCart = async () => {
@@ -52,13 +52,14 @@ const SmallProduct = ({product, reviews, setReviews, token, order, fetchOrder, s
     <h2 className="rev-image">{avgStars > 4
     ? <img className="rev-image" src={'/images/5_stars.png'}/>
     : <img className="rev-image" src={'/images/4_stars.png'}/>}</h2>
-    <button className="btn" onClick={addToCart}> add to cart </button>
+
+    {user.id ? <button className="btn" onClick={addToCart}> add to cart </button> : ''}
     </div>
     </div>
   )
 }
 
-const Product = ({product, reviews, setReviews, order, token, fetchOrder, setOrder}) => {
+const Product = ({user, product, reviews, setReviews, order, token, fetchOrder, setOrder}) => {
   const {id,name,price,inStock,category,description,imageURL} = product;
 
   const addToCart = async () => {
@@ -90,7 +91,7 @@ const Product = ({product, reviews, setReviews, order, token, fetchOrder, setOrd
       <h3>{category}</h3>
       <p>{description}</p>
       </div>
-      <button className="btn" onClick={addToCart}> Add To Cart</button>
+      {user.id ? <button className="btn" onClick={addToCart}> Add To Cart</button> : ''}
     </div>
     <div className="prod-reviews">
     </div>
@@ -106,17 +107,17 @@ const ProductsView = ({order, token, user, products, getProducts, reviews, setRe
 
   return (<>
     <div id='shop-head'> <h2>Food With Friends</h2>
-    <h3>We're adding new meal kits every week. Check back often to enjoy new offerings.</h3></div>
+    <h3>We're adding new meal kits every week. Check back often to enjoy new offerings.</h3>
+    {user.isAdmin ? <Link to='/products/add'><button className="btn">Add A New Product</button></Link> : ''}
+    </div>
     <div className="products">
 
       {
         products.map(product => (
 
-          <SmallProduct key={product.id} product={product} reviews={reviews} setReviews={setReviews} order={order} token={token} fetchOrder={fetchOrder} setOrder={setOrder}/>
-
+          <SmallProduct user={user} key={product.id} product={product} reviews={reviews} setReviews={setReviews} order={order} token={token} fetchOrder={fetchOrder} setOrder={setOrder}/>
           ))
       }
-            {user.isAdmin ? <Link to='/products/add'><button className="btn">Add A New Product</button></Link> : ''}
 
     </div>
     </>
@@ -173,7 +174,7 @@ const ProductView = ({user, order, token, product, setProduct, getProducts, revi
     <button className={'btn'} onClick={goToPreviousPath} >  Return To Shop</button>
     {user.isAdmin ? <Link to={`/products/edit/${product.id}`}><button className="btn-product" >Edit Product</button></Link> : ''}
     {user.isAdmin ? <button className="btn-product" onClick={() => handleDelete(product.id)} >Delete Product</button> : ''}
-    <Product product={product} reviews={reviews} setReviews={setReviews} order={order} token={token} key={product.id} fetchOrder={fetchOrder} setOrder={setOrder} />
+    <Product user={user} product={product} reviews={reviews} setReviews={setReviews} order={order} token={token} key={product.id} fetchOrder={fetchOrder} setOrder={setOrder} />
     <div className="prod-reviews">
     <h2> See what our customers have to say about {product.name}:</h2> <br/>
 

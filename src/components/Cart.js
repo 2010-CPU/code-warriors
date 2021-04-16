@@ -4,8 +4,7 @@ import axios from 'axios';
 import CartItem from './CartItem';
 
 const Cart = ({token, user, order, setOrder, fetchOrder}) => {
-    const {id, datePlaced, status, products} = order;
-    const [newQuantity, setNewQuantity] = useState(0);
+    const {products} = order;
 
     const removeItem = async (id) => {
         try {
@@ -34,37 +33,6 @@ const Cart = ({token, user, order, setOrder, fetchOrder}) => {
         }
     }
 
-    const updateQuantity = async (id) => {
-
-        try {
-            const op_rsp = await axios.get(`/api/order_products/${order.id}`);
-            const order_products = await op_rsp.data;
-            const [order_product] = order_products.filter((order_product) => {
-
-            return order_product.productId === id;
-
-            });
-          const {quantity} = order_product;
-            const response = await axios.patch(`/api/order_products/${order_product.id}`,{
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                data: {
-                    quantity
-                }
-            });
-            const {data} = await response;
-
-            const nextOrder = await fetchOrder(token);
-            setOrder(nextOrder);
-
-            return data;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     let cartTotal = 0
     if (Object.keys(order).length > 0) {
         let totalPrice = 0
@@ -78,7 +46,7 @@ const Cart = ({token, user, order, setOrder, fetchOrder}) => {
     return (
         <div className="cart">
 
-        {order.products ?
+        {Object.keys(order).length > 0 ?
             <>
             <div className="shopping-cart-container" >
             <div>

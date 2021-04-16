@@ -14,6 +14,7 @@ const AllOrders = ({token, user}) => {
             }
         });
         const data = await response.json();
+        data.sort((a, b) => (a.id > b.id) ? 1 : -1);
         setOrders(data);
     }
 
