@@ -46,7 +46,7 @@ apiRouter.use((req,res,next) => {
 });
 
 apiRouter.post('/create-checkout-session', async (req, res, next) => {
-  const order_products = req.body.order_products;
+  const {order_products, origin} = req.body;
   const order_line_items = order_products.map(product => {
     return {
       price_data: {
@@ -64,8 +64,8 @@ apiRouter.post('/create-checkout-session', async (req, res, next) => {
     payment_method_types: ['card'],
     line_items: order_line_items,
     mode:'payment',
-    success_url: 'http://localhost:3000/checkout/success?session_id={CHECKOUT_SESSION_ID}',
-    cancel_url: 'http://localhost:3000/checkout/cancel',
+    success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${origin}/checkout/cancel`,
 
   });
 
