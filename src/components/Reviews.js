@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 
 const Reviews = ({reviews, setReviews, productId}) => { 
 
-    
-
     return (<>
         <div className="reviews"> 
                

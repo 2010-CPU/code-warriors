@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Home = ({user}) => {
-    const {firstName, username} = user;
+const Home = () => {
 
     return (<>
     <div className="bg-image img1">
