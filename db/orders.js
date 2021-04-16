@@ -100,8 +100,8 @@ const getCartByUser = async (id) => {
       WHERE "userId"=$1 AND status='created';
     `,[id]);
 
-    const order = await getOrderById(orderId.id);
-
+    const order = await (orderId ? getOrderById(orderId.id) : createOrder({status: 'created', userId:id}));
+    
     return order;
   } catch (err) {
     throw (err);

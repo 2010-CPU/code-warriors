@@ -17,6 +17,10 @@ const Checkout = ({ order, user, token, reviews, setReviews, cart, setCart }) =>
       // Call backend to create checkout sessions
       const rsp = await fetch('/api/create-checkout-session', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({order_products: order.products})
       });
 
       const session = await rsp.json();
@@ -38,9 +42,9 @@ const Checkout = ({ order, user, token, reviews, setReviews, cart, setCart }) =>
         <div className="checkout-detail"> <div> {firstName} {lastName}</div>
         <div> {address} </div>
         <div> {city}, {state} {zip}</div>
-        <div> {email} </div></div> </div> 
+        <div> {email} </div></div> </div>
         </>
-        
+
     : <h3> You must be a registered user before you can checkout. Please register <Link to='/register'>here.</Link></h3>
 
     }

@@ -4,7 +4,8 @@ import {
   Switch,
   Link,
   Route,
-  useHistory
+  useHistory,
+  useLocation
 } from 'react-router-dom';
 
 import {
@@ -27,7 +28,7 @@ import {
   ProductForm,
   EditProduct,
   AddReview,
-
+  Success
 } from './';
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
   const [productId, setProductId] = useState(0);
 
   const history = useHistory();
+  const location = useLocation();
 
   useEffect( () => {
 
@@ -67,6 +69,7 @@ const App = () => {
         setUser(meData);
       }
       captureToken();
+
     }
   }, [token]);
 
@@ -93,6 +96,19 @@ const App = () => {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  const createOrder = async (token) => {
+    const order_rsp = await fetch(`/api/orders`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+    const order = await order_rsp.json();
+
+    return order;
   }
 
   const getUsers = async () => {
@@ -245,11 +261,11 @@ useEffect( () => {
           </Route>
 
           <Route path ='/login'>
-            <AccountForm type={'login'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder}/>
+            <AccountForm type={'login'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder} createOrder={createOrder}/>
           </Route>
 
           <Route path='/register'>
-            <AccountForm  type={'register'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder}/>
+            <AccountForm  type={'register'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder} createOrder={createOrder}/>
           </Route>
 
           <Route path='/account'>
@@ -281,14 +297,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path="/checkout/success">
-            <div className="success">
-            <h1>THANK YOU FOR YOUR ORDER</h1>
-            <p>
-              We appreciate every customer that believes in our dream. <br/>
-              If you have any questions, please e-mail <br/>
-              <a href="mailto:orders@example.com">orders@example.com</a>
-            </p>
-            </div>
+            <Success token={token} user={user} setOrder={setOrder} createOrder={createOrder}/>
           </Route>
 
           <Route exact path="/checkout/cancel">
