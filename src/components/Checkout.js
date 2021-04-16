@@ -20,7 +20,7 @@ const Checkout = ({ order, user, token, reviews, setReviews, cart, setCart }) =>
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({order_products: order.products})
+        body: JSON.stringify({order_products: order.products, origin: window.location.origin})
       });
 
       const session = await rsp.json();
