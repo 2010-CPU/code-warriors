@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 
-const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder}) => {
+const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder, createOrder}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,19 +19,6 @@ const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder}) =>
     const title = type === 'login' ? 'LOGIN' : 'REGISTER';
     const oppositeTitle = type === 'login' ? 'Not yet registered? Sign up here!' : 'Already registered? Login here!'
     const oppositeType = type === 'login' ? 'register' : 'login';
-
-    const createOrder = async (token) => {
-      const order_rsp = await fetch(`/api/orders`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-
-      const order = await order_rsp.json();
-
-      return order;
-    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
