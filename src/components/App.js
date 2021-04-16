@@ -297,7 +297,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path="/checkout/success">
-            <Success token={token} user={user} order={order} setOrder={setOrder} createOrder={createOrder}/>
+            <Success token={token} user={user} setOrder={setOrder} createOrder={createOrder}/>
           </Route>
 
           <Route exact path="/checkout/cancel">
