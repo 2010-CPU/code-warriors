@@ -34,14 +34,19 @@ const CartItem = ({token, product, removeItem, order, fetchOrder, setOrder}) => 
 
     return (<div className='cart-item'>
         <div key={id}>
-            <table className="cart-table"><tbody>
-            <tr><td><img className="cart-img" src={imageURL}/> </td>
-            <td><h4 className="prod-col" > {name}</h4></td>
-            <td><h4 >Quantity:
-            <input required type='number' min='0' value={quantity} onChange={(event) => updateQuantity(event.target.value, id)}></input>
-            </h4></td>
-            <td><h4 className="sub-col" > ${price * quantity}.00</h4></td></tr></tbody></table>
-            <button className="btn" onClick={() => removeItem(product.id)}>remove</button>
+            <table className="cart-table">
+                <tbody>
+                <tr>
+                <td><button className="btn-cart" onClick={() => removeItem(product.id)}>X</button></td>
+                <td><img className="cart-img" src={imageURL}/> </td>
+                <td><h4 className="prod-col" > {name}</h4></td>
+                <td><h4 >Quantity:
+                <input required type='number' min='0' value={quantity} onChange={(event) => updateQuantity(event.target.value, id)}></input>
+                </h4></td>
+                <td><h4 className="sub-col" > ${price * quantity}.00</h4></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>)
 }

@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
-import {PastOrders} from './index';
+import {PastOrders, AddReview} from './index';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 // allow profile image choice later
 
@@ -29,7 +31,7 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
             console.error(error);
         }
     }
-    
+
     const getPastOrders = async () => {
         const response = await fetch(`/api/users/${user.id}/orders`, {
             method: 'GET',
@@ -48,11 +50,15 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
     }, [])
 
     if (token && username) {
-        return (<><div >            
-            <div className='tab-list' ><li>Profile</li><li>Orders</li><li>Reviews</li> </div>
+        return (<><div >    
+            <Tabs>        
+            <TabList className='tab-list'>
+                <Tab> Profile</Tab>
+                <Tab> Orders </Tab>
+                <Tab> Reviews </Tab>
+            </TabList>
+            <TabPanel> 
                 <div className='acct-container'> 
-                    <h3>Account Information</h3>
-                    
                     <img className='profile-image' src={imageURL} alt='userphotolink' />
                     <div className='profile'> 
                         <div>Username: </div> <div> {username}</div>
@@ -61,8 +67,8 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
                         <div>Address: </div> <div> {address}<br/> {city}, {state} {zip}</div>
                     </div>
                 </div> 
-            </div>
-
+            </TabPanel>
+            <TabPanel>
             <div className='past-orders-container'>
                 <h3>Past Orders</h3>
                 {orders.length > 1 ? orders.map(order => {
@@ -70,7 +76,8 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
                         <PastOrders key={order.id} order={order} setProduct={setProduct} /> : ''
                 }) : 'You have no past orders!'}
             </div>
-            
+            </TabPanel>
+            <TabPanel>
             <div className="acct-view-revs"> 
             <h3> Reviews From Past Orders  </h3> <br/>
             {userReviews.map((review) => { 
@@ -78,17 +85,19 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
 
                 return (<div key={id} className='review-detail'> 
                     <br />
+                    <div className='rev-stars'> {stars > 4 ? <img src={'/images/5_stars.png'}/> : <img src={'/images/4_stars.png'}/>} </div>
                     <div>Title: {title} </div> 
                     <div>Review:  {content} </div>
-                    <div>Star Rating: {stars} </div>
                     <button className='btn' onClick={() => handleDelete(review.id)}>Delete Review</button>
                 </div>)
             })}
+            </div>
+            </TabPanel>
+            </Tabs> 
             </div> 
             </>)
     } else {
         return <Redirect to='/' />
     }
 }
-
 export default Account;
