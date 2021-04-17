@@ -59,7 +59,6 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
             </TabList>
             <TabPanel> 
                 <div className='acct-container'> 
-                    <h3>Account Information</h3>
                     <img className='profile-image' src={imageURL} alt='userphotolink' />
                     <div className='profile'> 
                         <div>Username: </div> <div> {username}</div>
