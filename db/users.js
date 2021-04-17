@@ -1,9 +1,6 @@
 const {client} = require('./client');
 const bcrypt = require('bcrypt');
 
-//allow user to update password as stretch goal
-//on updateuser query, if password then do all of the password stuff
-
 const createUser = async ({firstName, lastName, email, username, password, isAdmin, address, city, state, zip}) => { 
     try {
         const SALT_COUNT = 10; 
@@ -95,7 +92,6 @@ const getUserByUsername = async (username) => {
 
 const updateUser = async (fields = {}) => { 
     const {id, password} = fields;
-
     const setString = Object.keys(fields).map((key, index) => {
         if (key === "firstName" || key === "lastName" || key === "isAdmin") {
             return `"${key}"=$${index + 1}`;
@@ -127,14 +123,12 @@ const updateUser = async (fields = {}) => {
                 WHERE id = ${id}
                 RETURNING *; 
             `, Object.values(fields));
-    
             return user;
         }
     } catch (error) {
         throw error; 
     }
 }
-
 
 module.exports = {
     createUser, 

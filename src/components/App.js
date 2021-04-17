@@ -4,7 +4,8 @@ import {
   Switch,
   Link,
   Route,
-  useHistory
+  useHistory,
+  useLocation
 } from 'react-router-dom';
 
 import {
@@ -27,26 +28,23 @@ import {
   ProductForm,
   EditProduct,
   AddReview,
-
+  Success
 } from './';
 
 const App = () => {
-  const [message, setMessage] = useState('');
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const [order, setOrder] = useState({});
-  const [reviews, setReviews] = useState([]);
   const [usersList, setUsersList] = useState([]);
   const [singleUser, setSingleUser] = useState({id: null, username: '', isAdmin: false, firstName: '', lastName: '', email: '', address: '', city: '', state: '', zip: null});
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({id: null, name: '', description: '', price: '', image: '', inStock: false, category: ''});
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [stars, setStars] = useState(0);
-  const [userId, setUserId] = useState(0);
-  const [productId, setProductId] = useState(0);
+  const [reviews, setReviews] = useState([]);
+  const [review, setReview] = useState({id: null, title: '', content: '', stars: 5, userId: null, productId: null});
+  const [orders, setOrders] = useState([]);
 
   const history = useHistory();
+  const location = useLocation();
 
   useEffect( () => {
 
@@ -67,6 +65,7 @@ const App = () => {
         setUser(meData);
       }
       captureToken();
+
     }
   }, [token]);
 
@@ -88,10 +87,24 @@ const App = () => {
       })
 
       const order = await order_rsp.json();
+      order.products.sort((a, b) => (a.id > b.id) ? 1 : -1);
       return order;
     } catch (err) {
       console.log(err);
     }
+  }
+
+  const createOrder = async (token) => {
+    const order_rsp = await fetch(`/api/orders`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+    const order = await order_rsp.json();
+
+    return order;
   }
 
   const getUsers = async () => {
@@ -104,6 +117,7 @@ const App = () => {
         }
       });
       const data = await response.json();
+      data.sort((a, b) => (a.id > b.id) ? 1 : -1);
       setUsersList(data);
 
     } catch (error) {
@@ -118,6 +132,32 @@ const App = () => {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  const getOrders = async () => {
+      const response = await fetch('/api/orders', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'Application/json',
+              'Authorization': `Bearer ${token}`
+          }
+      });
+      const data = await response.json();
+      data.sort((a, b) => (a.id > b.id) ? 1 : -1);
+      setOrders(data);
+  }
+
+  const getReviews = async () => {
+    const response = await fetch('/api/reviews', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'Application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    const data = await response.json();
+    data.sort((a, b) => (a.id > b.id) ? 1 : -1);
+    setReviews(data);
   }
 
   const states = [
@@ -182,21 +222,6 @@ const App = () => {
     { 'label':'Wyoming', 'value': 'WY'}
     ];
 
-  const getReviews = async () => {
-    const response = await fetch(`/api/reviews`, {
-        method: 'GET',
-        headers: {
-            'Content-Type' : 'Application/json'
-        }
-    });
-    const data = await response.json();
-    setReviews(data);
-}
-
-useEffect( () => {
-    getReviews();
-}, [])
-
   return (<>
   <div id="logo-head">
   <img className="logo" src={'/images/navlogo.png'}/>
@@ -204,7 +229,7 @@ useEffect( () => {
     <nav>
       <Link to="/">Home</Link>
       <Link to="/products">Shop</Link>
-      <Link to="/cart">Cart</Link>
+      <Link to="/cart" id={token ? '' : 'loggedOut-cart'}>Cart</Link>
       <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
       <Link to='/users' id={user.isAdmin ? '' : 'users-is-not-admin'}>Users</Link>
       <Link to='/orders' id={user.isAdmin ? '' : 'orders-is-not-admin'}>Orders</Link>
@@ -214,12 +239,11 @@ useEffect( () => {
   </div>
   </div>
       <div className="App">
-        <h2>{ message }</h2>
 
         <Switch>
 
           <Route exact path='/'>
-            <Home user={user} />
+            <Home />
           </Route>
 
           <Route exact path ='/products/add'>
@@ -235,27 +259,23 @@ useEffect( () => {
           </Route>
 
           <Route exact path="/products">
-            <ProductsView order={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} setReviews={setReviews} fetchOrder={fetchOrder} setOrder={setOrder}/>
-          </Route>
-
-          <Route exact path="/reviews">
-            <Reviews reviews={reviews} setReviews={setReviews}/>
+            <ProductsView order={order} token={token} user={user} products={products} getProducts={getProducts} reviews={reviews} fetchOrder={fetchOrder} setOrder={setOrder}/>
           </Route>
 
           <Route path ='/login'>
-            <AccountForm type={'login'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder}/>
+            <AccountForm type={'login'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder} createOrder={createOrder}/>
           </Route>
 
           <Route path='/register'>
-            <AccountForm  type={'register'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder}/>
+            <AccountForm  type={'register'} setToken={setToken} setUser={setUser} states={states} setOrder={setOrder} fetchOrder={fetchOrder} createOrder={createOrder}/>
           </Route>
 
           <Route path='/account'>
-            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} />
+            <Account user={user} token={token} reviews={reviews} setReviews={setReviews} orders={orders} setOrders={setOrders} setProduct={setProduct} getReviews={getReviews} />
           </Route>
 
           <Route exact path='/cart'>
-            <Cart token={token} order={order} user={user} order={order} setOrder={setOrder} fetchOrder={fetchOrder}/>
+            <Cart token={token} user={user} order={order} setOrder={setOrder} fetchOrder={fetchOrder}/>
           </Route>
 
           <Route exact path='/cart/checkout'>
@@ -267,7 +287,7 @@ useEffect( () => {
           </Route>
 
           <Route exact path='/users/add'>
-            <AddUser user={user} singleUser={singleUser} setSingleUser={setSingleUser} getUsers={getUsers} states={states} />
+            <AddUser user={user} getUsers={getUsers} states={states} />
           </Route>
 
           <Route exact path='/users/:userId'>
@@ -275,18 +295,15 @@ useEffect( () => {
           </Route>
 
           <Route exact path='/orders'>
-            <AllOrders token={token} user={user} />
+            <AllOrders user={user} orders={orders} getOrders={getOrders} />
+          </Route>
+
+          <Route path='/reviews/:productId'>
+            <AddReview token={token} user={user} product={product} review={review} setReview={setReview} getReviews={getReviews} />
           </Route>
 
           <Route exact path="/checkout/success">
-            <div className="success">
-            <h1>THANK YOU FOR YOUR ORDER</h1>
-            <p>
-              We appreciate every customer that believes in our dream. <br/>
-              If you have any questions, please e-mail <br/>
-              <a href="mailto:orders@example.com">orders@example.com</a>
-            </p>
-            </div>
+            <Success token={token} user={user} setOrder={setOrder} createOrder={createOrder}/>
           </Route>
 
           <Route exact path="/checkout/cancel">
