@@ -45,11 +45,11 @@ body{
   font-size:0.95em;
   padding:4px 18px;
   color: black;
-  font-family: Open sans-serif, sans-serif;
 }
 .logo{ 
   color: black;
   height: 45px;
+  margin-left: 10px;
   align-content: center;
 }
 .bg-image {
@@ -93,7 +93,6 @@ body{
 .text-container{ 
   background-color: #f2f2f2;
   max-width: 33.33333%;
-  font-family: Open sans-serif, sans-serif;
   line-height: 1.6;
 }
 .our-title{
@@ -152,6 +151,10 @@ button {
 .small-product img {
   width: 250px;
   height: 308px;
+  background-position: 50% 50%;
+  background-size: cover;
+
+
 }
 .acct-container{
   text-align: left;
@@ -163,9 +166,9 @@ button {
   min-height: 439px;
   margin: -20px auto 60px 0;
   line-height: 1.6;
+  margin-left: 5%;
   margin-right: 5%;
 }
-
 .past-orders-container {
   text-align: left;
   padding: 30px;
@@ -173,6 +176,7 @@ button {
   min-height: 439px;
   margin: -20px auto 60px 0;
   line-height: 1.6;
+  margin-left: 5%;
   margin-right: 5%;
 }
 .past-orders {
@@ -188,6 +192,8 @@ button {
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 40px; 
+  margin-top: 4%;
+  margin-left: 5%;
   margin-right: 5%;
 
 }
@@ -304,7 +310,6 @@ button {
   position: relative;
   text-align: center;
   margin: -56px auto 0;
-  font-family: Open sans-serif, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   padding: 15px 15px 15px 15px;
@@ -314,7 +319,6 @@ button {
   width: 100%;
 }
 .shopping-cart-container{
-  font-family: Open sans-serif, sans-serif;
   min-height: 500px;
   width: 720px;
   margin: 0 auto;
@@ -323,11 +327,8 @@ button {
   border: white;
 }
 #shop-head{ 
-  font-family: Open sans-serif, sans-serif;
   text-align: center;
   color: white;
-  font-weight: 400;
-  font-family: Allerta;
   font-size: 1.25rem;
   line-height: 1.1;
   margin-top: 4%;
@@ -373,6 +374,7 @@ button {
   min-height: 439px;
   margin: -20px auto 60px 0;
   line-height: 1.6;
+  margin-left: 5%;
   margin-right: 5%;
 }
 .acct-view-revs img{ 
@@ -380,25 +382,26 @@ button {
   width: auto;
 }
 .single-user-detail{
-  width: 266px;
-  min-height: 270px;
+  width: 180px;
+  min-height: 200px;
   background-image: none;
   margin: 10px auto;
   text-align: left;
   background-color: #e5e5e5;
   justify-content: center;
-  padding: 55px 45px 45px 55px;
+  padding: 45px 45px 45px 45px;
   line-height: 1.6;
 }
 .users-list{
   height: auto;
-  grid-gap: 40px 0px;
-  margin: 39px auto 60px 0;
+  grid-gap: 20px 0px;
+  margin: 29px auto 30px 0;
   display: grid;
   grid-template-columns: repeat(3, 33.333333333333336%);
   width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  margin-top: 5%;
+  margin-left: 5% !important;
+  margin-right: 5% !important;
   text-align: center;
 }
 .all-orders{
@@ -433,7 +436,6 @@ button {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
-  position: relative;
   line-height: 2;
 }
 .cart-tot input{
@@ -515,7 +517,6 @@ button {
 }
 .login-text-container{
   background-color: #f2f2f2;
-  font-family: Open sans-serif, sans-serif;
   line-height: 1.6;
   padding: 4%;
   position: sticky;
@@ -535,5 +536,9 @@ button {
   min-height: 439px;
   margin: -20px auto 60px 0;
   line-height: 1.6;
+  margin-left: 5%;
   margin-right: 5%;
+}
+.small-prod-star img{
+  height: 30px;
 }

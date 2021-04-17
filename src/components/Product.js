@@ -106,7 +106,7 @@ const ProductsView = ({order, token, user, products, getProducts, reviews, setRe
   },[]);
 
   return (<>
-    <div id='shop-head'> <h2>Food With Friends</h2>
+    <div id='shop-head'> <h2>Food With Friends</h2> <br/>
     <h3>We're adding new meal kits every week. Check back often to enjoy new offerings.</h3>
     {user.isAdmin ? <Link to='/products/add'><button className="btn">Add A New Product</button></Link> : ''}
     </div>
@@ -181,7 +181,8 @@ const ProductView = ({user, order, token, product, setProduct, getProducts, revi
       {prodReviews.map((review,idx) => {
         const {title, content, stars} = review;
         return <div key={idx}>
-        <h3 > {title} Star Rating: {stars}</h3>
+        <h3 className="small-prod-star"> {stars > 4 ? <img src={'/images/5_stars.png'}/> : <img src={'/images/4_stars.png'}/>}</h3>
+        <h3>{title}</h3>
         <div > {content} </div> <br/>
         </div>
       })}
