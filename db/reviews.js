@@ -1,7 +1,6 @@
 const {client} = require('./client');
 
 const createReview = async ({title, content, stars, userId, productId}) => {
-
     try {
         const { rows: [review] } = await client.query(` 
             INSERT INTO reviews (title, content, stars, "userId", "productId")
@@ -58,33 +57,10 @@ const getReviewByProductId = async (productId) => {
     }
 }
 
-const updateReview = async (fields = {}) => {
-    const {id} = fields;
-
-    const setString = Object.keys(fields).map((key, index) => {
-        if (key === 'title' || key === 'content' || key === 'stars') {
-            return `${key}=$${index + 1}`;
-        } 
-    }).join(', ');
-    
-    try {
-        const { rows: [review] } = await client.query(` 
-            UPDATE reviews,
-            SET ${setString}
-            WHERE id = ${id}
-            RETURNING *; 
-        `, Object.values(fields))
-
-        return review; 
-    } catch (error) {
-        throw error; 
-    }
-}
-
-const destroyReview = async ({id}) => { 
+const destroyReview = async (id) => { 
     try {
         const { rows: [reviews] } = await client.query(` 
-            DELETE FROM reviews,
+            DELETE FROM reviews
             WHERE id = $1
             RETURNING *; 
         `, [id]);
@@ -99,7 +75,6 @@ module.exports = {
     createReview, 
     getAllReviews,
     getReviewById,
-    updateReview,
     destroyReview,
     getReviewByProductId
 }

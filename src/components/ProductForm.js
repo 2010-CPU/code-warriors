@@ -1,10 +1,16 @@
-import React, {useState} from 'react';
-import {Redirect} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Redirect, useLocation} from 'react-router-dom';
 
 const ProductForm = ({user, token, getProducts, product, setProduct}) => {
     const {name, price, inStock, category, description, imageURL} = product;
-
     const [addMessage, setAddMessage] = useState('');
+
+    const location = useLocation();
+    useEffect( () => {
+        if (location.pathname === '/products/add') {
+            setProduct({id: null, name: '', description: '', price: '', imageURL: '', inStock: false, category: ''})
+        }
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,7 +26,7 @@ const ProductForm = ({user, token, getProducts, product, setProduct}) => {
         const data = await response.json();
         setProduct(data);
         setAddMessage(data ? 'Product has been added' : '');
-        setProduct({id: null, name: '', description: '', price: '', image: '', inStock: false, category: ''})
+        setProduct({id: null, name: '', description: '', price: '', imageURL: '', inStock: false, category: ''})
         getProducts();
     }
 

@@ -1,32 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import moment from 'moment';
+import CartItem from './CartItem';
 
-const Cart = ({token, user, order, setOrder}) => {
-    const {id, datePlaced, status, products} = order;
-    const [newQuantity, setNewQuantity] = useState(0);
-
-    const fetchCart = async () =>{
-        try {
-            const response = await fetch(`/api/orders/cart`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'Application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            const data = await response.json();
-            setOrder(data);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    useEffect( () => {
-        fetchCart()
-    }, []);
+const Cart = ({token, user, order, setOrder, fetchOrder}) => {
+    const {products} = order;
 
     const removeItem = async (id) => {
         try {
@@ -37,7 +15,7 @@ const Cart = ({token, user, order, setOrder}) => {
             const [order_product] = order_products.filter((order_product) => {
             return order_product.productId === id;
             });
-          
+
             const response = await axios.delete(`/api/order_products/${order_product.id}`,{
                 headers:{
                     'Content-Type': 'application/json',
@@ -45,35 +23,9 @@ const Cart = ({token, user, order, setOrder}) => {
                 }
             });
             const {data} = await response;
-            fetchCart();
-            return data;
-        } catch (error) {
-            console.error(error)
-        }
-    }
 
-    const updateQuantity = async (id) => { 
-
-        try {
-            const op_rsp = await axios.get(`/api/order_products/${order.id}`); 
-            const order_products = await op_rsp.data; 
-            const [order_product] = order_products.filter((order_product) => {
-            
-            return order_product.productId === id;
-
-            });
-          const {quantity} = order_product; 
-            const response = await axios.patch(`/api/order_products/${order_product.id}`,{
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }, 
-                data: { 
-                    quantity
-                }
-            });
-            const {data} = await response;
-            fetchCart();
+            const nextOrder = await fetchOrder(token);
+            setOrder(nextOrder);
 
             return data;
         } catch (error) {
@@ -81,72 +33,50 @@ const Cart = ({token, user, order, setOrder}) => {
         }
     }
 
-    const handleCoupon = async (event) => {
-        event.preventDefault();
-    }
-
-    const cartQuantity = [{label: 0, value: 0},{label: 1, value: 1},{label: 2, value: 2},{label: 3, value: 3},{label: 4, value: 4},{label: 5, value: 5},{label: 6, value: 6},{label: 7, value: 7},{label: 8, value: 8},{label: 9, value: 9}];
-
-    const subtotal = products ? products.map((product) => {
-        const {id, imageURL, name, quantity, price} = product; 
-        return price
+    let cartTotal = 0
+    if (Object.keys(order).length > 0) {
+        let totalPrice = 0
+        order.products.forEach(product => {
+            let currentPrice = (product.price * product.quantity)
+            totalPrice += currentPrice
         })
-        : '';
+        cartTotal = totalPrice
+    }
 
-    const cartTotal = subtotal ? subtotal.reduce((a,b) => a + b, 0) 
-        : '';
+    if (user.id) {
+        return (
+            <div className="cart">
 
-    return (
-        <div className="cart">
-
-        {order.products ?  
-            <>
-            <div className="shopping-cart-container" >
-            <div> <h2>Shopping Cart</h2>
+            {Object.keys(order).length > 0 ?
+                <>
+                <div className="shopping-cart-container" >
+                <div>
+                <h2>Shopping Cart</h2>
                 {products ? products.map((product) => {
-                    const {id, imageURL, name, quantity, price} = product; 
-                    return <div key={id}> 
-                        <table className="cart-table">
-                            <tbody>
-                            <tr>
-                            <td><img className="cart-img" src={imageURL}/> </td>
-                            <td><h4 className="prod-col" > {name}</h4></td>
-                            <td><h4 >Quantity:
-                                <select required name='quantity' selected={quantity} value={quantity} onChange={event => updateQuantity(product.id)}>
-                                    {cartQuantity.map((quant, index) => {
-                                    return <option key={index}>{`${quant.label}`}</option>
-                                })}</select>
-                            </h4></td>
-                            <td><h4 className="sub-col" > ${price}.00</h4></td></tr></tbody></table>
-                    <button className="btn" onClick={() => removeItem(product.id)}>remove</button> 
-                    </div>
-                }) : 
+                    return <CartItem key={product.id} token={token} product={product} removeItem={removeItem} order={order} fetchOrder={fetchOrder} setOrder={setOrder}/>
+                }) :
                 ''}
-                <div className='cart-tot'> 
-                <Link to='/products'><button className="btn" > continue shopping </button></Link> <Link to='/cart'><button className='btn'>UPDATE CART</button></Link>
-                
-                    <div><h2>Promotion Code</h2>
-                    <div>
-                        <input type='text' placeholder='coupon code' ></input>
-                        <button className='btn' onClick={handleCoupon} >Apply Code</button>
-                    </div></div>
-                    <div><h2 className='cart-h2'>Cart Totals</h2>
-                    <div className="sub-tot">
-                        <div>Subtotal</div><div>${cartTotal}.00</div> 
-                        <div>Total</div><div>${cartTotal}.00</div></div></div>
-                    
+
+                    <div className='cart-tot'>
+                    <Link to='/products'><button className="btn" > continue shopping </button></Link>
+
+                        <div><h2 className='cart-h2'>Order Summary</h2>
+                        <div className="sub-tot">
+                            <div>Total</div><div>${cartTotal}.00</div></div></div>
+
+                    </div>
                 </div>
-            </div> 
-            </div>
+                </div>
 
-            <Link to='/cart/checkout'><button className="btn"> Proceed to Checkout </button></Link>
-            </>
-        : <div className='empty-cart'>
-            <div className="inner-cart"> You have not yet started an order!
-            </div> </div>}
+                <Link to='/cart/checkout'><button className="btn"> Proceed to Checkout </button></Link>
+                </>
+            : <div className='empty-cart'>
+                <div className="inner-cart"> You have not yet started an order!
+                </div> </div>}
 
-    </div>
-    )
+        </div>
+        )
+    }
 }
 
 export default Cart;

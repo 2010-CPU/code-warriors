@@ -2,20 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Redirect} from 'react-router-dom';
 import moment from 'moment';
 
-const AllOrders = ({token, user}) => {
-    const [orders, setOrders] = useState([]);
-
-    const getOrders = async () => {
-        const response = await fetch('/api/orders', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'Application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        const data = await response.json();
-        setOrders(data);
-    }
+const AllOrders = ({user, orders, getOrders}) => {
 
     useEffect( () => {
         getOrders();

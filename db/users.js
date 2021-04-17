@@ -95,7 +95,6 @@ const getUserByUsername = async (username) => {
 
 const updateUser = async (fields = {}) => { 
     const {id, password} = fields;
-
     const setString = Object.keys(fields).map((key, index) => {
         if (key === "firstName" || key === "lastName" || key === "isAdmin") {
             return `"${key}"=$${index + 1}`;
@@ -127,7 +126,6 @@ const updateUser = async (fields = {}) => {
                 WHERE id = ${id}
                 RETURNING *; 
             `, Object.values(fields));
-    
             return user;
         }
     } catch (error) {

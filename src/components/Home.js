@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Home = ({user}) => {
-    const {firstName, username} = user;
+const Home = () => {
 
     return (<>
     <div className="bg-image img1">
@@ -48,7 +47,7 @@ const Home = ({user}) => {
     </div> </div>   
     <div className="footer"> 
     <p> <br/> site created by </p>
-    <p> Samantha Runyan, Amadeo Ramirez and Crystal Joyce</p></div>
+    <p> Samantha Runyan, Amadeo Ramirez, and Crystal Joyce</p></div>
     </>)
 }
 

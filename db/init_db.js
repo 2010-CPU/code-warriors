@@ -61,14 +61,14 @@ async function buildTables() {
     `);
 
     await client.query(`
-        CREATE TABLE reviews ( 
-          id SERIAL PRIMARY KEY,
-          title VARCHAR(255) NOT NULL,
-          content VARCHAR(255) NOT NULL, 
-          stars INTEGER NOT NULL, 
-          "userId" INTEGER REFERENCES users(id),
-          "productId" INTEGER REFERENCES products(id)
-        )
+      CREATE TABLE reviews ( 
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        content VARCHAR(255) NOT NULL, 
+        stars INTEGER NOT NULL, 
+        "userId" INTEGER REFERENCES users(id),
+        "productId" INTEGER REFERENCES products(id)
+      );
     `);
 
     await client.query(`
@@ -124,12 +124,10 @@ async function populateInitialData() {
       { status: 'created', userId: 1},
       { status: 'created', userId: 2},
       { status: 'created', userId: 3, datePlaced: '2021-03-26' },
-      { status: 'shipped', userId: 4, datePlaced: '2021-03-23' },
       { status: 'cancelled', userId: 5, datePlaced: '2021-03-23' },
       { status: 'cancelled', userId: 6, datePlaced: '2021-03-23' },
-      { status: 'in-progress', userId: 1, datePlaced: '2021-03-23' },
       { status: 'cancelled', userId: 4, datePlaced: '2021-03-23' },
-      { status: 'back-ordered', userId: 5, datePlaced: '2021-03-23' },
+      { status: 'completed', userId: 5, datePlaced: '2021-03-23' },
       { status: 'completed', userId: 6, datePlaced: '2021-03-23' }
     ]
     const orders = await Promise.all(ordersToCreate.map(createOrder));
@@ -146,7 +144,7 @@ async function populateInitialData() {
       {productId: 5, orderId: 5, price: 200, quantity: 5},
       {productId: 6, orderId: 6, price: 200, quantity: 3},
       {productId: 2, orderId: 7, price: 200, quantity: 2},
-      {productId: 3, orderId: 8, price: 120, quantity: 9}
+      {productId: 3, orderId: 8, price: 120, quantity: 2}
     ]
     const orderProducts = await Promise.all(orderProductsToCreate.map(addProductToOrder))
     console.log('order_products created: ')

@@ -13,3 +13,6 @@ export {default as AllOrders} from './AllOrders';
 export {default as ProductForm} from './ProductForm';
 export {default as EditProduct} from './EditProduct';
 export {default as AddReview} from './AddReview'
+export {default as CartItem} from './CartItem';
+export {default as Success} from './Success';
+export {default as PastOrders} from './PastOrders';

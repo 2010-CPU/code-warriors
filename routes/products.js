@@ -83,7 +83,7 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
         updateFields.imageURL = imageURL;
     }
 
-    if (inStock) {
+    if (inStock === true || inStock === false) {
         updateFields.inStock = inStock;
     }
 

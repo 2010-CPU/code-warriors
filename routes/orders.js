@@ -13,6 +13,10 @@ const {
 } = require('../db');
 const {requireUser, requireAdmin} = require('./utils');
 
+const {STRIPE_SECRET} = process.env;
+
+const stripe = require('stripe')(STRIPE_SECRET);
+
 //might need to fix completeOrder
 
 ordersRouter.get('/', requireAdmin, async (req,res,next) => {
@@ -22,7 +26,7 @@ ordersRouter.get('/', requireAdmin, async (req,res,next) => {
       res.send(orders);
     } else {
       res.status(401).send({message: 'Access denied!'});
-      
+
     }
 
   } catch (err) {
@@ -74,6 +78,20 @@ ordersRouter.get('/cart', requireUser, async (req,res,next) => {
   try {
     const cart = await getCartByUser(req.user.id);
     res.send(cart);
+  } catch (err) {
+    next(err);
+  }
+})
+
+ordersRouter.post('/success', requireUser, async (req,res,next) => {
+  try {
+    const session_id = req.body.session_id;
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+    const cart = await getCartByUser(req.user.id);
+
+
+
+    res.send({session, cartId: cart.id});
   } catch (err) {
     next(err);
   }
