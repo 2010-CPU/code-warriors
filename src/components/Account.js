@@ -6,15 +6,31 @@ import 'react-tabs/style/react-tabs.css';
 
 // allow profile image choice later
 
-const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStars, setUserId, setProductId, orders, setOrders }) => {
+const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduct, getReviews }) => {
     const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
-    const {id, title, content, stars, userId, productId} = reviews; 
 
     const userReviews = reviews.filter( review => { 
-        if(user.id === review.userId) { 
+        if (user.id === review.userId) { 
             return review;
         }
     })
+
+    const handleDelete = async (id) => {
+        try {
+            const response = await fetch(`api/reviews/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'Application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const data = await response.json();
+            setReviews(userReviews);
+            getReviews();
+        } catch (error) {
+            console.error(error);
+        }
+    }
     
     const getPastOrders = async () => {
         const response = await fetch(`/api/users/${user.id}/orders`, {
@@ -30,6 +46,7 @@ const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStar
 
     useEffect( ()=> {
         getPastOrders();
+        getReviews();
     }, [])
 
     if (token && username) {

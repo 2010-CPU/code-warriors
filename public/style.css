@@ -153,8 +153,6 @@ button {
   height: 308px;
   background-position: 50% 50%;
   background-size: cover;
-
-
 }
 .acct-container{
   text-align: left;
@@ -541,4 +539,42 @@ button {
 }
 .small-prod-star img{
   height: 30px;
+}
+.add-product {
+  background-color: #f2f2f2;
+  line-height: 1.6;
+  padding: 1% 4% 1% 4%;
+  margin: 5% 20% 5% 20%;
+}
+
+.add-product textarea {
+  border: 1px solid black;
+  width: 156px;
+  height: 156px;
+}
+
+.edit-product {
+  background-color: #f2f2f2;
+  line-height: 1.6;
+  padding: 1% 4% 1% 4%;
+  margin: 5% 20% 5% 20%;
+}
+
+.edit-product textarea {
+  border: 1px solid black;
+  width: 156px;
+  height: 156px;
+}
+
+.add-review {
+  background-color: #f2f2f2;
+  line-height: 1.6;
+  padding: 1% 4% 1% 4%;
+  margin: 5% 20% 5% 20%;
+}
+
+.add-review textarea {
+  border: 1px solid black;
+  width: 156px;
+  height: 156px;
 }

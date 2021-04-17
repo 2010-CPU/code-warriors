@@ -66,7 +66,7 @@ const ProductForm = ({user, token, getProducts, product, setProduct}) => {
                     <div>Image</div>
                     <input type='text' name='imageURL' value={imageURL} onChange={handleOnChange}></input>
                 </div>
-                <button type='submit'>Add Product</button>
+                <button type='submit' className='btn'>Add Product</button>
             </form>
         </div>)
     } else {
