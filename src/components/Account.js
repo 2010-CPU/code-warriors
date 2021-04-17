@@ -6,7 +6,7 @@ import 'react-tabs/style/react-tabs.css';
 
 // allow profile image choice later
 
-const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduct, getReviews }) => {
+const Account = ({user, token, reviews, setReviews, setTitle, setContent,setStars, setUserId, setProductId, orders, setOrders }) => {
     const {firstName, lastName, email, username, address, city, state, zip, imageURL} = user;
 
     const userReviews = reviews.filter( review => { 
@@ -46,7 +46,7 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
 
     useEffect( ()=> {
         getPastOrders();
-        getReviews();
+        // getReviews();
     }, [])
 
     if (token && username) {
@@ -70,7 +70,7 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
                     </div>
                     </div> 
                 </TabPanel>
-                
+
                 <TabPanel>
                     <div className='past-orders-container'>
                         <h3>Past Orders</h3>
@@ -80,7 +80,7 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
                         }) : 'You have no past orders!'}
                     </div>
                 </TabPanel>
-                
+
                 <TabPanel>
                     <div className="acct-view-revs"> 
                     <h3 > Your reviews from your past orders:  </h3> <br/>
@@ -96,12 +96,12 @@ const Account = ({user, token, reviews, setReviews, orders, setOrders, setProduc
                     </TabPanel>
                     <TabPanel>
                     <div className="new-rev">
-                    <AddReview reviews={reviews} setReviews={setReviews} token={token} user={user} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} />
+                    {/* <AddReview reviews={reviews} setReviews={setReviews} token={token} user={user} title={title} setTitle={setTitle} content={content} setContent={setContent} stars={stars} setStars={setStars} userId={userId} setUserId={setUserId} productId={productId} setProductId={setProductId} />               */}
                     </div>
                     </TabPanel>
             </Tabs> 
                     </div>
-            </>)
+                    </>)
     } else {
         return <Redirect to='/' />
     }
