@@ -380,7 +380,7 @@ button {
   width: auto;
 }
 .single-user-detail{
-  width: 180px;
+  width: 300px;
   min-height: 200px;
   background-image: none;
   margin: 10px auto;
@@ -549,7 +549,8 @@ button {
 
 .add-product textarea {
   border: 1px solid black;
-  width: 156px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 169px;
   height: 156px;
 }
 
@@ -562,7 +563,8 @@ button {
 
 .edit-product textarea {
   border: 1px solid black;
-  width: 156px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 169px;
   height: 156px;
 }
 
@@ -575,6 +577,7 @@ button {
 
 .add-review textarea {
   border: 1px solid black;
-  width: 156px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 169px;
   height: 156px;
 }
