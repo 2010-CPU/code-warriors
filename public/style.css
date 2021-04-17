@@ -161,50 +161,35 @@ button {
   flex-direction: row;
   flex: 1;
   min-height: 439px;
-  margin: 60px auto 60px 0;
+  margin: -20px auto 60px 0;
   line-height: 1.6;
-  margin-left: 4%;
-  margin-right: 4%;
+  margin-right: 5%;
 }
 
 .past-orders-container {
   text-align: left;
   padding: 30px;
   background-color: white;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  margin: 60px auto 60px 0;
+  min-height: 439px;
+  margin: -20px auto 60px 0;
   line-height: 1.6;
-  margin-left: 4%;
-  margin-right: 4%;
+  margin-right: 5%;
 }
-
 .past-orders {
   padding: 0px 20px 0px 10px;
 }
-
 .tab-list{
-  display: flex;
-  color: white;
-  flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  margin: 0 0 -5px;
   color: #ffffff !important;
-  background-color: #e63269 !important;
+  background-color: #e00b4c !important;
+  display: flex;
+  list-style: none;
   margin-block-start: 1em;
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 40px; 
-  font-size: 1.25rem;
-  background-image: none;
-  font-weight: 600;
-  padding: 10px 25px;
+  margin-right: 5%;
+
 }
 .tab-list li{
   display: list-item;
@@ -358,20 +343,6 @@ button {
   background-color: #e5e5e5;
   color: #2c2c3d;
 }
-/* .cart-table table td:nth-child(1){
-  width: 10%;
-}
-.cart-table table td:nth-child(2){
-  width: 55%;
-  text-align: left;
-}
-.cart-table table td:nth-child(3){
-  width: 20%;
-}
-.cart-table table td:nth-child(4){
-  width: 10%;
-  text-align: right;
-} */
 .cart-img{
   height: 90px;
   max-width: 75px;
@@ -396,14 +367,17 @@ button {
   grid-gap: 20px 0px;
 }
 .acct-view-revs{
-  margin: 20px auto 60px 0;
-  display: grid;
-  grid-template-columns: auto;
-  padding: 55px 45px 45px 55px;
-  background-color: #e5e5e5;
-  border: 2px black thin;
-  margin-left: 4%;
-  margin-right: 4%;
+  text-align: left;
+  padding: 30px;
+  background-color: white;
+  min-height: 439px;
+  margin: -20px auto 60px 0;
+  line-height: 1.6;
+  margin-right: 5%;
+}
+.acct-view-revs img{ 
+  height: 35px;
+  width: auto;
 }
 .single-user-detail{
   width: 266px;
@@ -553,4 +527,13 @@ button {
   text-transform: uppercase;
   margin: 2px 2px 2px 10px;
   padding: 10px 8px 10px 8px;
+}
+.new-rev{
+  text-align: left;
+  padding: 30px;
+  background-color: white;
+  min-height: 439px;
+  margin: -20px auto 60px 0;
+  line-height: 1.6;
+  margin-right: 5%;
 }
