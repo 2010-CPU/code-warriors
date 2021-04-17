@@ -149,7 +149,7 @@ const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder, cre
                     </>
                 : ''}
             </div>
-            <button type='submit'>{title}</button>
+            <button type='submit' className='btn'>{title}</button>
         </form>
         <div id='opposite-account-form'><Link to={`/${oppositeType}`}>{oppositeTitle}</Link></div>
     </div>

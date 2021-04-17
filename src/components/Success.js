@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-import {
-  Switch,
-  Link,
-  Route,
-  useHistory,
-  useLocation
-} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Success = ({token, user, setOrder, createOrder}) => {
   const location = useLocation();
@@ -37,7 +31,7 @@ const Success = ({token, user, setOrder, createOrder}) => {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({userId: user.id, status: 'processing'})
+            body: JSON.stringify({userId: user.id, status: 'completed'})
           });
           const newOrder = await createOrder(token);
           setOrder(newOrder);

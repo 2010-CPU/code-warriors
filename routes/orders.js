@@ -35,34 +35,34 @@ ordersRouter.get('/', requireAdmin, async (req,res,next) => {
 });
 
 ordersRouter.patch('/:orderId', requireUser, async (req, res, next) => {
-    const {status, userId} = req.body;
-    const {orderId} = req.params;
+  const {status, userId} = req.body;
+  const {orderId} = req.params;
 
-    const updateFields = {};
+  const updateFields = {};
 
-    if (status) {
-      updateFields.status = status;
+  if (status) {
+    updateFields.status = status;
+  }
+
+  if (userId) {
+    updateFields.userId = userId;
+  }
+
+  try {
+    const originalOrder = await getOrderById(Number(orderId));
+
+    if (originalOrder.id === Number(orderId)) {
+      const updatedOrder = await updateOrder({id: Number(orderId), ...updateFields});
+
+      res.send(updatedOrder)
+    } else {
+      const completedOrder = await completeOrder(Number(orderId))
+
+      res.send(completedOrder)
     }
-
-    if (userId) {
-      updateFields.userId = userId;
-    }
-
-    try {
-      const originalOrder = await getOrderById(Number(orderId));
-
-      if (originalOrder.id === Number(orderId)) {
-        const updatedOrder = await updateOrder({id: Number(orderId), ...updateFields});
-
-        res.send(updatedOrder)
-      } else {
-        const completedOrder = await completeOrder(Number(orderId))
-
-        res.send(completedOrder)
-      }
-    } catch (error) {
-        next(error);
-    }
+  } catch (error) {
+    next(error);
+  }
 });
 
 ordersRouter.post('/', requireUser, async (req,res,next) => {
@@ -89,8 +89,6 @@ ordersRouter.post('/success', requireUser, async (req,res,next) => {
     const session = await stripe.checkout.sessions.retrieve(session_id);
     const cart = await getCartByUser(req.user.id);
 
-
-
     res.send({session, cartId: cart.id});
   } catch (err) {
     next(err);
@@ -98,39 +96,39 @@ ordersRouter.post('/success', requireUser, async (req,res,next) => {
 })
 
 ordersRouter.delete('/:orderId', requireUser, async (req, res, next) => {
-    const {id} = req.params;
+  const {id} = req.params;
 
-    try {
-        const order = await cancelOrder(id);
+  try {
+    const order = await cancelOrder(id);
 
-        res.send(order);
-    } catch (error) {
-        next(error);
-    }
+    res.send(order);
+  } catch (error) {
+    next(error);
+  }
 })
 
 ordersRouter.post('/:orderId/products', async (req, res, next) => {
-    const {productId, price, quantity} = req.body;
-    const {orderId} = req.params;
-    const productData = {};
+  const {productId, price, quantity} = req.body;
+  const {orderId} = req.params;
+  const productData = {};
 
-    try {
-      productData.productId = productId;
-      productData.orderId = orderId;
-      productData.price = price;
-      productData.quantity = quantity;
+  try {
+    productData.productId = productId;
+    productData.orderId = orderId;
+    productData.price = price;
+    productData.quantity = quantity;
 
-      const product = await addProductToOrder(productData);
+    const product = await addProductToOrder(productData);
 
-      if (product) {
-        res.send(product);
-      } else {
-        res.status(500).send({message: 'Product was not added to the order.'});
-      }
-
-    } catch (error) {
-        next(error);
+    if (product) {
+      res.send(product);
+    } else {
+      res.status(500).send({message: 'Product was not added to the order.'});
     }
+
+  } catch (error) {
+    next(error);
+  }
 })
 
 module.exports = ordersRouter;
