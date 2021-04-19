@@ -17,7 +17,7 @@ To set up Food With Friends locally, you can follow the below steps:
 
 * Clone this repository on your local machine
 * Run `npm install` in the terminal for the appropriate node modules files
-* Edit db/index.js to change the value of `DB_NAME` to whatever your heart desires
+* Edit db/client.js to change the value of `DB_NAME` to whatever your heart desires
 * Run `createdb` in the terminal to create the database
 * Run `npm run server:dev` in the terminal to start up the Express server
 
