@@ -1,37 +1,33 @@
-# Baking with Friends README
+# Food with Friends README
 
-# The Smallest Starting Point
 
-So, you want to build a full-stack JavaScript application with:
+## Project Description
 
-- An Express web server
-- A PostgreSQL database
-- A React front-end
+Food with Friends is an e-commerce store providing customers with meal kits and cocktails for any time of the day. Not sure what you want for dinner? Or maybe you don't want to have a ton of leftover ingredients after making a single meal. Sick of having a bottle of liquor stored in your freezer for a year? Food With Friends will solve these problems for you!
 
-And you want it to work locally as well as be easy to deploy?
+### Built With
 
-## dolfo was here
-We've got your back:
+* PostgreSQL database
+* Express server
+* ReactJS front end
 
-## Local Development
 
-### Setting Up
+## Setting Up
+To set up Food With Friends locally, you can follow the below steps:
 
-First, clone this repo locally.
+* Clone this repository on your local machine
+* Run `npm install` in the terminal for the appropriate node modules files
+* Edit db/client.js to change the value of `DB_NAME` to whatever your heart desires
+* Run `createdb` in the terminal to create the database
+* Run `npm run server:dev` in the terminal to start up the Express server
 
-Then, run `npm install` to install all node modules.
+* Open a second terminal
+* Run `npm run client:dev` to start up the ReactJS server
 
-You should decide on a name for your local testing database, and edit `db/index.js` changing the value of `DB_NAME`.
+This project is run on a proxy using axios. This allows you to make calls to the API without using absolute paths.
 
-Once you decide on that name, make sure to run `createdb` from your command line so it exists (and can be connected to).
+Both the Express and ReactJS servers will restart automatically after each save with the help of `nodemon` and `react-scripts`.
 
-Finally you can run `npm run server:dev` to start the web server.
-
-In a second terminal navigate back to the local repo and run `npm run client:dev` to start the react server.
-
-This is set up to run on a proxy, so that you can make calls back to your `api` without needing absolute paths. You can instead `axios.get('/api/posts')` or whatever without needing to know the root URL.
-
-Once both dev commands are running, you can start developing... the server restarts thanks to `nodemon`, and the client restarts thanks to `react-scripts`.
 
 ### Project Structure
 
@@ -66,6 +62,7 @@ Lastly `/public` and `/src` are the two puzzle pieces for your React front-end. 
 
 In addition to `client:dev` and `server:dev`, you have access to `db:build` which (you will write to) rebuilds the database, all the tables, and ensures that there is meaningful data present.
 
+
 ## Deployment
 
 ### Setting up Heroku (once)
@@ -97,4 +94,3 @@ Which will run `npm run db:build` on the heroku server.
 
 Once that command runs, you can type `heroku open` to get a browser to open up locally with your full-stack application running remotely.
 
-### AMADEO WAS HERE
