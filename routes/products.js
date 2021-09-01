@@ -25,16 +25,30 @@ productsRouter.get('/:productId', async (req, res, next) => {
 })
 
 productsRouter.post('/', requireAdmin, async (req, res, next) => {
-    const {name, description, price, imageURL, inStock, category} = req.body;
+    const {name,grade, imageURL, birthday, restaurant, schoolstore, personalstore, drink, treat, color, flower, food, place, meTime, hobbies, giftcard, pets, dislikes, allergies, wishlist} = req.body;
     const productData = {};
 
     try {
         productData.name = name;
-        productData.description = description;
-        productData.price = price;
+        productData.grade = grade;
+        productData.birthday = birthday;
         productData.imageURL = imageURL;
-        productData.inStock = inStock;
-        productData.category = category;
+        productData.restaurant = restaurant;
+        productData.schoolstore = schoolstore;
+        productData.personalstore = personalstore;
+        productData.drink = drink;
+        productData.treat = treat;
+        productData.color = color;
+        productData.flower = flower;
+        productData.food = food;
+        productData.place = place;
+        productData.meTime = meTime;
+        productData.hobbies = hobbies;
+        productData.giftcard = giftcard;
+        productData.pets = pets;
+        productData.dislikes = dislikes;
+        productData.allergies = allergies;
+        productData.wishlist = wishlist;
 
         const product = await createProduct(productData);
 
@@ -62,7 +76,7 @@ productsRouter.delete('/:productId', requireAdmin, async (req, res, next) => {
 })
 
 productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
-    const {name, description, price, imageURL, inStock, category} = req.body;
+    const {name,grade, birthday, imageURL, restaurant, schoolstore, personalstore, drink, treat, color, flower, food, place, meTime, hobbies, giftcard, pets, dislikes, allergies, wishlist} = req.body;
     const {productId} = req.params;
 
     const updateFields = {};
@@ -70,25 +84,62 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
     if (name) {
         updateFields.name = name;
     }
-
-    if (description) {
-        updateFields.description = description;
+    if (grade) {
+        updateFields.grade = grade;
     }
-
-    if (price) {
-        updateFields.price = price;
+    if (birthday) {
+        updateFields.birthday = birthday;
     }
-
     if (imageURL) {
         updateFields.imageURL = imageURL;
     }
-
-    if (inStock === true || inStock === false) {
-        updateFields.inStock = inStock;
+    if (restaurant) {
+        updateFields.restaurant = restaurant;
     }
-
-    if (category) {
-        updateFields.category = category;
+    if (schoolstore) {
+        updateFields.schoolstore = schoolstore;
+    }
+    if (personalstore) {
+        updateFields.personalstore = personalstore;
+    }
+    if (drink) {
+        updateFields.drink = drink;
+    }
+    if (treat) {
+        updateFields.treat = treat;
+    }
+    // if (color) {
+    //     updateFields.color = color;
+    // }
+    if (flower) {
+        updateFields.flower = flower;
+    }
+    if (food) {
+        updateFields.food = food;
+    }
+    if (place) {
+        updateFields.place = place;
+    }
+    // if (meTime) {
+    //     updateFields.meTime = meTime;
+    // }
+    if (hobbies) {
+        updateFields.hobbies = hobbies;
+    }
+    if (giftcard) {
+        updateFields.giftcard = giftcard;
+    }
+    if (pets) {
+        updateFields.pets = pets;
+    }
+    if (dislikes) {
+        updateFields.dislikes = dislikes;
+    }
+    if (allergies) {
+        updateFields.allergies = allergies;
+    }
+    if (wishlist) {
+        updateFields.wishlist = wishlist;
     }
 
     try {

@@ -99,11 +99,11 @@ const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder, cre
         <h2>{title}</h2>
         <form onSubmit={handleSubmit}>
             <div>
-                <div>Username</div>
+                <div>Teacher Username</div>
                 <input type='text' value={username} minLength='3' maxLength='20' required onChange={event => setUsername(event.target.value)}></input>
             </div>
             <div>
-                <div>Password</div>
+                <div>Teacher Password</div>
                 <input type='password' value={password} minLength='7' maxLength='20' required onChange={event => setPassword(event.target.value)}></input>
             </div>
             <div>
@@ -125,7 +125,7 @@ const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder, cre
                             <div>Email</div>
                             <input type='email' value={email} required onChange={event => setEmail(event.target.value)} ></input>
                         </div>
-                        <div>
+                        {/* <div>
                             <div>Address</div>
                             <input type='text' value={address} required onChange={event => setAddress(event.target.value)} ></input>
                         </div>
@@ -145,7 +145,7 @@ const AccountForm = ({type, setToken, setUser, states, setOrder, fetchOrder, cre
                         <div>
                             <div>Zip Code</div>
                             <input type='number' value={zip} required minLength='5' maxLength='5' onChange={event => setZip(event.target.value)} ></input>
-                        </div>
+                        </div> */}
                     </>
                 : ''}
             </div>

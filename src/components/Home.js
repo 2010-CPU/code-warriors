@@ -5,49 +5,19 @@ const Home = () => {
     return (<>
     <div className="bg-image img1">
         <div className='FP-logo'>
-    
-    <div> <img id="logo-image" src={'/images/FWF_LOGO.png'} /></div>
+    <p> ACDS Teacher Surveys</p>
+    <p> 2021 - 2022 School Year</p>
+    <p> Welcome to the ACDS Teacher Survey landing page. On the following tab you'll find updated surveys for all the teachers at ACDS.
+        The answers that they have provided are to aide in gift giving (if you so choose) around the holidays, birthdays or annual 
+        teacher appreciate day in May. 
+    </p>
+    <p> ACDS has a very specific policy discouraging group gifting for teachers and staff. Please see the link HERE to read 
+        the full policy. </p>
     </div> </div>
-    <div className='image-container'> 
-    <div className='image-row'> 
-    <div className='text-container'> 
-    <h2 className='our-title'>Our Food</h2>
-    <div className='our-text'> Our food and roots are colorful, global and eclectic with a gourmet, playful edge. 
-    We get inspired by flavors and ingredients from all four corners of the world and put our signature "wild" twist on them. Our aim is to provide
-    a little vision on how food could be if we just imagined so! </div></div>
-    <div className="bg-image img2"></div></div> </div>
-
-    <div className='image-container'> 
-    <div className='image-row'> 
-    <div className="bg-image img3"></div>
-    <div className='text-container'> 
-    <h2 className='our-title'>Our Ingredients</h2>
-    
-    <div className='our-text'> The food is always fresh, always fun, and there's always something new! From wings to New York strips, we've got 
-    it all - and with the whole menu available, we've got whatever suits your appetite. </div></div>
-    </div> </div>
-
-    <div className='image-container'> 
-    <div className='image-row'> 
-    <div className='text-container'> 
-    <h2 className='our-title'>Our Pairings</h2>
-    <div className='our-text'> Let us help you discover the most suitable pairings of food and alcohol that will result in a sumptuous dining experience.
-    We do the work to find all you need to know about the top combinations to elevate your cooking skills and knowledge. </div></div>
-    <div className="bg-image img4"></div></div> </div>
-
-    <div className='image-container'> 
-    <div className='image-row'> 
-    <div className="bg-image img5"></div>
-    <div className='text-container'> 
-    <h2 className='our-title'>Our Philosophy</h2>
-    
-    <div className='our-text'> The mission of Food With Friends is to give you the tools and information to explore the best ways to find that balance and harmony 
-    between food and beverage. How your beverage balances your dish to create that glorious harmony we look for in a great pairing, is what we aim to supply you with
-    with each delicious box.</div></div>
-    </div> </div>   
+      
     <div className="footer"> 
     <p> <br/> site created by </p>
-    <p> Samantha Runyan, Amadeo Ramirez, and Crystal Joyce</p></div>
+    <p> Crystal Joyce</p></div>
     </>)
 }
 

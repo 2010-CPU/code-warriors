@@ -12,13 +12,13 @@ const getAllProducts = async () => {
     }
   };
 
-const createProduct = async ({name, description, price, imageURL, inStock, category}) => {
+const createProduct = async ({name, grade, imageURL, birthday, restaurant, schoolstore, personalstore, drink, treat, color, flower, food, place, meTime, hobbies, giftcard, pets, dislikes, allergies, wishlist}) => {
     try {
         const {rows: [product]} = await client.query(`
-            INSERT INTO products(name, description, price, "imageURL", "inStock", category)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            INSERT INTO products(name, grade, "imageURL", birthday, restaurant, schoolstore, personalstore, drink, treat, color, flower, food, place, "meTime", hobbies, giftcard, pets, dislikes, allergies, wishlist)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
             RETURNING *;
-        `, [name, description, price, imageURL, inStock, category]);
+        `, [name, grade, imageURL, birthday, restaurant, schoolstore, personalstore, drink, treat, color, flower, food, place, meTime, hobbies, giftcard, pets, dislikes, allergies, wishlist]);
 
         return product;
     } catch (error) {

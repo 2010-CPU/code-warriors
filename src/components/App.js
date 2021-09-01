@@ -224,15 +224,15 @@ const App = () => {
 
   return (<>
   <div id="logo-head">
-  <img className="logo" src={'/images/navlogo.png'}/>
+  <img className="logo" src={'./images/ACDS_logo_color_800.png'}/>
   <div className="nav-bar">
     <nav>
       <Link to="/">Home</Link>
-      <Link to="/products">Shop</Link>
-      <Link to="/cart" id={token ? '' : 'loggedOut-cart'}>Cart</Link>
+      <Link to="/products">Teacher Surveys</Link>
+      {/* <Link to="/cart" id={token ? '' : 'loggedOut-cart'}>Cart</Link> */}
       <Link to="/account" id={token ? '' : 'loggedOut-account'}>Account</Link>
       <Link to='/users' id={user.isAdmin ? '' : 'users-is-not-admin'}>Users</Link>
-      <Link to='/orders' id={user.isAdmin ? '' : 'orders-is-not-admin'}>Orders</Link>
+      {/* <Link to='/orders' id={user.isAdmin ? '' : 'orders-is-not-admin'}>Orders</Link> */}
       <Link to="/" id={token ? '' : 'loggedOut-logout'} onClick={handleLogout}>Logout</Link>
       <Link to="/login" id={!token ? '' : 'loggedOut-login'}>Login</Link>
     </nav>
