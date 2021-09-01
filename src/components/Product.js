@@ -87,25 +87,25 @@ const Product = ({user, product, order, token, fetchOrder, setOrder}) => {
         <img className='product-img' src={imageURL ? imageURL : "/images/no-image.png"} alt={name}/>
 
         <div className="prod-details">
-          <h1>{name}</h1>
-          <p>Grade: {grade} </p>
-          <p>Birthday: {birthday}</p>
-          <p>Favorite Restaurant: {restaurant}</p>
-          <p>Favorite School Supply Store: {schoolstore}</p>
-          <p>Favorite Personal Store: {personalstore}</p>
-          <p>Favorite Drink: {drink}</p>
-          <p>Favorite Treat: {treat}</p>
-          <p>Favorite Color: {color}</p>
-          <p>Favorite Flower: {flower}</p>
-          <p>Favorite Food: {food}</p>
-          <p>Favorite Place: {place}</p>
-          <p>Favorite Way to Pamper Yourself: {meTime}</p>
-          <p>Favorite Hobbies: {hobbies}</p>
-          <p>Favorite Gift Cards: {giftcard}</p>
-          <p>Current Pets: {pets}</p>
-          <p>Any Dislikes: {dislikes}</p>
-          <p>Allergies to Note: {allergies}</p>
-          <p>Wishlist items: {wishlist}</p>
+          <h1 className="teacher-name">{name}</h1> <br/>
+          <p><b>Grade(s):</b> {grade} </p>
+          <p><b>Birthday:</b> {birthday}</p>
+          <p><b>Favorite Restaurant:</b> {restaurant}</p>
+          <p><b>Favorite School Supply Store: </b>{schoolstore}</p>
+          <p><b>Favorite Personal Store: </b>{personalstore}</p>
+          <p><b>Favorite Drink: </b>{drink}</p>
+          <p><b>Favorite Treat: </b>{treat}</p>
+          {/* <p><b>Favorite Color:</b> {color}</p> */}
+          <p><b>Favorite Flower: </b>{flower}</p>
+          <p><b>Favorite Food: </b>{food}</p>
+          <p><b>Favorite Place:</b> {place}</p>
+          {/* <p><b>Favorite Way to Pamper Yourself: </b>{meTime}</p> */}
+          <p><b>Favorite Hobbies: </b>{hobbies}</p>
+          <p><b>Favorite Gift Cards: </b>{giftcard}</p>
+          <p><b>Current Pets:</b> {pets}</p>
+          <p><b>Any Dislikes: </b>{dislikes}</p>
+          <p><b>Allergies to Note: </b>{allergies}</p>
+          <p><b>Wishlist items:</b> {wishlist}</p>
         </div>
 
           {/* {user.id ? <button className="btn" onClick={addToCart}> Add To Cart</button> : ''} */}
@@ -121,10 +121,10 @@ const ProductsView = ({order, token, user, products, getProducts, reviews, fetch
   },[]);
 
   return (<>
-    <div id='shop-head'> <h2>Alamden Country Day School Teacher Surveys</h2> <br/>
-    <h3>Please select a teacher below to have better insight into their preferences.</h3>
+    <div id='shop-head' > <h2 className="home-title">Alamden Country Day School Teacher Surveys</h2> <br/>
+    <h3>Please select a teacher below to get to know them a little better.</h3>
     <br/> 
-    <h4> ACDS Gift Giving Policy</h4>
+    <h4> <a href="https://www.almadencountrydayschool.org/parents/parent-handbook/school-hours-and-policies">ACDS Gift Giving Policy</a></h4>
     {user.isAdmin ? <Link to='/products/add'><button className="btn">Add A New Teacher</button></Link> : ''}
     </div>
 
@@ -191,7 +191,7 @@ const ProductView = ({user, order, token, product, setProduct, getProducts, revi
     <Product user={user} product={product} reviews={reviews} setReviews={setReviews} order={order} token={token} key={product.id} fetchOrder={fetchOrder} setOrder={setOrder} />
     
     <div className="prod-reviews">
-    <h2> Teacher Reviews {product.name}</h2> <br/>
+    {/* <h2> Teacher Reviews {product.name}</h2> <br/> */}
 
       {prodReviews.map( (review,idx) => {
         const {title, content, stars} = review;

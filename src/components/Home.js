@@ -5,8 +5,10 @@ const Home = () => {
     return (<>
     <div className="bg-image img1">
         <div className='FP-logo'>
-    <p> ACDS Teacher Surveys</p>
-    <p> 2021 - 2022 School Year</p>
+            <div className="home-title">
+    <p> ACDS Teacher Surveys</p> </div>
+    <div className="home-intro">
+    <p> 2021 - 2022 School Year</p></div>
     <p> Welcome to the ACDS Teacher Survey landing page. On the following tab you'll find updated surveys for all the teachers at ACDS.
         The answers that they have provided are to aide in gift giving (if you so choose) around the holidays, birthdays or annual 
         teacher appreciate day in May. 
